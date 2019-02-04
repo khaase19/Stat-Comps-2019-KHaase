@@ -10,4 +10,4 @@
 
 ## Big Picture Clustering Algorithms
 
-### Tips
+### Classification vs. Clustering
