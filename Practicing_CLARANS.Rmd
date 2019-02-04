@@ -1,0 +1,48 @@
+---
+title: "Practicing_CLARANS"
+output: pdf_document
+---
+
+```{r}
+install.packages("devtools")
+library(devtools)
+install_github("QTCAT/qtcat")
+```
+
+```{r}
+library("qtcat")
+gfile <- system.file("extdata/snpdata.csv", package = "qtcat")
+snp <- read.snpData(gfile, sep = ",")
+
+clust <- clarans(snp, 3)
+```
+
+```{r, warning= FALSE}
+library(readr)
+data_subset <- read_csv("CopyOfdata_subset.csv")
+```
+
+```{r}
+data_subset<- dplyr::filter(data_subset, !grepl("PUMA",geo_name))
+```
+
+```{r}
+myvars <- c("Latitude_tri", "Longitude_tri", "X1")
+newdata <- data_subset[myvars]
+```
+
+
+```{r}
+snp <- read.snpData("CopyOfdata_subset", sep = ",")
+clusttest <- clarans(newdata, 25)
+```
+
+
+
+
+
+
+
+
+
+
