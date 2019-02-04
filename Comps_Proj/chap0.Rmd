@@ -3,7 +3,7 @@
 \onehalfspacing
 
 # Introduction {.unnumbered}
-
+Data includes: latitude and longtitude, zip code, street address, etc. 
 
 ## Why Analyze Spatial Data?
 
