@@ -28,9 +28,9 @@ library(acstats)
 
 ## Exploring the Data
 
-## Appplying CLARANS
+## Appplying CLARA
 
-## Evaluation of CLARANS
+## Evaluation of CLARA
 
 ### Model to Predict Cluster
 

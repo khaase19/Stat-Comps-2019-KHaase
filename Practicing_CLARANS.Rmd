@@ -39,10 +39,97 @@ clusttest <- clarans(newdata, 25)
 
 
 
+##Practicing with CLARAS
+Example from wikibooks
+
+```{r}
+install.packages("cluster")
+
+library("cluster")
+?daisy
+```
+
+```{r}
+## import data
+x <- USArrests
+
+## run CLARA
+clarax <- clara(x[1:4], 3)
+
+## print components of clarax
+print(clarax)
+
+## plot clusters
+plot(x, col = clarax$cluster)
+## plot centers
+points(clarax$centers, col = 1:2, pch = 8)
+```
+
+```{r}
+
+##package cluster, called daisy--> notes from Kendall
+install.packages("cluster")
+
+library("cluster")
+
+```
+
+```{r, eval= FALSE}
+#trying to find a good data package
+eurodist
+USAccDeaths
+iris
+crimtab
+fdeaths
+sleep
+state.x77
+```
+
+```{r}
+## import data
+y <- state.x77
+
+## run CLARA
+claray <- clara(y[1:9],3)
+
+## print components of clarax
+print(claray)
+
+## plot clusters
+plot(y, col = claray$cluster)
+## plot centers
+points(claray$centers, col = 1:2, pch = 8)
+```
+
+
+#testing same data with CLARANS
+
+```{r}
+## run CLARA
+claransx <- clarans(x[1:4], 3)
+
+## print components of clarax
+print(claransx)
+
+## plot clusters
+plot(x, col = claransx$cluster)
+## plot centers
+points(claransx$centers, col = 1:2, pch = 8)
+
+```
 
 
 
 
+Test from 
+https://github.com/QTCAT/qtcat/blob/master/R/snpCluster.R
 
+```{r}
+gfile <- system.file("extdata/snpdata.csv", package = "qtcat")
+snp <- read.snpData(gfile, sep = ",")
+
+dist <- distCor(snp[, 1:10])
+
+```
 
 
