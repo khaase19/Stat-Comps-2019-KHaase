@@ -7,10 +7,14 @@ output: pdf_document
 install.packages("devtools")
 library(devtools)
 install_github("QTCAT/qtcat")
+library("cluster")
+library("qtcat")
+library(factoextra)
+library(NbClust)
 ```
 
 ```{r}
-library("qtcat")
+#library("qtcat")
 gfile <- system.file("extdata/snpdata.csv", package = "qtcat")
 snp <- read.snpData(gfile, sep = ",")
 
@@ -18,38 +22,104 @@ clust <- clarans(snp, 3)
 ```
 
 ```{r, warning= FALSE}
+#using data from final stat 495 project
 library(readr)
 data_subset <- read_csv("CopyOfdata_subset.csv")
+
+mysample <- data_subset[sample(1:nrow(data_subset), 1000,
+   replace=FALSE),]
+```
+```{r, warning= FALSE}
+newsamp <- names(mysample) %in% c("pop_moe", "year", "X1", "geo", "age_rank", "age_moe", "TRI.ID", "fips_code", "ORIS.plant.code", "County.y") 
+newsamp <- mysample[!newsamp]
 ```
 
+
+```{r, warning= FALSE}
+myvars <- c("Latitude_tri", "Longitude_tri", "poor_or_fair_health", "poor_physical_health_days", "physical_inactivity", "adult_obesity")
+smallsample <- mysample[myvars]
+```
+
+
+```{r} 
+#using a sample of my project data
+#library("qtcat")
+#library(cluster)
+## import data
+#x <- USArrests
+
+#new<- na.omit(smallsample)
+
+## run CLARA
+clarasamp <- clara(new[1:6], 4)
+
+## print components of clarax
+print(clarasamp)
+
+## plot clusters
+plot(new, col = clarasamp$cluster)
+## plot centers
+points(clarasamp$centers, col = 1:2, pch = 8)
+```
+
+```{r} 
+factoextra::fviz_cluster(clarasamp)
+```
+
+
 ```{r}
+#finding k with project data
+pkgs <- c("factoextra",  "NbClust")
+install.packages(pkgs)
+
+library(factoextra)
+library(NbClust)
+library(ggplot2)
+
+# Elbow method
+fviz_nbclust(new, kmeans, method = "wss") +
+    geom_vline(xintercept = 4, linetype = 2)+
+  labs(subtitle = "Elbow method")
+
+# Silhouette method
+fviz_nbclust(new, kmeans, method = "silhouette")+
+  labs(subtitle = "Silhouette method")
+
+# Gap statistic
+# nboot = 50 to keep the function speedy. 
+# recommended value: nboot= 500 for your analysis.
+# Use verbose = FALSE to hide computing progression.
+set.seed(123)
+fviz_nbclust(new, kmeans, nstart = 25,  method = "gap_stat", nboot = 50)+
+  labs(subtitle = "Gap statistic method")
+```
+
+
+```{r}
+#cleaning up data from stat 495 project
 data_subset<- dplyr::filter(data_subset, !grepl("PUMA",geo_name))
 ```
 
 ```{r}
+#trying to use only lat and long from stat 495 project
 myvars <- c("Latitude_tri", "Longitude_tri", "X1")
 newdata <- data_subset[myvars]
 ```
 
 
 ```{r}
+#attempting to convert data from stat 495 to an SNP (didn't work)
 snp <- read.snpData("CopyOfdata_subset", sep = ",")
 clusttest <- clarans(newdata, 25)
 ```
-
 
 
 ##Practicing with CLARAS
 Example from wikibooks
 
 ```{r}
-install.packages("cluster")
-
-library("cluster")
-?daisy
-```
-
-```{r}
+library("qtcat")
+library(cluster)
 ## import data
 x <- USArrests
 
@@ -65,12 +135,13 @@ plot(x, col = clarax$cluster)
 points(clarax$centers, col = 1:2, pch = 8)
 ```
 ```{r}
-#choosing K for CLARA
+#choosing K for CLARA, example from datanovia.com
+
 pkgs <- c("factoextra",  "NbClust")
 install.packages(pkgs)
 
-library(factoextra)
-library(NbClust)
+#library(factoextra)
+#library(NbClust)
 
 # Elbow method
 fviz_nbclust(x, kmeans, method = "wss") +
@@ -90,17 +161,18 @@ fviz_nbclust(x, kmeans, nstart = 25,  method = "gap_stat", nboot = 50)+
   labs(subtitle = "Gap statistic method")
 ```
 
+
+```{r} 
+#plotting clarax
+ factoextra::fviz_cluster(clarax)
+```
+
 ```{r}
-
 ##package cluster, called daisy--> notes from Kendall
-install.packages("cluster")
-
-library("cluster")
-
 ```
 
 ```{r, eval= FALSE}
-#trying to find a good data package
+#trying to find a good data package already in r
 eurodist
 USAccDeaths
 iris
@@ -108,14 +180,36 @@ crimtab
 fdeaths
 sleep
 state.x77
+library(boot)
+manaus<- manaus
+
+library(carData)
+blackmore<- Blackmore
+Cowles<- Cowles
+KosteckiDillon<- KosteckiDillon #could be good
+TitanicSurvival<- 	TitanicSurvival
+WVS<- WVS
+
+library(sp)
+library(tigris)
+
+# Call tracts(): nyc_tracts
+nyc_tracts <- tracts(state = "NY", county = "New York", cb = TRUE)
+
+# Call summary() on nyc_tracts
+summary(nyc_tracts)
+
+# Plot nyc_tracts
+plot(nyc_tracts)
 ```
 
 ```{r}
+#new example, using new data in r, same code from wikibooks
 ## import data
 y <- state.x77
 
 ## run CLARA
-claray <- clara(y[1:9],3)
+claray <- clara(y[1:9],4)
 
 ## print components of clarax
 print(claray)
@@ -126,8 +220,45 @@ plot(y, col = claray$cluster)
 points(claray$centers, col = 1:2, pch = 8)
 ```
 
+```{r}
+#finding k with state.x77 data
 
-#testing same data with CLARANS
+pkgs <- c("factoextra",  "NbClust")
+install.packages(pkgs)
+
+library(factoextra)
+library(NbClust)
+
+# Elbow method
+fviz_nbclust(y, kmeans, method = "wss") +
+    geom_vline(xintercept = 4, linetype = 2)+
+  labs(subtitle = "Elbow method")
+
+# Silhouette method
+fviz_nbclust(y, kmeans, method = "silhouette")+
+  labs(subtitle = "Silhouette method")
+
+# Gap statistic
+# nboot = 50 to keep the function speedy. 
+# recommended value: nboot= 500 for your analysis.
+# Use verbose = FALSE to hide computing progression.
+set.seed(123)
+fviz_nbclust(y, kmeans, nstart = 25,  method = "gap_stat", nboot = 50)+
+  labs(subtitle = "Gap statistic method")
+```
+
+
+```{r} 
+ factoextra::fviz_cluster(clarax)
+```
+
+
+```{r}
+library(readr)
+NYC_Transit <- read_csv("NYC_Transit.csv")
+```
+
+#trying to test same data with CLARANS
 
 ```{r}
 ## run CLARA
@@ -142,8 +273,6 @@ plot(x, col = claransx$cluster)
 points(claransx$centers, col = 1:2, pch = 8)
 
 ```
-
-
 
 
 Test from 
