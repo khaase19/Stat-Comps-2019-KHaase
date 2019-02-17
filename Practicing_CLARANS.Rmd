@@ -58,7 +58,7 @@ new<- na.omit(smallsample)
 clarasamp <- clara(new[1:6], 4)
 
 ## print components of clarax
-print(clarasamp$clustering)
+print(clarasamp)
 summary(clarasamp)
 
 cluster_vector<- clarasamp$clustering
