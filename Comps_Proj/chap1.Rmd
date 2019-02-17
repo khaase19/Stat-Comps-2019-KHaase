@@ -32,6 +32,8 @@ Partitioning Around Medoids (PAM) is a k-medoid method that iterates through all
 
 The total complexity of PAM in one iteration is **formula: O(k(n-k)^2) (o= each non-medoid data point, k= # of cluster centers, (n-k) objects to compare to, and (n-k) operations for calculating E). This makes for a costly computation when n is large. Works best for n= 100, k=5. 
 
+Explanation of PAM, REC 6, P. 146--> 4 cases, and algorithm
+
 ## CLARA
 Because PAM does not scale well to large data sets, Clustering LARge Applications (CLARA) was developed to deal with larger data sets.
 
