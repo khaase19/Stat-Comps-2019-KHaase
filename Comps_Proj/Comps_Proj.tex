@@ -167,82 +167,117 @@ testing how accurate CLARANS clustered the data.
   \chapter*{Introduction}\label{introduction}
   \addcontentsline{toc}{chapter}{Introduction}
   
+  Data includes: latitude and longtitude, zip code, street address, etc.
+  
   \section{Why Analyze Spatial Data?}\label{why-analyze-spatial-data}
+  
+  We want to analyze spatial data because there is so much of it
+  available.
   
   \section{Big Picture Clustering
   Algorithms}\label{big-picture-clustering-algorithms}
   
+  There are many clustering algorithms out there.
+  
   \subsection{Classification
   vs.~Clustering}\label{classification-vs.clustering}
   
-  \hypertarget{rmd-basics}{\chapter{R Markdown Basics}\label{rmd-basics}}
+  Two categories of how to analyze spatial data include classification and
+  clustering. Classification is BLANK Clustering is organizing a set of
+  data items into groups so that items in the same group are similar to
+  each other and different from those in other groups {[}Rec 1{]}.
+  Clustering is helpful in finding patterns and similarities/differences
+  between data points and groups; however it can be quite subjective, as
+  we will discuss later on in the project.
+  
+  \hypertarget{rmd-basics}{\chapter{Spatial Clustering
+  Methods}\label{rmd-basics}}
+  
+  There are many factors to consider when chosing a clustering algorithm,
+  such as the application of the problem (what do you want to find out
+  about this data?), quality vs speed trade off (size of data plays a
+  role), characteristics of the data (i.e.~numeric distance measures),
+  dimensionality (typically as dimension increases the time it takes to
+  run the method increases and quality of the data clusters decrease), and
+  outliers (some methods are very sensitive to outliers) {[}Rec 2{]}.
   
   \section{Types of Clustering: Partitioning and
   Hierarchical}\label{types-of-clustering-partitioning-and-hierarchical}
   
+  There are many types of clustering algorithms, two of which are:
+  partitioning and hierarchial.
+  
+  Hierarchial clustering organizes data items into a hierarchy with a
+  sequence of nested partions or groupings {[}Rec 1, p.~405{]}. There is
+  the bottom-up approach: There is also the top-down approach:
+  
+  Partitioning cluster methods divide a set of data items into a number of
+  non-overlapping clusters. A data item is typically assigned to a cluster
+  based on a proximity or dissimilarity measure {[}Rec 2, p.~405{]}.
+  Partitioning clustering algorithms classifies the data into K groups by
+  satisfying both that each group has at least one data point, and that
+  each data point belongs to exactly one group. {[}Rec 5, p.~18{]}.
+  
   \section{How to Create Clusters: K-Means vs
   K-Medoids}\label{how-to-create-clusters-k-means-vs-k-medoids}
   
+  K-means algorithm and k-medoid algorithm are two examples of
+  partitioning algorithms. They both ise iterative processes to find K
+  clusters; however, they use different ways to represent these clusters.
+  
+  K-means algorithm represents its n observations in k groups, with the
+  center of the groups being the mean/average observation.
+  
+  \textbf{Steps on p.~4, Rec 2 Also, it tries to minimize the objective
+  function, steps on this page: }* Rec 5, p.~18
+  
+  Instead of taking the mean value of the objects in a cluster, the
+  k-medoid method uses the most centrally located object in a cluster to
+  be the cluster center {[}Rec 2{]}. This causes the method to be less
+  sensitive to outliers, but also requires more time to run.
+  
+  \textbf{same steps as K-means except BLANK (p.~6 in Rec 2) }steps in Rec
+  5, p.~19 for k-medoids
+  
   \section{PAM}\label{pam}
   
-  \section{CLARAS}\label{claras}
+  Partitioning Around Medoids (PAM) is a k-medoid method that iterates
+  through all the k cluster centers and tries to replace the center with
+  one of the other objects (n-k possibilities). {[}rec 2{]}. For a
+  replacement to occur, the squared error function must decrease (if it
+  does not decrease, there is no replacement). The algorithm eventually
+  terminates with a local optimum.
   
-  \section{CLARANS}\label{clarans}
+  The total complexity of PAM in one iteration is **formula:
+  O(k(n-k)\^{}2) (o= each non-medoid data point, k= \# of cluster centers,
+  (n-k) objects to compare to, and (n-k) operations for calculating E).
+  This makes for a costly computation when n is large. Works best for n=
+  100, k=5.
   
-  \chapter{Typesetting Equations}\label{typeset-equ}
+  \section{CLARA}\label{clara}
   
-  \section{Math}\label{math}
+  Because PAM does not scale well to large data sets, Clustering LARge
+  Applications (CLARA) was developed to deal with larger data sets.
   
-  \TeX~is the best way to typeset mathematics. Donald Knuth designed
-  \TeX~when he got frustrated at how long it was taking the typesetters to
-  finish his book, which contained a lot of mathematics. One nice feature
-  of \emph{R Markdown} is its ability to read \LaTeX~code directly.
+  CLARA is a sampling based method, meaning a sample of the data is used
+  to represent the entire data set. Medoids are chosen from this sample
+  data using PAM and then ``the average dissimilarity is computed using
+  the whole dataset'' (**don't know what ``average dissimilarity'' means
+  or how it is calculated). If a new set of medoids gives a lower
+  dissimilarity than a previous best solution, then the best solution is
+  replaced with a new set of medoids {[}Rec 2, p.~7{]}.
   
-  If you are doing a thesis that will involve lots of math, you will want
-  to read the following section.
+  \section{CLARANS (?)}\label{clarans}
   
-  \[\sum_{j=1}^n (\delta\theta_j)^2 \leq {{\beta_i^2}\over{\delta_i^2 + \rho_i^2}}
-  \left[ 2\rho_i^2 + {\delta_i^2\beta_i^2\over{\delta_i^2 + \rho_i^2}} \right] \equiv \omega_i^2
-  \]
+  \chapter{Example}\label{typeset-equ}
   
-  After \emph{n} such encounters the posterior density for \(\theta\) is
+  \section{Exploring the Data}\label{exploring-the-data}
   
-  \[
-  \pi(\theta|X_1< y_1,\dots,X_n<y_n) \varpropto \pi(\theta) \prod_{i=1}^n\int_{-\infty}^{y_i}
-     \exp\left(-{(x-\theta)^2\over{2\sigma^2}}\right)\ dx
-  \]
+  \section{Appplying CLARA}\label{appplying-clara}
   
-  Another equation:
+  \section{Evaluation of CLARA}\label{evaluation-of-clara}
   
-  \[\det\left|\,\begin{matrix}%
-  c_0&c_1\hfill&c_2\hfill&\ldots&c_n\hfill\cr
-  c_1&c_2\hfill&c_3\hfill&\ldots&c_{n+1}\hfill\cr
-  c_2&c_3\hfill&c_4\hfill&\ldots&c_{n+2}\hfill\cr
-  \,\vdots\hfill&\,\vdots\hfill&
-    \,\vdots\hfill&&\,\vdots\hfill\cr
-  c_n&c_{n+1}\hfill&c_{n+2}\hfill&\ldots&c_{2n}\hfill\cr
-  \end{matrix}\right|>0\]
-  
-  \noindent Exponent or Superscript: \(x^2\)
-  
-  \noindent Subscript: \(x_1, x_2, \dots, x_n\)
-  
-  \noindent Both combined: \(x_1^{k+1}\).
-  
-  \section{Statistics Symbols and
-  Expressions}\label{statistics-symbols-and-expressions}
-  
-  \noindent Our favorite Greeks: \(\sigma\), \(\epsilon\), \(\mu\)
-  
-  \noindent Defining a normally distributed random variable:
-  \(X\sim N(\mu, \sigma)\)
-  
-  How do we compute sample variance again?
-  
-  \[s^2 = \frac{\sum_{i=1}^n (x_i-\bar x)^2}{n-1}\]
-  
-  Sometimes you'll need to consider asymptotics, that is, what happens as
-  \(n\rightarrow \infty\).
+  \subsection{Model to Predict Cluster}\label{model-to-predict-cluster}
   
   \hypertarget{ref_labels}{\chapter{Tables, Graphics, References, and
   Labels}\label{ref_labels}}
@@ -250,10 +285,9 @@ testing how accurate CLARANS clustered the data.
   \section{Tables}\label{tables}
   
   In addition to the tables that can be automatically generated from a
-  data frame in \textbf{R} that you saw in
-  \protect\hyperlink{rmd-basics}{R Markdown Basics} using the
-  \texttt{kable} function, you can also create tables using \emph{pandoc}.
-  (More information is available at
+  data frame in \textbf{R} that you saw in {[}R Markdown Basics{]} using
+  the \texttt{kable} function, you can also create tables using
+  \emph{pandoc}. (More information is available at
   \url{http://pandoc.org/README.html\#tables}.) This might be useful if
   you don't have values specifically stored in \textbf{R}, but you'd like
   to display them in table form. Below is an example. Pay careful

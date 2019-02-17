@@ -6,7 +6,13 @@ The {#rmd-basics} text after the chapter declaration will allow us to link throu
 There are many factors to consider when chosing a clustering algorithm, such as the application of the problem (what do you want to find out about this data?), quality vs speed trade off (size of data plays a role), characteristics of the data (i.e. numeric distance measures), dimensionality (typically as dimension increases the time it takes to run the method increases and quality of the data clusters decrease), and outliers (some methods are very sensitive to outliers) [Rec 2]. 
 
 ## Types of Clustering: Partitioning and Hierarchical 
-There are many types of clustering algorithms, two of which are: 
+There are many types of clustering algorithms, two of which are: partitioning and hierarchial. 
+
+Hierarchial clustering organizes data items into a hierarchy with a sequence of nested partions or groupings [Rec 1, p. 405]. There is the bottom-up approach: 
+There is also the top-down approach:
+
+Partitioning cluster methods divide a set of data items into a number of non-overlapping clusters. A data item is typically assigned to a cluster based on a proximity or dissimilarity measure [Rec 2, p. 405].
+Partitioning clustering algorithms classifies the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group. [Rec 5, p. 18]. 
 
 ## How to Create Clusters: K-Means vs K-Medoids
 K-means algorithm and k-medoid algorithm are two examples of partitioning algorithms. They both ise iterative processes to find K clusters; however, they use different ways to represent these clusters. 
@@ -14,19 +20,23 @@ K-means algorithm and k-medoid algorithm are two examples of partitioning algori
 K-means algorithm represents its n observations in k groups, with the center of the groups being the mean/average observation.
 
 **Steps on p. 4, Rec 2
+Also, it tries to minimize the objective function, steps on this page: *** Rec 5, p. 18
 
 Instead of taking the mean value of the objects in a cluster, the k-medoid method uses the most centrally located object in a cluster to be the cluster center [Rec 2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
 
 **same steps as K-means except BLANK (p. 6 in Rec 2)
+**steps in Rec 5, p. 19 for k-medoids
 
 ## PAM
 Partitioning Around Medoids (PAM) is a k-medoid method that iterates through all the k cluster centers and tries to replace the center with one of the other objects (n-k possibilities). [rec 2]. For a replacement to occur, the squared error function must decrease (if it does not decrease, there is no replacement). The algorithm eventually terminates with a local optimum. 
 
-The total complexity of PAM in one iteration is **formula: O(k(n-k)^2) (o= each non-medoid data point, k= # of cluster centers, (n-k) objects to compare to, and (n-k) operations for calculating E). This makes for a costly computation when n is large.
+The total complexity of PAM in one iteration is **formula: O(k(n-k)^2) (o= each non-medoid data point, k= # of cluster centers, (n-k) objects to compare to, and (n-k) operations for calculating E). This makes for a costly computation when n is large. Works best for n= 100, k=5. 
 
 ## CLARA
 Because PAM does not scale well to large data sets, Clustering LARge Applications (CLARA) was developed to deal with larger data sets.
 
-CLARA is a sampling based method, meaning a sample of the data is used to represent the entire data set. Medoids are chosen from this sample data and 
+CLARA is a sampling based method, meaning a sample of the data is used to represent the entire data set. Medoids are chosen from this sample data using PAM and then "the average dissimilarity is computed using the whole dataset" (**don't know what "average dissimilarity" means or how it is calculated). If a new set of medoids gives a lower dissimilarity than a previous best solution, then the best solution is replaced with a new set of medoids [Rec 2, p. 7].
+
+
 
 ## CLARANS (?)
