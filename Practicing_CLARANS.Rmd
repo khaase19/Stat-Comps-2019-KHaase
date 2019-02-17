@@ -45,6 +45,13 @@ smallsample <- mysample[myvars]
 ```
 
 
+```{r, warning= FALSE}
+#testing it without lat and long
+myvars <- c("Latitude_tri", "Longitude_tri", "poor_or_fair_health", "poor_physical_health_days", "physical_inactivity", "adult_obesity")
+smallsample <- mysample[myvars]
+```
+
+
 ```{r} 
 #using a sample of my project data
 #library("qtcat")
