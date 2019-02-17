@@ -3,13 +3,30 @@ The {#rmd-basics} text after the chapter declaration will allow us to link throu
 -->
 
 # Spatial Clustering Methods {#rmd-basics}
+There are many factors to consider when chosing a clustering algorithm, such as the application of the problem (what do you want to find out about this data?), quality vs speed trade off (size of data plays a role), characteristics of the data (i.e. numeric distance measures), dimensionality (typically as dimension increases the time it takes to run the method increases and quality of the data clusters decrease), and outliers (some methods are very sensitive to outliers) [Rec 2]. 
 
 ## Types of Clustering: Partitioning and Hierarchical 
 There are many types of clustering algorithms, two of which are: 
+
 ## How to Create Clusters: K-Means vs K-Medoids
+K-means algorithm and k-medoid algorithm are two examples of partitioning algorithms. They both ise iterative processes to find K clusters; however, they use different ways to represent these clusters. 
+
+K-means algorithm represents its n observations in k groups, with the center of the groups being the mean/average observation.
+
+**Steps on p. 4, Rec 2
+
+Instead of taking the mean value of the objects in a cluster, the k-medoid method uses the most centrally located object in a cluster to be the cluster center [Rec 2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
+
+**same steps as K-means except BLANK (p. 6 in Rec 2)
 
 ## PAM
+Partitioning Around Medoids (PAM) is a k-medoid method that iterates through all the k cluster centers and tries to replace the center with one of the other objects (n-k possibilities). [rec 2]. For a replacement to occur, the squared error function must decrease (if it does not decrease, there is no replacement). The algorithm eventually terminates with a local optimum. 
 
-## CLARAS
+The total complexity of PAM in one iteration is **formula: O(k(n-k)^2) (o= each non-medoid data point, k= # of cluster centers, (n-k) objects to compare to, and (n-k) operations for calculating E). This makes for a costly computation when n is large.
+
+## CLARA
+Because PAM does not scale well to large data sets, Clustering LARge Applications (CLARA) was developed to deal with larger data sets.
+
+CLARA is a sampling based method, meaning a sample of the data is used to represent the entire data set. Medoids are chosen from this sample data and 
 
 ## CLARANS (?)
