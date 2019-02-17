@@ -5,7 +5,7 @@ The {#rmd-basics} text after the chapter declaration will allow us to link throu
 # Spatial Clustering Methods {#rmd-basics}
 
 ## Types of Clustering: Partitioning and Hierarchical 
-
+There are many types of clustering algorithms, two of which are: 
 ## How to Create Clusters: K-Means vs K-Medoids
 
 ## PAM
