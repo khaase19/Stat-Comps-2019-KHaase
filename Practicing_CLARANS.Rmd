@@ -26,16 +26,20 @@ clust <- clarans(snp, 3)
 library(readr)
 data_subset <- read_csv("CopyOfdata_subset.csv")
 
+set.seed(1)
 mysample <- data_subset[sample(1:nrow(data_subset), 1000,
    replace=FALSE),]
 ```
+
 ```{r, warning= FALSE}
+#didn't use this
 newsamp <- names(mysample) %in% c("pop_moe", "year", "X1", "geo", "age_rank", "age_moe", "TRI.ID", "fips_code", "ORIS.plant.code", "County.y") 
 newsamp <- mysample[!newsamp]
 ```
 
 
 ```{r, warning= FALSE}
+#only keeping the variables I want to look at
 myvars <- c("Latitude_tri", "Longitude_tri", "poor_or_fair_health", "poor_physical_health_days", "physical_inactivity", "adult_obesity")
 smallsample <- mysample[myvars]
 ```
@@ -48,24 +52,56 @@ smallsample <- mysample[myvars]
 ## import data
 #x <- USArrests
 
-#new<- na.omit(smallsample)
+new<- na.omit(smallsample)
 
 ## run CLARA
 clarasamp <- clara(new[1:6], 4)
 
 ## print components of clarax
-print(clarasamp)
+print(clarasamp$clustering)
+summary(clarasamp)
+
+cluster_vector<- clarasamp$clustering
 
 ## plot clusters
 plot(new, col = clarasamp$cluster)
 ## plot centers
 points(clarasamp$centers, col = 1:2, pch = 8)
+
+
 ```
 
 ```{r} 
 factoextra::fviz_cluster(clarasamp)
 ```
 
+```{r}
+cluster<- clarasamp$clustering
+cluster_data<- cbind(new, cluster)
+head(cluster_data)
+```
+
+```{r}
+#trying to predict cluster based on health factors...
+
+histogram(cluster, data= cluster_data)
+library(GGally)
+ggpairs(cluster_data)
+```
+
+```{r}
+#kitchen sink model
+kitchen_sink<- lm(cluster~ ., data= cluster_data)
+summary(kitchen_sink)
+```
+
+```{r}
+#this is a kitchen sink main effects model
+mod1 <- lm(ZW ~ BC + CM + Sex + Loc, data = wolf)
+msummary(mod1)
+mplot(mod1, which = 1)
+mplot(mod1, which = 2)
+```
 
 ```{r}
 #finding k with project data
@@ -82,16 +118,16 @@ fviz_nbclust(new, kmeans, method = "wss") +
   labs(subtitle = "Elbow method")
 
 # Silhouette method
-fviz_nbclust(new, kmeans, method = "silhouette")+
-  labs(subtitle = "Silhouette method")
+#fviz_nbclust(new, kmeans, method = "silhouette")+
+  #labs(subtitle = "Silhouette method")
 
 # Gap statistic
 # nboot = 50 to keep the function speedy. 
 # recommended value: nboot= 500 for your analysis.
 # Use verbose = FALSE to hide computing progression.
-set.seed(123)
-fviz_nbclust(new, kmeans, nstart = 25,  method = "gap_stat", nboot = 50)+
-  labs(subtitle = "Gap statistic method")
+#set.seed(123)
+#fviz_nbclust(new, kmeans, nstart = 25,  method = "gap_stat", nboot = 50)+
+ # labs(subtitle = "Gap statistic method")
 ```
 
 
