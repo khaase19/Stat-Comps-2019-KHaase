@@ -12,6 +12,7 @@ We want to analyze spatial data because there is so much of it available. Analyz
 There are many algorithms out there that handle spatial data. 
 
 ### Classification vs. Clustering
-Two categories of how to analyze spatial data include classification and clustering. Classification is BLANK
+Two categories of how to analyze spatial data include classification and clustering. Classification groups data items together into categories according to their properties. It is considered supervised classification because it needs a training dataset to fit the classification model and a test dataset to evaluate the model. 
+
 Clustering is organizing a set of data items into groups so that items in the same group are similar to each other and different from those in other groups [Rec 1]. Clustering is helpful in finding patterns and similarities/differences between data points and groups; however it can be quite subjective, as we will discuss later on in the project. 
 

@@ -32,6 +32,7 @@ Instead of taking the mean value of the objects in a cluster, the k-medoid metho
 label(path = "figure/amherst.png", caption = "Amherst logo", 
       label = "amherst", type = "figure")
 ```
+
 ## How to Choose _K_
 Many ways to choose _k_, which is why these methods are so subjective. 
 
