@@ -14,10 +14,10 @@ There is also the top-down approach:
 Partitioning cluster methods divide a set of data items into a number of non-overlapping clusters. A data item is typically assigned to a cluster based on a proximity or dissimilarity measure [Rec 2, p. 405].
 Partitioning clustering algorithms classifies the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group. [Rec 5, p. 18]. 
 
-## How to Create Clusters: K-Means vs K-Medoids
-K-means algorithm and k-medoid algorithm are two examples of partitioning algorithms. They both ise iterative processes to find K clusters; however, they use different ways to represent these clusters. 
+## How to Create Clusters: _K_-Means vs _K_-Medoids
+_K_-means algorithm and _k_-medoid algorithm are two examples of partitioning algorithms. They both ise iterative processes to find _K_ clusters; however, they use different ways to represent these clusters. 
 
-K-means algorithm represents its n observations in k groups, with the center of the groups being the mean/average observation.
+_K_-means algorithm represents its n observations in _k_ groups, with the center of the groups being the mean/average observation.
 
 **Steps on p. 4, Rec 2
 Also, it tries to minimize the objective function, steps on this page: *** Rec 5, p. 18
@@ -27,10 +27,21 @@ Instead of taking the mean value of the objects in a cluster, the k-medoid metho
 **same steps as K-means except BLANK (p. 6 in Rec 2)
 **steps in Rec 5, p. 19 for k-medoids
 
+```{r amherst_logo, results = "asis"}
+#How to insert a figure, make sure amherst.png is in main directory
+label(path = "figure/amherst.png", caption = "Amherst logo", 
+      label = "amherst", type = "figure")
+```
+## How to Choose _K_
+Many ways to choose _k_, which is why these methods are so subjective. 
+
+--> datanovia website
+
+
 ## PAM
 Partitioning Around Medoids (PAM) is a k-medoid method that iterates through all the k cluster centers and tries to replace the center with one of the other objects (n-k possibilities). [rec 2]. For a replacement to occur, the squared error function must decrease (if it does not decrease, there is no replacement). The algorithm eventually terminates with a local optimum. 
 
-The total complexity of PAM in one iteration is **formula: O(k(n-k)^2) (o= each non-medoid data point, k= # of cluster centers, (n-k) objects to compare to, and (n-k) operations for calculating E). This makes for a costly computation when n is large. Works best for n= 100, k=5. 
+The total complexity of PAM in one iteration is **formula: O(k(n-k)^2) (o= each non-medoid data point, _k_= # of cluster centers, (n-k) objects to compare to, and (n-k) operations for calculating E). This makes for a costly computation when n is large. Works best for n= 100, k=5. 
 
 Explanation of PAM, REC 6, P. 146--> 4 cases, and algorithm
 
