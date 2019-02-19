@@ -120,13 +120,13 @@ library(NbClust)
 library(ggplot2)
 
 # Elbow method
-fviz_nbclust(new, kmeans, method = "wss") +
+fviz_nbclust(new, cluster::clara, method = "wss") +
     geom_vline(xintercept = 4, linetype = 2)+
   labs(subtitle = "Elbow method")
 
 # Silhouette method
-#fviz_nbclust(new, kmeans, method = "silhouette")+
-  #labs(subtitle = "Silhouette method")
+fviz_nbclust(new, cluster::clara, method = "silhouette")+
+  labs(subtitle = "Silhouette method")
 
 # Gap statistic
 # nboot = 50 to keep the function speedy. 

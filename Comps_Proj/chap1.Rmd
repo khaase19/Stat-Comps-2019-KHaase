@@ -17,6 +17,8 @@ Partitioning clustering algorithms classifies the data into K groups by satisfyi
 ## How to Create Clusters: _K_-Means vs _K_-Medoids
 _K_-means algorithm and _k_-medoid algorithm are two examples of partitioning algorithms. They both ise iterative processes to find _K_ clusters; however, they use different ways to represent these clusters. 
 
+### _K_-Means
+
 _K_-means algorithm represents its n observations in _k_ groups, with the center of the groups being the mean/average observation. The goal of the algorithm is to find k centroids, one for each cluster. In order to do this, we must minimize an _objective function_, which is the squared error function for _k_ means. The objective function is: 
 $$O= \sum_{j=1}^k \sum_{i=1}^j ||{{X_i^{(j)}- C_j}}||^2
 $$
@@ -29,26 +31,49 @@ The steps of the algorithm are as follows:
 3. When all of the clusters have been made, recalculate the positions of the K centroids. 
 4. Repeat steps 2 and 3 until the centroids no longer move. 
 
-This algorithm always terminates; however, it is sensitive both to outliers and to the initial randomly selected K cluster centers. Therefore, the algorithm should be run multiple times to reduce the effects from this sensitivity. 
+This algorithm always terminates; however, it is sensitive both to outliers and to the initial randomly selected K cluster centers. Therefore, the algorithm should be run multiple times to reduce the effects from this sensitivity. [Rec 5, p. 18]. 
 
-**Steps on p. 4, Rec 2
-
-
-Also, it tries to minimize the objective function, steps on this page: *** Rec 5, p. 18
-
-Instead of taking the mean value of the objects in a cluster, the k-medoid method uses the most centrally located object in a cluster to be the cluster center [Rec 2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
+### _K_ Medoids
+On the contrary, instead of taking the mean value of the objects in a cluster, the k-medoid method uses the most centrally located object in a cluster to be the cluster center [Rec 2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
 
 **same steps as K-means except BLANK (p. 6 in Rec 2)
 **steps in Rec 5, p. 19 for k-medoids
 
+Rec 5 p. 18-19 ***
+
+
 ```{r amherst_logo, results = "asis"}
 #How to insert a figure, make sure amherst.png is in main directory
-label(path = "figure/amherst.png", caption = "Amherst logo", 
-      label = "amherst", type = "figure")
+#label(path = "figure/amherst.png", caption = "Amherst logo", 
+    #  label = "amherst", type = "figure")
 ```
+
 
 ## How to Choose _K_
 Many ways to choose _k_, which is why these methods are so subjective. 
+
+I will describe two of the many ways to determine K, both of which use visuals to determine what value of k is appropriate for the data. 
+
+###Elbow Method
+To start, the elbow method looks at the total within-cluster sum of squares (WSS) and determines when there are enough clusters so that the next cluster does not improve the total WSS very much. This would be the appropriate _K_. 
+
+The steps for this algorithm are as follows:
+
+1. Compute the clustering algorithm for different values of k (i.e. k from 1 to 10).
+2. For each k, calculate the total WSS.
+3. Plot the curve of the total WSSs according to the number of clusters (k). 
+4. The location of the bend in the plot is generally considered an indicator for the appropriate number of clusters. 
+
+###Silhouette Method
+The Silhouette Method focuses on the quality of clustering. A high average silhouette width indicates a good clustering (how well each object lies within its cluster). 
+
+The steps of the Silhouette Algorithm are:
+
+1. Compute clustering algoritm for different values of k (i.e. k from 1 to 10). 
+2. For each k, calculate the average silhouette of observations. 
+3. Plot the curve of the average silhouettes according to the number of clusters (k). 
+4. The location of the maximum is considered the appropriate number of clusters. 
+
 
 --> datanovia website
 
