@@ -162,19 +162,6 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \mainmatter % here the regular arabic numbering starts
   \pagestyle{fancyplain} % turns page numbering back on
 
-  In recent years, the amount of geographic data has increased immensely.
-  With new technology, the accuracy and complexity of data has also
-  improved. This has provoked statisticians to create techniques to best
-  analyze and draw conclusions from this new-found data. Earlier
-  techniques of spatial data were not equipped to handle the complexity
-  and amount of present data. This project first explores how and why we
-  analyze data based on geographic information. The project will then
-  focus on the CLARANS (Clustering Large Applications based on RANdomized
-  Search) algorithm, which is an extension of both the PAM (Partitioning
-  Around Medoids) and CLARAS (Clustering LARge Applications). Example data
-  will be used to demonstrate CLARA, and the project will conclude with
-  both an evaluation of the CLARA method and a model to predict cluster.
-  
   \onehalfspacing
   
   \chapter*{Introduction}\label{introduction}
@@ -309,7 +296,9 @@ both an evaluation of the CLARA method and a model to predict cluster.
   subjective.
   
   I will describe two of the many ways to determine K, both of which use
-  visuals to determine what value of k is appropriate for the data.
+  visuals to determine what value of k is appropriate for the data. The
+  elbow method and silhouette method are common ways to find K when using
+  the \emph{K} means and \emph{K} medoids algorithms.
   
   \subsection{Elbow Method}\label{elbow-method}
   
@@ -364,16 +353,18 @@ both an evaluation of the CLARA method and a model to predict cluster.
   
   \section{PAM}\label{pam}
   
-  Partitioning Around Medoids (PAM) is a k-medoid method that iterates
-  through all the k cluster centers and tries to replace the center with
-  one of the other objects (n-k possibilities). {[}rec 2{]}. For a
-  replacement to occur, the squared error function must decrease (if it
-  does not decrease, there is no replacement). The algorithm eventually
+  Partitioning Around Medoids (PAM) is the most common realisation of
+  k-medoid clustering.
+  
+  It iterates through all the k cluster centers and tries to replace the
+  center with one of the other objects (n-k possibilities). {[}rec 2{]}.
+  For a replacement to occur, the squared error function must decrease (if
+  it does not decrease, there is no replacement). The algorithm eventually
   terminates with a local optimum.
   
   The total complexity of PAM in one iteration is **formula:
-  O(k(n-k)\^{}2) (o= each non-medoid data point, \emph{k}= \# of cluster
-  centers, (n-k) objects to compare to, and (n-k) operations for
+  \[O(k(n-k)^2)\] (o= each non-medoid data point, \emph{k}= \# of cluster
+  centers, \[(n-k)\] objects to compare to, and \[(n-k)\] operations for
   calculating E). This makes for a costly computation when n is large.
   Works best for n= 100, k=5.
   
