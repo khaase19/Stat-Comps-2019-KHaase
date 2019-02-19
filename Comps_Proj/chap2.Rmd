@@ -32,7 +32,7 @@ Needed a sample of 1000...
 
 Importing the data:
 
-```{r, warning= FALSE}
+```{r, warning= FALSE, eval= FALSE}
 #using data from final stat 495 project
 library(readr)
 data_subset <- read_csv("CopyOfdata_subset.csv")
@@ -45,7 +45,7 @@ mysample <- data_subset[sample(1:nrow(data_subset), 1000,
 
 Picking variables to focus on--> expanding conclusions from Stat 495 project
 
-```{r, warning= FALSE}
+```{r, warning= FALSE, eval= FALSE}
 #only keeping the variables I want to look at
 myvars <- c("Latitude_tri", "Longitude_tri", "poor_or_fair_health", "poor_physical_health_days", "physical_inactivity", "adult_obesity")
 smallsample <- mysample[myvars]
@@ -54,7 +54,7 @@ smallsample <- mysample[myvars]
 ## Applying CLARA
 Step 1: finding k
 
-```{r}
+```{r, eval= FALSE}
 #finding k with project data, using Elbow Method
 pkgs <- c("factoextra",  "NbClust")
 install.packages(pkgs)
@@ -71,27 +71,27 @@ fviz_nbclust(new, kmeans, method = "wss") +
 
 Step 2: Run CLARA function
 
-```{r}
+```{r, eval= FALSE}
 new<- na.omit(smallsample)
 
 ## run CLARA
 clarasamp <- clara(new[1:6], 4)
 ```
 
-```{r}
+```{r, eval= FALSE}
 ## print components of clarax
 print(clarasamp)
 summary(clarasamp)
 ```
 
-```{r}
+```{r, eval= FALSE}
 ## plot clusters
 plot(new, col = clarasamp$cluster)
 ## plot centers
 points(clarasamp$centers, col = 1:2, pch = 8)
 ```
 
-```{r} 
+```{r, eval= FALSE} 
 #plotting clara
 factoextra::fviz_cluster(clarasamp)
 ```
@@ -104,7 +104,7 @@ factoextra::fviz_cluster(clarasamp)
 
 First, had to include a cluster variable in the original data set, using the data provided by the CLARA function. 
 
-```{r}
+```{r, eval= FALSE}
 #adding each data point's cluster #
 cluster<- clarasamp$clustering
 cluster_data<- cbind(new, cluster)
