@@ -1,6 +1,6 @@
 ---
 author: 'Kaitlyn E. Haase'
-date: 'February 2019'
+date: 'February 26 2019'
 division: 'Statistics'
 advisor: 'Advisor A. Wagaman'
 department: 'Mathematics and Statistics'
@@ -45,6 +45,9 @@ if(!require(acstats)){
 library(acstats)
 ```
 
+```{r ab, child = 'abstract.Rmd'}
+```
+
 <!--
 This is the way to split your thesis into chapters and then include each of the chapters seperately.  You can Knit the Rmd files corresponding to each chapter individually and then put them all back together by Knit-ing this document.
 
@@ -69,13 +72,11 @@ Immediately below is the chunk for Chapter 2.
 ```{r chapter2, child = 'chap2.Rmd'}
 ```
 
-```{r chapter3, child = 'chap3.Rmd'}
-```
-
-
 <!--
 Add other chunks here for other chapters in your thesis.  Note that if you use the `child =` parameter, you can't include anything else in your chunk.
 -->
+```{r chapter3, child = 'chap3.Rmd'}
+```
 
 ```{r conclusion, child = 'conclusion.Rmd'}
 ```

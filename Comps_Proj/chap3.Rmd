@@ -9,22 +9,17 @@ output: pdf_document
 You can delete the header-includes (lines 3-5 above) if you like and also the chunk below since it is loaded in the skeleton.Rmd file.  They are included so that chap2.Rmd will compile by itself when you hit Knit PDF.
 -->
 
-```{r include_acstats_2, include = FALSE}
-# This chunk ensures that the acstats package is installed and loaded
-# This acstats package includes the template files for the thesis and also
-# two functions used for labeling and referencing
-if(!require(devtools))
-  install.packages("devtools", repos = "http://cran.rstudio.com")
-
-if(!require(acstats)){
-  library(devtools)
-  devtools::install_github("Amherst-Statistics/acstats")
-  }
-library(acstats)
-```
-
-
 # Example {#typeset-equ}
+
+```{r, warning= FALSE}
+#loading in packages
+library(readr)
+library(factoextra)
+library(NbClust)
+library(ggplot2)
+library(cluster)
+library(GGally)
+```
 
 ## Exploring the Data
 Data came from Stat 495 final project. (use info from project...). 
@@ -32,9 +27,9 @@ Needed a sample of 1000...
 
 Importing the data:
 
-```{r, warning= FALSE, eval= FALSE}
+```{r, warning= FALSE}
 #using data from final stat 495 project
-library(readr)
+#library(readr)
 data_subset <- read_csv("CopyOfdata_subset.csv")
 
 set.seed(1)
@@ -45,7 +40,7 @@ mysample <- data_subset[sample(1:nrow(data_subset), 1000,
 
 Picking variables to focus on--> expanding conclusions from Stat 495 project
 
-```{r, warning= FALSE, eval= FALSE}
+```{r, warning= FALSE}
 #only keeping the variables I want to look at
 myvars <- c("Latitude_tri", "Longitude_tri", "poor_or_fair_health", "poor_physical_health_days", "physical_inactivity", "adult_obesity")
 smallsample <- mysample[myvars]
@@ -54,15 +49,15 @@ smallsample <- mysample[myvars]
 ## Applying CLARA
 Step 1: finding k
 
-```{r, eval= FALSE}
+```{r}
 #finding k with project data, using Elbow Method
-pkgs <- c("factoextra",  "NbClust")
-install.packages(pkgs)
+#pkgs <- c("factoextra",  "NbClust")
+#install.packages(pkgs)
 
-library(factoextra)
-library(NbClust)
-library(ggplot2)
-
+#library(factoextra)
+#library(NbClust)
+#library(ggplot2)
+new<- na.omit(smallsample)
 # Elbow method
 fviz_nbclust(new, kmeans, method = "wss") +
     geom_vline(xintercept = 4, linetype = 2)+
@@ -71,27 +66,27 @@ fviz_nbclust(new, kmeans, method = "wss") +
 
 Step 2: Run CLARA function
 
-```{r, eval= FALSE}
-new<- na.omit(smallsample)
-
+```{r}
+#new<- na.omit(smallsample)
+#library(cluster)
 ## run CLARA
 clarasamp <- clara(new[1:6], 4)
 ```
 
-```{r, eval= FALSE}
+```{r}
 ## print components of clarax
 print(clarasamp)
 summary(clarasamp)
 ```
 
-```{r, eval= FALSE}
+```{r}
 ## plot clusters
 plot(new, col = clarasamp$cluster)
 ## plot centers
 points(clarasamp$centers, col = 1:2, pch = 8)
 ```
 
-```{r, eval= FALSE} 
+```{r} 
 #plotting clara
 factoextra::fviz_cluster(clarasamp)
 ```
@@ -104,9 +99,19 @@ factoextra::fviz_cluster(clarasamp)
 
 First, had to include a cluster variable in the original data set, using the data provided by the CLARA function. 
 
-```{r, eval= FALSE}
+```{r}
 #adding each data point's cluster #
 cluster<- clarasamp$clustering
 cluster_data<- cbind(new, cluster)
 ```
 
+```{r}
+kitchen_sink<- lm(cluster~., data=cluster_data)
+summary(kitchen_sink)
+
+#taking out lat and long
+vars <- names(cluster_data) %in% c("Latitude_tri", "Longitude_tri")
+cluster_data_new <- cluster_data[!vars]
+
+ggpairs(cluster_data_new)
+```

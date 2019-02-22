@@ -51,7 +51,7 @@
 \title{My Comprehensive Evaluation}
 \author{Kaitlyn E. Haase}
 % The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
-\date{February 2019}
+\date{February 26 2019}
 \division{Statistics}
 \advisor{Advisor A. Wagaman}
 %If you have two advisors for some reason, you can use the following
@@ -162,6 +162,19 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \mainmatter % here the regular arabic numbering starts
   \pagestyle{fancyplain} % turns page numbering back on
 
+  In recent years, the amount of geographic data has increased immensely.
+  With new technology, the accuracy and complexity of data has also
+  improved. This has provoked statisticians to create techniques to best
+  analyze and draw conclusions from this new-found data. Earlier
+  techniques of spatial data were not equipped to handle the complexity
+  and amount of present data. This project first explores how and why we
+  analyze data based on geographic information. The project will then
+  focus on the CLARANS (Clustering Large Applications based on RANdomized
+  Search) algorithm, which is an extension of both the PAM (Partitioning
+  Around Medoids) and CLARAS (Clustering LARge Applications). Example data
+  will be used to demonstrate CLARA, and the project will conclude with
+  both an evaluation of the CLARA method and a model to predict cluster.
+  
   \onehalfspacing
   
   \chapter*{Introduction}\label{introduction}
@@ -200,7 +213,7 @@ both an evaluation of the CLARA method and a model to predict cluster.
   similarities/differences between data points and groups; however it can
   be quite subjective, as we will discuss later on in the project.
   
-  \chapter{Spatial Clustering Methods}\label{rmd-basics}
+  \chapter{How to Cluster}\label{rmd-basics}
   
   There are many factors to consider when chosing a clustering algorithm,
   such as the application of the problem (what do you want to find out
@@ -210,8 +223,8 @@ both an evaluation of the CLARA method and a model to predict cluster.
   run the method increases and quality of the data clusters decrease), and
   outliers (some methods are very sensitive to outliers) {[}Rec 2{]}.
   
-  \section{Types of Clustering: Partitioning and
-  Hierarchical}\label{types-of-clustering-partitioning-and-hierarchical}
+  \section{Types of Clustering:
+  Partitioning}\label{types-of-clustering-partitioning}
   
   Two of the main types of clustering are partitioning and hierarchial.
   
@@ -234,7 +247,8 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \emph{K} clusters; however, they use different ways to represent these
   clusters.
   
-  \subsection{\texorpdfstring{\emph{K}-Means}{K-Means}}\label{k-means}
+  \subsection{\texorpdfstring{\emph{K}-Means (maybe don't include
+  this)}{K-Means (maybe don't include this)}}\label{k-means-maybe-dont-include-this}
   
   \emph{K}-means algorithm represents its n observations in \emph{k}
   groups, with the center of the groups being the mean/average
@@ -242,8 +256,9 @@ both an evaluation of the CLARA method and a model to predict cluster.
   each cluster. In order to do this, we must minimize an \emph{objective
   function}, which is the squared error function for \emph{k} means. The
   objective function is:
-  \[O= \sum_{j=1}^k \sum_{i=1}^j ||{{X_i^{(j)}- C_j}}||^2
-  \] Where \(|{{X_i^{(j)}- C_j}}|\) is an indicator of the distance of the
+  \[O= \sum_{j=1}^k \sum_{i=1}^j ||{{X_i^{(j)}- C_j}}||^2\]
+  
+  Where \(|{{X_i^{(j)}- C_j}}|\) is an indicator of the distance of the
   data points from their cluster centers.
   
   The steps of the algorithm are as follows:
@@ -284,10 +299,19 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \begin{Shaded}
   \begin{Highlighting}[]
   \CommentTok{#How to insert a figure, make sure amherst.png is in main directory}
-  \CommentTok{#label(path = "figure/amherst.png", caption = "Amherst logo", }
-      \CommentTok{#  label = "amherst", type = "figure")}
+  
+  \KeywordTok{label}\NormalTok{(}\DataTypeTok{path =} \StringTok{"clustering_pic.png"}\NormalTok{, }
+        \DataTypeTok{caption =} \StringTok{"CLARANS searching for a better solution"}\NormalTok{, }
+        \DataTypeTok{label =} \StringTok{"CLARANS"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"figure"}\NormalTok{, }\DataTypeTok{scale=} \FloatTok{0.5}\NormalTok{)}
   \end{Highlighting}
   \end{Shaded}
+  
+  \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale = 0.5,angle = 0]{clustering_pic.png}
+  \caption[CLARANS searching for a better solution]{\normalsize{CLARANS searching for a better solution}}
+  \label{fig:CLARANS}
+  \end{figure}
   
   \section{\texorpdfstring{How to Choose
   \emph{K}}{How to Choose K}}\label{how-to-choose-k}
@@ -351,6 +375,8 @@ both an evaluation of the CLARA method and a model to predict cluster.
   
   --\textgreater{} datanovia website
   
+  \chapter{Spatial Clustering Methods}\label{typeset-equ}
+  
   \section{PAM}\label{pam}
   
   Partitioning Around Medoids (PAM) is the most common realisation of
@@ -369,6 +395,7 @@ both an evaluation of the CLARA method and a model to predict cluster.
   Works best for n= 100, k=5.
   
   Explanation of PAM, REC 6, P. 146--\textgreater{} 4 cases, and algorithm
+  Rec 6 bibliography (Ng \& Han, 2000)
   
   \section{CLARA}\label{clara}
   
@@ -387,6 +414,38 @@ both an evaluation of the CLARA method and a model to predict cluster.
   
   \chapter{Example}\label{typeset-equ}
   
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \CommentTok{#loading in packages}
+  \KeywordTok{library}\NormalTok{(readr)}
+  \KeywordTok{library}\NormalTok{(factoextra)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{verbatim}
+  Welcome! Related Books: `Practical Guide To Cluster Analysis in R` at https://goo.gl/13EFCZ
+  \end{verbatim}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \KeywordTok{library}\NormalTok{(NbClust)}
+  \KeywordTok{library}\NormalTok{(ggplot2)}
+  \KeywordTok{library}\NormalTok{(cluster)}
+  \KeywordTok{library}\NormalTok{(GGally)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{verbatim}
+  
+  Attaching package: 'GGally'
+  \end{verbatim}
+  
+  \begin{verbatim}
+  The following object is masked from 'package:dplyr':
+  
+      nasa
+  \end{verbatim}
+  
   \section{Exploring the Data}\label{exploring-the-data}
   
   Data came from Stat 495 final project. (use info from project\ldots{}).
@@ -397,9 +456,30 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \begin{Shaded}
   \begin{Highlighting}[]
   \CommentTok{#using data from final stat 495 project}
-  \KeywordTok{library}\NormalTok{(readr)}
+  \CommentTok{#library(readr)}
   \NormalTok{data_subset <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"CopyOfdata_subset.csv"}\NormalTok{)}
+  \end{Highlighting}
+  \end{Shaded}
   
+  \begin{verbatim}
+  Parsed with column specification:
+  cols(
+    .default = col_double(),
+    geo_name = col_character(),
+    geo = col_character(),
+    zip = col_character(),
+    TRI.ID = col_character(),
+    County.x = col_character(),
+    County.y = col_character()
+  )
+  \end{verbatim}
+  
+  \begin{verbatim}
+  See spec(...) for full column specifications.
+  \end{verbatim}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
   \KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
   \CommentTok{#getting a sample of 1000 observations}
   \NormalTok{mysample <-}\StringTok{ }\NormalTok{data_subset[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(data_subset), }\DecValTok{1000}\NormalTok{,}
@@ -425,13 +505,13 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \begin{Shaded}
   \begin{Highlighting}[]
   \CommentTok{#finding k with project data, using Elbow Method}
-  \NormalTok{pkgs <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"factoextra"}\NormalTok{,  }\StringTok{"NbClust"}\NormalTok{)}
-  \KeywordTok{install.packages}\NormalTok{(pkgs)}
+  \CommentTok{#pkgs <- c("factoextra",  "NbClust")}
+  \CommentTok{#install.packages(pkgs)}
   
-  \KeywordTok{library}\NormalTok{(factoextra)}
-  \KeywordTok{library}\NormalTok{(NbClust)}
-  \KeywordTok{library}\NormalTok{(ggplot2)}
-  
+  \CommentTok{#library(factoextra)}
+  \CommentTok{#library(NbClust)}
+  \CommentTok{#library(ggplot2)}
+  \NormalTok{new<-}\StringTok{ }\KeywordTok{na.omit}\NormalTok{(smallsample)}
   \CommentTok{# Elbow method}
   \KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"wss"}\NormalTok{) }\OperatorTok{+}
   \StringTok{    }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \DecValTok{4}\NormalTok{, }\DataTypeTok{linetype =} \DecValTok{2}\NormalTok{)}\OperatorTok{+}
@@ -439,12 +519,14 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \end{Highlighting}
   \end{Shaded}
   
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-4-1} \end{center}
+  
   Step 2: Run CLARA function
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \NormalTok{new<-}\StringTok{ }\KeywordTok{na.omit}\NormalTok{(smallsample)}
-  
+  \CommentTok{#new<- na.omit(smallsample)}
+  \CommentTok{#library(cluster)}
   \NormalTok{## run CLARA}
   \NormalTok{clarasamp <-}\StringTok{ }\KeywordTok{clara}\NormalTok{(new[}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{], }\DecValTok{4}\NormalTok{)}
   \end{Highlighting}
@@ -454,9 +536,160 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \begin{Highlighting}[]
   \NormalTok{## print components of clarax}
   \KeywordTok{print}\NormalTok{(clarasamp)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{verbatim}
+  Call:    clara(x = new[1:6], k = 4) 
+  Medoids:
+       Latitude_tri Longitude_tri poor_or_fair_health
+  [1,]      38.6364      -83.6929               0.200
+  [2,]      40.3973      -75.9357               0.165
+  [3,]      36.1335      -96.0532               0.196
+  [4,]      45.4342     -123.0000               0.110
+       poor_physical_health_days physical_inactivity adult_obesity
+  [1,]                       4.4               0.299         0.283
+  [2,]                       3.7               0.245         0.308
+  [3,]                       4.6               0.353         0.355
+  [4,]                       3.3               0.137         0.244
+  Objective function:  4.691022
+  Clustering vector:   int [1:925] 1 2 1 3 1 3 1 1 1 1 1 3 1 2 1 3 3 3 ...
+  Cluster sizes:           453 195 230 47 
+  Best sample:
+   [1]   5  11  24  86 139 149 162 175 177 192 208 224 242 285 306 311 316
+  [18] 353 361 370 389 400 404 410 429 468 471 478 489 506 589 679 691 703
+  [35] 719 726 736 741 800 811 815 818 877 882 883 895 902 918
+  
+  Available components:
+   [1] "sample"     "medoids"    "i.med"      "clustering" "objective" 
+   [6] "clusinfo"   "diss"       "call"       "silinfo"    "data"      
+  \end{verbatim}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
   \KeywordTok{summary}\NormalTok{(clarasamp)}
   \end{Highlighting}
   \end{Shaded}
+  
+  \begin{verbatim}
+  Object of class 'clara' from call:
+   clara(x = new[1:6], k = 4) 
+  Medoids:
+       Latitude_tri Longitude_tri poor_or_fair_health
+  [1,]      38.6364      -83.6929               0.200
+  [2,]      40.3973      -75.9357               0.165
+  [3,]      36.1335      -96.0532               0.196
+  [4,]      45.4342     -123.0000               0.110
+       poor_physical_health_days physical_inactivity adult_obesity
+  [1,]                       4.4               0.299         0.283
+  [2,]                       3.7               0.245         0.308
+  [3,]                       4.6               0.353         0.355
+  [4,]                       3.3               0.137         0.244
+  Objective function:   4.691022 
+  Numerical information per cluster:
+       size  max_diss  av_diss isolation
+  [1,]  453 13.228882 4.578281  1.656594
+  [2,]  195  8.392191 2.971767  1.050917
+  [3,]  230 14.554453 6.249473  1.153918
+  [4,]   47 42.497226 5.284278  1.489171
+  Average silhouette width per cluster:
+  [1] 0.2863797 0.6457187 0.4655863 0.9673973
+  Average silhouette width of best sample: 0.4306859 
+  
+  Best sample:
+   [1]   5  11  24  86 139 149 162 175 177 192 208 224 242 285 306 311 316
+  [18] 353 361 370 389 400 404 410 429 468 471 478 489 506 589 679 691 703
+  [35] 719 726 736 741 800 811 815 818 877 882 883 895 902 918
+  Clustering vector:
+    [1] 1 2 1 3 1 3 1 1 1 1 1 3 1 2 1 3 3 3 3 2 1 3 2 1 1 3 3 2 2 1 1 2 3 1 3
+   [36] 1 1 1 3 3 1 1 1 1 1 1 1 1 1 2 1 1 3 1 1 1 1 4 1 1 1 1 2 2 3 3 1 2 1 3
+   [71] 1 1 3 3 1 3 1 4 1 2 1 2 4 1 1 3 1 2 4 3 3 3 1 1 3 4 4 1 2 2 1 2 3 3 1
+  [106] 1 1 3 3 4 1 3 3 4 2 1 2 3 2 3 2 2 1 3 1 2 1 1 1 3 2 4 1 2 1 1 2 1 3 3
+  [141] 1 2 1 1 1 1 2 1 1 2 2 1 1 3 3 1 3 1 3 1 3 1 1 2 1 3 1 4 3 1 1 3 1 3 3
+  [176] 1 3 1 1 4 2 1 1 1 1 2 1 1 3 1 1 3 2 1 2 3 3 2 1 1 1 2 1 3 2 1 2 1 1 1
+  [211] 1 1 1 2 1 3 4 2 4 3 1 1 3 2 1 1 3 4 3 2 2 1 1 1 3 3 1 1 3 1 1 2 1 2 3
+  [246] 2 1 1 3 1 1 3 4 2 1 1 2 3 1 2 1 1 1 3 1 4 2 3 2 1 3 2 2 3 1 1 3 2 1 3
+  [281] 1 1 3 3 1 1 3 1 2 2 3 1 1 3 1 2 1 1 1 1 1 3 1 1 1 1 3 3 1 3 1 1 3 1 1
+  [316] 3 1 2 1 1 1 3 2 3 1 1 3 1 1 4 2 1 1 1 3 1 2 1 2 2 1 3 1 1 3 3 4 3 1 1
+  [351] 1 1 1 1 1 3 1 3 1 1 1 3 3 1 2 1 3 1 2 3 1 3 3 2 2 2 1 1 3 2 3 3 3 1 1
+  [386] 1 1 2 1 3 1 1 2 1 2 2 1 3 3 2 1 4 2 2 1 1 1 1 1 1 3 1 1 1 1 1 2 1 3 1
+  [421] 3 3 2 3 1 2 1 3 2 1 1 1 1 4 4 1 1 3 1 2 1 1 1 3 1 2 1 1 2 1 3 1 1 2 4
+  [456] 1 1 2 1 1 1 2 1 1 4 3 1 1 4 4 1 1 3 1 4 1 1 1 1 3 4 2 1 1 1 1 2 2 3 1
+  [491] 2 3 1 3 3 1 2 2 2 2 1 2 2 3 1 1 2 3 2 1 1 2 3 2 3 3 2 2 2 3 2 1 3 2 3
+  [526] 3 3 1 4 1 1 2 2 2 1 3 2 1 1 1 3 4 1 1 3 1 1 2 3 1 2 1 3 1 1 3 2 3 3 3
+  [561] 1 2 1 2 1 3 2 3 1 4 1 1 3 3 2 1 1 3 2 2 1 1 2 1 2 1 1 1 1 3 2 1 3 4 1
+  [596] 3 1 1 2 1 3 2 3 4 1 3 1 1 1 4 3 1 2 1 1 3 4 2 1 2 3 2 1 2 3 1 1 2 1 2
+  [631] 1 1 4 3 1 2 3 1 1 3 1 4 3 1 1 1 2 2 3 2 1 1 1 2 1 1 1 2 3 1 3 1 1 3 1
+  [666] 1 1 1 3 1 2 1 3 1 1 1 1 1 2 2 3 1 2 3 2 2 1 1 2 2 3 2 1 1 1 2 1 3 3 1
+  [701] 1 1 1 4 2 1 3 1 1 2 4 3 1 1 1 3 3 1 1 1 1 3 1 1 2 4 2 3 1 1 1 3 1 1 3
+  [736] 1 2 1 2 3 2 2 2 1 3 3 3 1 1 1 2 3 3 3 1 3 3 2 1 2 3 3 1 2 4 2 1 1 3 1
+  [771] 2 1 1 1 3 1 3 3 1 1 3 3 1 3 1 2 1 1 3 1 4 1 1 1 1 3 2 2 2 4 1 3 3 1 1
+  [806] 1 3 1 1 1 2 1 1 1 2 2 2 1 1 2 1 3 3 3 3 1 3 2 4 2 1 2 3 1 1 3 2 1 1 4
+  [841] 2 2 2 2 2 1 3 1 2 1 2 4 3 3 1 1 3 1 1 1 1 1 2 3 3 2 4 1 2 1 1 1 1 2 1
+  [876] 1 3 1 1 1 3 3 1 1 1 3 1 1 3 1 1 3 1 3 1 3 2 2 2 3 1 2 2 2 1 1 4 1 2 1
+  [911] 3 1 3 2 3 3 1 1 2 1 3 1 1 3 1
+  
+  Silhouette plot information for best sample:
+      cluster neighbor   sil_width
+  11        1        2  0.51160188
+  703       1        2  0.50784463
+  149       1        3  0.50590891
+  208       1        2  0.48693148
+  162       1        3  0.47468187
+  471       1        2  0.44956360
+  410       1        2  0.42362707
+  389       1        2  0.42157038
+  5         1        2  0.41457596
+  719       1        2  0.41289559
+  468       1        2  0.37020730
+  361       1        2  0.35061984
+  306       1        2  0.34569720
+  285       1        2  0.34506744
+  818       1        3  0.30770633
+  506       1        3  0.21671937
+  589       1        2  0.20444489
+  918       1        2  0.19851903
+  736       1        3  0.18549695
+  478       1        2  0.16554915
+  24        1        2  0.15565598
+  311       1        2  0.04768370
+  353       1        3  0.03173421
+  883       1        2 -0.12930919
+  895       1        2 -0.24550081
+  224       2        1  0.76643863
+  679       2        1  0.75957431
+  902       2        1  0.74802681
+  404       2        1  0.74508892
+  242       2        1  0.73417881
+  400       2        1  0.73283435
+  741       2        1  0.61737358
+  811       2        1  0.47833894
+  815       2        1  0.43844208
+  429       2        1  0.43689016
+  691       3        1  0.62256512
+  370       3        1  0.62175433
+  489       3        1  0.61988506
+  882       3        1  0.60671130
+  139       3        1  0.58178390
+  177       3        1  0.55053388
+  175       3        1  0.43464488
+  86        3        1  0.29525285
+  192       3        1  0.28445790
+  316       3        1  0.27777790
+  877       3        1  0.22608234
+  800       4        3  0.96743579
+  726       4        3  0.96735884
+  
+  1128 dissimilarities, summarized :
+     Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.0507  6.3776 10.6340 12.8320 15.7130 51.8530 
+  Metric :  euclidean 
+  Number of objects : 48
+  
+  Available components:
+   [1] "sample"     "medoids"    "i.med"      "clustering" "objective" 
+   [6] "clusinfo"   "diss"       "call"       "silinfo"    "data"      
+  \end{verbatim}
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -467,12 +700,16 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \end{Highlighting}
   \end{Shaded}
   
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-7-1} \end{center}
+  
   \begin{Shaded}
   \begin{Highlighting}[]
   \CommentTok{#plotting clara}
   \NormalTok{factoextra}\OperatorTok{::}\KeywordTok{fviz_cluster}\NormalTok{(clarasamp)}
   \end{Highlighting}
   \end{Shaded}
+  
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-8-1} \end{center}
   
   \section{Evaluation of CLARA}\label{evaluation-of-clara}
   
@@ -488,6 +725,51 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \NormalTok{cluster_data<-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(new, cluster)}
   \end{Highlighting}
   \end{Shaded}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \NormalTok{kitchen_sink<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data=}\NormalTok{cluster_data)}
+  \KeywordTok{summary}\NormalTok{(kitchen_sink)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{verbatim}
+  
+  Call:
+  lm(formula = cluster ~ ., data = cluster_data)
+  
+  Residuals:
+      Min      1Q  Median      3Q     Max 
+  -2.3742 -0.6013  0.0600  0.6334  1.6092 
+  
+  Coefficients:
+                             Estimate Std. Error t value Pr(>|t|)    
+  (Intercept)               -1.373221   0.386769  -3.550 0.000404 ***
+  Latitude_tri               0.004183   0.006661   0.628 0.530140    
+  Longitude_tri             -0.055900   0.002255 -24.786  < 2e-16 ***
+  poor_or_fair_health        8.194392   1.457716   5.621 2.51e-08 ***
+  poor_physical_health_days -0.913749   0.090846 -10.058  < 2e-16 ***
+  physical_inactivity        1.395680   0.751308   1.858 0.063536 .  
+  adult_obesity             -0.419444   0.839018  -0.500 0.617249    
+  ---
+  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  
+  Residual standard error: 0.6984 on 918 degrees of freedom
+  Multiple R-squared:  0.4751,    Adjusted R-squared:  0.4717 
+  F-statistic: 138.5 on 6 and 918 DF,  p-value: < 2.2e-16
+  \end{verbatim}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \CommentTok{#taking out lat and long}
+  \NormalTok{vars <-}\StringTok{ }\KeywordTok{names}\NormalTok{(cluster_data) }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Latitude_tri"}\NormalTok{, }\StringTok{"Longitude_tri"}\NormalTok{)}
+  \NormalTok{cluster_data_new <-}\StringTok{ }\NormalTok{cluster_data[}\OperatorTok{!}\NormalTok{vars]}
+  
+  \KeywordTok{ggpairs}\NormalTok{(cluster_data_new)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-10-1} \end{center}
   
   \chapter*{Conclusion}\label{conclusion}
   \addcontentsline{toc}{chapter}{Conclusion}
@@ -539,6 +821,25 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \subsubsection{\texorpdfstring{In
   \protect\hyperlink{ref_labels}{}:}{In :}}\label{in}
   
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \CommentTok{# This chunk ensures that the acstats package is}
+  \CommentTok{# installed and loaded. This acstats package includes}
+  \CommentTok{# the template files for the thesis and also two functions}
+  \CommentTok{# used for labeling and referencing}
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(devtools))}
+    \KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(dplyr))}
+      \KeywordTok{install.packages}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(ggplot2))}
+      \KeywordTok{install.packages}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(acstats))\{}
+    \KeywordTok{library}\NormalTok{(devtools)}
+  \NormalTok{  devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"Amherst-Statistics/acstats"}\NormalTok{)}
+  \NormalTok{\}}
+  \end{Highlighting}
+  \end{Shaded}
+  
   \chapter{The Second Appendix, for
   Fun}\label{the-second-appendix-for-fun}
   
@@ -552,10 +853,6 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \setlength{\parskip}{8pt}
   
   \hypertarget{refs}{}
-  \hypertarget{ref-angel2000}{}
-  Angel, E. (2000). \emph{Interactive computer graphics : A top-down
-  approach with opengl}. Boston, MA: Addison Wesley Longman.
-  
   \hypertarget{ref-angel2001}{}
   Angel, E. (2001a). \emph{Batch-file computer graphics : A bottom-up
   approach with quicktime}. Boston, MA: Wesley Addison Longman.
@@ -563,6 +860,11 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \hypertarget{ref-angel2002a}{}
   Angel, E. (2001b). \emph{Test second book by angel}. Boston, MA: Wesley
   Addison Longman.
+  
+  \hypertarget{ref-ng1994}{}
+  Ng, R. T., \& Han, J. (2000). \emph{Efficient and effective clustering
+  methods for spatial data mining}. San Francisco, CA: Morgan Kaufmann
+  Publishers Inc.
 
 
   % Index?
