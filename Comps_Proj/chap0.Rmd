@@ -3,10 +3,10 @@
 \onehalfspacing
 
 # Introduction {.unnumbered}
-Spatial analysis is analyzing data based on gepgraphic information. This includes topological, geometric, and geographic information. For example, spatial data may include latitude and longtitude, zip code, or street address.  
+As mentioned in the abstract, we have much more spatial data than we have had in the past. Spatial data analysis is analyzing data based on topological, geometric, and geographic information. Spatial data may include latitude and longtitude, zip code, or street address.  
 
 ## Why Analyze Spatial Data?
-We want to analyze spatial data because there is so much of it available. Analyzing spatial data can help us find dissimilarities and similarities amoung people, places, and locations. Spatial data can help our society allocate resources to areas that need them most, discover changes over time, and BLANK. 
+We are interested in analyzing spatial data for many reasons, one being because there is so much of it available. Investigating spatial data can help us find dissimilarities and similarities amoung objects. Spatial data can help our society allocate resources to areas that need them most, discover changes over time, and BLANK. 
 
 ## Big Picture Analyzing Spatial Data Algorithms
 There are many algorithms out there that handle spatial data. 

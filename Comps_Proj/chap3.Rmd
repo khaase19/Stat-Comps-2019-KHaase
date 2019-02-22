@@ -105,7 +105,7 @@ cluster<- clarasamp$clustering
 cluster_data<- cbind(new, cluster)
 ```
 
-```{r}
+```{r, warning= FALSE}
 kitchen_sink<- lm(cluster~., data=cluster_data)
 summary(kitchen_sink)
 
@@ -115,3 +115,10 @@ cluster_data_new <- cluster_data[!vars]
 
 ggpairs(cluster_data_new)
 ```
+
+```{r}
+fun1<- lm(cluster~ poor_physical_health_days, data= cluster_data_new)
+summary(fun1)
+```
+
+
