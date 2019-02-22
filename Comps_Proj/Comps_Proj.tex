@@ -106,13 +106,13 @@ With new technology, the accuracy and complexity of data has also
 improved. This has provoked statisticians to create techniques to best
 analyze and draw conclusions from this new-found data. Earlier
 techniques of spatial data were not equipped to handle the complexity
-and amount of present data. This project first explores how and why we
-analyze data based on geographic information. The project will then
-focus on the CLARANS (Clustering Large Applications based on RANdomized
-Search) algorithm, which is an extension of both the PAM (Partitioning
-Around Medoids) and CLARAS (Clustering LARge Applications). Example data
-will be used to demonstrate CLARA, and the project will conclude with
-both an evaluation of the CLARA method and a model to predict cluster.
+and quantity of the data. This project first explores how and why we
+analyze data based on geographic information. Next, I will explain some
+of the newer spatial data algorithms, including PAM (Partitioning Around
+Medoids), CLARA (Clustering LARge Applications), and CLARANS (Clustering
+Large Applications based on RANdomized Search). Example data will be
+used to demonstrate CLARA, and the project will conclude a model to
+predict cluster.
 }
 
 
@@ -149,13 +149,13 @@ both an evaluation of the CLARA method and a model to predict cluster.
       improved. This has provoked statisticians to create techniques to best
       analyze and draw conclusions from this new-found data. Earlier
       techniques of spatial data were not equipped to handle the complexity
-      and amount of present data. This project first explores how and why we
-      analyze data based on geographic information. The project will then
-      focus on the CLARANS (Clustering Large Applications based on RANdomized
-      Search) algorithm, which is an extension of both the PAM (Partitioning
-      Around Medoids) and CLARAS (Clustering LARge Applications). Example data
-      will be used to demonstrate CLARA, and the project will conclude with
-      both an evaluation of the CLARA method and a model to predict cluster.
+      and quantity of the data. This project first explores how and why we
+      analyze data based on geographic information. Next, I will explain some
+      of the newer spatial data algorithms, including PAM (Partitioning Around
+      Medoids), CLARA (Clustering LARge Applications), and CLARANS (Clustering
+      Large Applications based on RANdomized Search). Example data will be
+      used to demonstrate CLARA, and the project will conclude a model to
+      predict cluster.
     \end{abstract}
   
   
@@ -167,39 +167,57 @@ both an evaluation of the CLARA method and a model to predict cluster.
   improved. This has provoked statisticians to create techniques to best
   analyze and draw conclusions from this new-found data. Earlier
   techniques of spatial data were not equipped to handle the complexity
-  and amount of present data. This project first explores how and why we
-  analyze data based on geographic information. The project will then
-  focus on the CLARANS (Clustering Large Applications based on RANdomized
-  Search) algorithm, which is an extension of both the PAM (Partitioning
-  Around Medoids) and CLARAS (Clustering LARge Applications). Example data
-  will be used to demonstrate CLARA, and the project will conclude with
-  both an evaluation of the CLARA method and a model to predict cluster.
+  and quantity of the data. This project first explores how and why we
+  analyze data based on geographic information. Next, I will explain some
+  of the newer spatial data algorithms, including PAM (Partitioning Around
+  Medoids), CLARA (Clustering LARge Applications), and CLARANS (Clustering
+  Large Applications based on RANdomized Search). Example data will be
+  used to demonstrate CLARA, and the project will conclude a model to
+  predict cluster.
   
   \onehalfspacing
   
   \chapter*{Introduction}\label{introduction}
   \addcontentsline{toc}{chapter}{Introduction}
   
-  Spatial analysis is analyzing data based on gepgraphic information. This
-  includes topological, geometric, and geographic information. For
-  example, spatial data may include latitude and longtitude, zip code, or
-  street address.
+  As mentioned in the abstract, we have much more spatial data than we
+  have had in the past. Spatial data analysis is analyzing data based on
+  topological, geometric, and geographic information. Spatial data may
+  include latitude and longtitude, zip code, or street address.
   
   \section{Why Analyze Spatial Data?}\label{why-analyze-spatial-data}
   
-  We want to analyze spatial data because there is so much of it
-  available. Analyzing spatial data can help us find dissimilarities and
-  similarities amoung people, places, and locations. Spatial data can help
-  our society allocate resources to areas that need them most, discover
-  changes over time, and BLANK.
+  We are interested in analyzing spatial data for many reasons, one being
+  because there is so much of it available. Investigating spatial data can
+  help us find dissimilarities and similarities amoung objects. This can
+  aid us in allocating resources to areas that need them most, discovering
+  changes over time, and categorizing new objects.
   
   \section{Big Picture Analyzing Spatial Data
   Algorithms}\label{big-picture-analyzing-spatial-data-algorithms}
   
-  There are many algorithms out there that handle spatial data.
+  There are many algorithms out there that handle spatial data. To get a
+  glimpse of the number of algorithms and strategies to analyze spatial
+  data, the chart below provides some examples.
   
-  \subsection{Classification
-  vs.~Clustering}\label{classification-vs.clustering}
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \CommentTok{#How to insert a figure, make sure amherst.png is in main directory}
+  
+  \KeywordTok{label}\NormalTok{(}\DataTypeTok{path =} \StringTok{"clustering_methods.png"}\NormalTok{, }
+        \DataTypeTok{caption =} \StringTok{"Clustering Methods"}\NormalTok{, }
+        \DataTypeTok{label =} \StringTok{"Clustering"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"figure"}\NormalTok{, }\DataTypeTok{scale=} \FloatTok{0.5}\NormalTok{)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale = 0.5,angle = 0]{clustering_methods.png}
+  \caption[Clustering Methods]{\normalsize{Clustering Methods}}
+  \label{fig:Clustering}
+  \end{figure}
+  
+  \subsection{Clustering}\label{clustering}
   
   Two categories of how to analyze spatial data include classification and
   clustering. Classification groups data items together into categories
@@ -770,6 +788,34 @@ both an evaluation of the CLARA method and a model to predict cluster.
   \end{Shaded}
   
   \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-10-1} \end{center}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \NormalTok{fun1<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \KeywordTok{summary}\NormalTok{(fun1)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{verbatim}
+  
+  Call:
+  lm(formula = cluster ~ poor_physical_health_days, data = cluster_data_new)
+  
+  Residuals:
+      Min      1Q  Median      3Q     Max 
+  -1.3539 -0.8070 -0.1857  0.8144  2.4875 
+  
+  Coefficients:
+                            Estimate Std. Error t value Pr(>|t|)    
+  (Intercept)                3.40573    0.19278  17.667  < 2e-16 ***
+  poor_physical_health_days -0.42072    0.05183  -8.118 1.51e-15 ***
+  ---
+  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  
+  Residual standard error: 0.9288 on 923 degrees of freedom
+  Multiple R-squared:  0.06664,   Adjusted R-squared:  0.06563 
+  F-statistic:  65.9 on 1 and 923 DF,  p-value: 1.509e-15
+  \end{verbatim}
   
   \chapter*{Conclusion}\label{conclusion}
   \addcontentsline{toc}{chapter}{Conclusion}
