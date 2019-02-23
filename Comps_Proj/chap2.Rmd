@@ -28,6 +28,8 @@ CLARA is a sampling based method, meaning a sample of the data is used to repres
 *PAM on samples
 
 
+https://www.coursera.org/lecture/cluster-analysis/3-4-the-k-medoids-clustering-method-nJ0Sb
+
 ## CLARANS 
 (Ng & Han, 1994)
 
