@@ -217,19 +217,18 @@ predict cluster.
   \label{fig:Clustering}
   \end{figure}
   
+  The methods are aimed around clustering, which we will further explore
+  in the next section.
+  
   \subsection{Clustering}\label{clustering}
   
-  Two categories of how to analyze spatial data include classification and
-  clustering. Classification groups data items together into categories
-  according to their properties. It is considered supervised
-  classification because it needs a training dataset to fit the
-  classification model and a test dataset to evaluate the model.
-  
-  Clustering is organizing a set of data items into groups so that items
-  in the same group are similar to each other and different from those in
+  Clustering organizes a set of data items into groups so that items in
+  the same group are similar to each other and different from those in
   other groups {[}Rec 1{]}. Clustering is helpful in finding patterns and
   similarities/differences between data points and groups; however it can
   be quite subjective, as we will discuss later on in the project.
+  
+  Clustering can be used in categorizing data based on non-spatial dat,
   
   \chapter{How to Cluster}\label{rmd-basics}
   
@@ -244,15 +243,23 @@ predict cluster.
   \section{Types of Clustering:
   Partitioning}\label{types-of-clustering-partitioning}
   
-  Two of the main types of clustering are partitioning and hierarchial.
-  
-  Hierarchial clustering organizes data items into a hierarchy with a
-  sequence of nested partions or groupings {[}Rec 1, p.~405{]}. There is
-  the bottom-up approach: There is also the top-down approach:
+  There are four main types of clustering: hierarchial, partitioning,
+  density-based, and methods-based. We will now dive into the partioning
+  clustering techinque.
   
   Partitioning cluster methods divide a set of data items into a number of
   non-overlapping clusters. A data item is typically assigned to a cluster
   based on a proximity or dissimilarity measure {[}Rec 2, p.~405{]}.
+  
+  Typically, there is a dataset with \emph{n} observations and the goal is
+  to divide them into \emph{K} clusters so that an objective function is
+  optimized (sum of square distances is minimized).
+  
+  The most common objective function is the sum of squared errors (SSE),
+  where \(c_k\) is the centroid or mediod of the cluster \(C_k\).
+  
+  \[SSE(C)= \sum_{k=1}^K \sum_{x_{i}C_{k}} ||{x_i}- c_k||^2\]
+  
   Partitioning clustering algorithms classifies the data into K groups by
   satisfying both that each group has at least one data point, and that
   each data point belongs to exactly one group. {[}Rec 5, p.~18{]}.
@@ -308,6 +315,14 @@ predict cluster.
   cluster, the k-medoid method uses the most centrally located object in a
   cluster to be the cluster center {[}Rec 2{]}. This causes the method to
   be less sensitive to outliers, but also requires more time to run.
+  
+  Steps for K-medoids: 1. Initial guess for centers \(C_1\),
+  \(C_2\),\ldots{} \(C_k\) (i.e.~randomly select k points from \(X_1\),
+  \(X_2\),\ldots{} \(X_n\)) 2. Minimize over C: for each i= 1, 2,\ldots{}
+  n, find the cluster center \(C_k\) closest to Xi and let C(i)=k. 3.
+  Minimize over \(C_1\), \(C_2\),\ldots{} \(C_k\): for each k=1,\ldots{}
+  K, \(C_k = X_k^*\), the medoid of points in cluster k. ie, the point Xi
+  in the cluster k that minimizes \[\sum _{c(j)=k} ||{{X_j- X_i}}||^2\]
   
   \textbf{same steps as K-means except BLANK (p.~6 in Rec 2) }steps in Rec
   5, p.~19 for k-medoids
@@ -397,8 +412,8 @@ predict cluster.
   
   \section{PAM}\label{pam}
   
-  Partitioning Around Medoids (PAM) is the most common realisation of
-  k-medoid clustering.
+  Partitioning Around Medoids (PAM) is the most commonly used type of
+  k-medoid clustering (Kaufmann \& Rousseeuw, 1987).
   
   It iterates through all the k cluster centers and tries to replace the
   center with one of the other objects (n-k possibilities). {[}rec 2{]}.
@@ -418,7 +433,8 @@ predict cluster.
   \section{CLARA}\label{clara}
   
   Because PAM does not scale well to large data sets, Clustering LARge
-  Applications (CLARA) was developed to deal with larger data sets.
+  Applications (CLARA) was developed to deal with larger data sets
+  (Kaufmann \& Rousseeuw, 1990).
   
   CLARA is a sampling based method, meaning a sample of the data is used
   to represent the entire data set. Medoids are chosen from this sample
@@ -428,7 +444,15 @@ predict cluster.
   dissimilarity than a previous best solution, then the best solution is
   replaced with a new set of medoids {[}Rec 2, p.~7{]}.
   
-  \section{CLARANS (?)}\label{clarans}
+  *PAM on samples
+  
+  \url{https://www.coursera.org/lecture/cluster-analysis/3-4-the-k-medoids-clustering-method-nJ0Sb}
+  
+  \section{CLARANS}\label{clarans}
+  
+  (Ng \& Han, 1994)
+  
+  *Randomized re-sampling, ensuring efficiency and quality
   
   \chapter{Example}\label{typeset-equ}
   
