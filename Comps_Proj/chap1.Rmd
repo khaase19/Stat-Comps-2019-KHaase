@@ -61,6 +61,11 @@ This algorithm always terminates; however, it is sensitive both to outliers and 
 ### _K_ Medoids
 On the contrary, instead of taking the mean value of the objects in a cluster, the k-medoid method uses the most centrally located object in a cluster to be the cluster center [Rec 2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
 
+Steps for K-medoids:
+1. Initial guess for centers $C_1$, $C_2$,... $C_k$ (i.e. randomly select k points from $X_1$, $X_2$,... $X_n$)
+2. Minimize over C: for each i= 1, 2,... n, find the cluster center $C_k$ closest to Xi and let C(i)=k. 
+3. Minimize over $C_1$, $C_2$,... $C_k$: for each k=1,... K, $C_k = X_k^*$, the medoid of points in cluster k. ie, the point Xi in the cluster k that minimizes $$\sum _{c(j)=k} ||{{X_j- X_i}}||^2$$
+
 **same steps as K-means except BLANK (p. 6 in Rec 2)
 **steps in Rec 5, p. 19 for k-medoids
 

@@ -12,7 +12,7 @@ You can delete the header-includes (lines 3-5 above) if you like and also the ch
 # Spatial Clustering Methods {#typeset-equ}
 
 ## PAM
-Partitioning Around Medoids (PAM) is the most common realisation of k-medoid clustering.
+Partitioning Around Medoids (PAM) is the most commonly used type of k-medoid clustering (Kaufmann & Rousseeuw, 1987).
 
 It iterates through all the k cluster centers and tries to replace the center with one of the other objects (n-k possibilities). [rec 2]. For a replacement to occur, the squared error function must decrease (if it does not decrease, there is no replacement). The algorithm eventually terminates with a local optimum. 
 
@@ -21,12 +21,14 @@ The total complexity of PAM in one iteration is **formula: $$O(k(n-k)^2)$$ (o= e
 Explanation of PAM, REC 6, P. 146--> 4 cases, and algorithm Rec 6 bibliography [@ng1994]
 
 ## CLARA
-Because PAM does not scale well to large data sets, Clustering LARge Applications (CLARA) was developed to deal with larger data sets.
+Because PAM does not scale well to large data sets, Clustering LARge Applications (CLARA) was developed to deal with larger data sets (Kaufmann & Rousseeuw, 1990).
 
 CLARA is a sampling based method, meaning a sample of the data is used to represent the entire data set. Medoids are chosen from this sample data using PAM and then "the average dissimilarity is computed using the whole dataset" (**don't know what "average dissimilarity" means or how it is calculated). If a new set of medoids gives a lower dissimilarity than a previous best solution, then the best solution is replaced with a new set of medoids [Rec 2, p. 7].
 
+*PAM on samples
 
 
-## CLARANS (?)
+## CLARANS 
+(Ng & Han, 1994)
 
-
+*Randomized re-sampling, ensuring efficiency and quality 
