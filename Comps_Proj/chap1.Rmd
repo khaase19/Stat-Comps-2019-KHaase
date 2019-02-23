@@ -23,16 +23,24 @@ if(!require(acstats)){
 There are many factors to consider when chosing a clustering algorithm, such as the application of the problem (what do you want to find out about this data?), quality vs speed trade off (size of data plays a role), characteristics of the data (i.e. numeric distance measures), dimensionality (typically as dimension increases the time it takes to run the method increases and quality of the data clusters decrease), and outliers (some methods are very sensitive to outliers) [Rec 2]. 
 
 ## Types of Clustering: Partitioning 
-Two of the main types of clustering are partitioning and hierarchial. 
+There are four main types of clustering: hierarchial, partitioning, density-based, and methods-based. We will now dive into the partioning clustering techinque. 
 
-Hierarchial clustering organizes data items into a hierarchy with a sequence of nested partions or groupings [Rec 1, p. 405]. There is the bottom-up approach: 
-There is also the top-down approach:
+Partitioning cluster methods divide a set of data items into a number of non-overlapping clusters. A data item is typically assigned to a cluster based on a proximity or dissimilarity measure [Rec 2, p. 405]. 
 
-Partitioning cluster methods divide a set of data items into a number of non-overlapping clusters. A data item is typically assigned to a cluster based on a proximity or dissimilarity measure [Rec 2, p. 405].
+Typically, there is a dataset with _n_ observations and the goal is to divide them into  _K_ clusters so that an objective function is optimized (sum of square distances is minimized). 
+
+The most common objective function is the sum of squared errors (SSE), where $c_k$ is the centroid or mediod of the cluster $C_k$.
+
+$$SSE(C)= \sum_{k=1}^K \sum_{x_{i}C_{k}} ||{x_i}- c_k||^2$$
+
 Partitioning clustering algorithms classifies the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group. [Rec 5, p. 18]. 
+
+
 
 ## How to Create Clusters: _K_-Means vs _K_-Medoids
 _K_-means algorithm and _k_-medoid algorithm are two examples of partitioning algorithms. They both ise iterative processes to find _K_ clusters; however, they use different ways to represent these clusters. 
+
+
 
 ### _K_-Means (maybe don't include this)
 
