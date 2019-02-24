@@ -415,8 +415,19 @@ predict cluster.
     Compute clustering algorithm for different values of k (i.e.~k from 1
     to 10).
   \item
-    For each k, calculate the average silhouette of observations. There is
-    a silhouette method in R that can calculate this for us\ldots{}
+    For each k, calculate the average silhouette of observations.
+  \end{enumerate}
+  
+  The silhouette of an object \(O_j\), is a quanitity varying between -1
+  and 1, that indicates how much \(O_j\) truly belongs to the cluster to
+  which \(O_j\) is classified {[}Rec 6, p.~150{]}.
+  
+  There is a silhouette method in R that can calculate this for us\ldots{}
+  
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{2}
+  \tightlist
   \item
     Plot the curve of the average silhouettes according to the number of
     clusters (k).
@@ -435,13 +446,77 @@ predict cluster.
   Partitioning Around Medoids (PAM) is the most commonly used type of
   k-medoid clustering (Kaufmann \& Rousseeuw, 1987).
   
-  It iterates through all the k cluster centers and tries to replace the
-  center with one of the other objects (n-k possibilities) {[}Rec 2{]}.
-  For a replacement to occur, the squared error function must decrease (if
-  it does not decrease, there is no replacement). The algorithm eventually
-  terminates with a local optimum.
+  As an overview, the algorithm iterates through all the k cluster centers
+  and tries to replace the center with one of the other objects (n-k
+  possibilities) {[}Rec 2{]}. For a replacement to occur, the squared
+  error function must decrease (if it does not decrease, there is no
+  replacement). The algorithm eventually terminates with a local optimum.
   
-  The squared error function calculates the average dissimilarity
+  For the set up of this algorithm, let's let \(O_m\) be a current medoid
+  that is to be replaced (i.e.~A in Figure BLANK). Let's let \(O_p\) be a
+  new medoid to replace \(O_m\) (i.e.~M in Figure BLANK). \(O_j\) is an
+  other non-medoid object that may or may not be moved (i.e.~Y and Z in
+  Figure BLANK). \(O_{j,2}\) is a current medoid that is nearest to
+  \(O_j\) without A and M (i.e.~B in Figure BLANK).
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \KeywordTok{label}\NormalTok{(}\DataTypeTok{path =} \StringTok{"PAM_pic.png"}\NormalTok{, }
+        \DataTypeTok{caption =} \StringTok{"Four cases for Replacing A with M"}\NormalTok{, }
+        \DataTypeTok{label =} \StringTok{"PAM"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"figure"}\NormalTok{, }\DataTypeTok{scale=} \FloatTok{0.5}\NormalTok{)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale = 0.5,angle = 0]{PAM_pic.png}
+  \caption[Four cases for Replacing A with M]{\normalsize{Four cases for Replacing A with M}}
+  \label{fig:PAM}
+  \end{figure}
+  
+  Now that we have our set up, there are four different ways or ``cases''
+  in which PAM calculates the cost, \(C_{jmp}\) for all of the non-medoid
+  objects \(O_j\). For the sake of simplicity and in understanding the
+  different cases, I will denote \(O_m\) as A, \(O_p\) as M, \(O_j\) as Y
+  or Z, \(O_{j,2}\) as B.
+  
+  Case 1: Suppose Y currently belongs to the cluster represented by A.
+  Additionally, Y is more similar to B than to M (i.e.
+  \(d(Y, M) >= d(Y, B)\)), where B is the second most similar medoid to Y.
+  If A were to be replaced by M as a medoid, Y would belong to B
+  (indicated by the Case 1 arrow in Figure BLANK). Therefore the cost of
+  the switch is: \(C_{jmp} = d(Y, B) - d(Y, A)\).
+  
+  This equation will always give a non-negative \(C_{jmp}\), indicating
+  that there is a non-negative cost incurred in replacing A with M.
+  
+  Case 2: Suppose Y currently belonds to the cluster represented by A. But
+  this time, A is less similar to B than to M (\(d(Y, M) < d(Y, B)\)).
+  Then, if A is replaced by M, Y would belong to the cluster represented
+  by M. The cost of this swap would be: \(C_{jmp} = d(Y, M) - d(Y, A)\).
+  The value of this \(C_{jmp}\) could be positive or negative, depending
+  on whether Y is more similar to A or M.
+  
+  Case 3: Suppose Z currently belongs to the cluster other than the one
+  represented by A. Also, let Z be more similar to B than to M. Then even
+  if A is replaced by M, Z would stay in the cluster represented by B. The
+  cost of this swap is: \(C_{jmp} = 0\).
+  
+  Case 4: Suppose Z belongs to a cluster represented by B, but Z is less
+  similar to B than to M. If we replaced A with M, Z would jump to the
+  cluster of M, from that of B. The cost in this case would be:
+  \(C_{jmp} = d(Z, M) - d(Z, B)\). This cost would always be negative.
+  
+  In combining all of the four cases described, the total cost of
+  replacing A with M is: \[ TC_{mp} = \sum_j(C_{jmp}) \].
+  
+  The more formal steps of the algorithm are as follows: 1. Select
+  \emph{k} representative objects arbitratily. 2. Compute \(TC_{mp}\) for
+  all pairs of \(O_m\), \(O_p\) where \(O_m\) is currently selected, and
+  \(O_p\) is not. 3. Select the pair \(O_m\), \(O_p\) which corresponds to
+  \(min_{O_m, O_p} TC_{mp}\). If the minimum \(TC_{mp}\) is negative,
+  replace \(O_m\) with \(O_p\) and go back to Step 2. 4. Otherwise, for
+  each non-selected object, find the most similar representative object.
   
   The total complexity of PAM in one iteration is \[O(k(n-k)^2)\] (O= each
   non-medoid data point, \emph{k}= \# of cluster centers, \[(n-k)\]
@@ -449,8 +524,9 @@ predict cluster.
   makes for a costly computation when n is large. The algorithm works best
   when n= 100 and \emph{k}=5.
   
-  Explanation of PAM, REC 6, P. 146--\textgreater{} 4 cases, and algorithm
-  Rec 6 bibliography (Ng \& Han, 2000)
+  Explanation of PAM, {[}Rec 3, p.~5-7{]}.
+  
+  4 cases, and algorithm Rec 6 bibliography (Ng \& Han, 2000)
   
   \section{CLARA}\label{clara}
   
@@ -460,11 +536,11 @@ predict cluster.
   
   CLARA is a sampling based method, meaning a sample of the data is used
   to represent the entire data set. Medoids are chosen from this sample
-  data using PAM and then ``the average dissimilarity is computed using
-  the whole dataset'' (**don't know what ``average dissimilarity'' means
-  or how it is calculated). If a new set of medoids gives a lower
-  dissimilarity than a previous best solution, then the best solution is
-  replaced with a new set of medoids {[}Rec 2, p.~7{]}.
+  data using PAM and then the average dissimilarity is computed using the
+  whole dataset, not only the objects in the samples. If a new set of
+  medoids gives a lower dissimilarity than a previous best solution, then
+  the best solution is replaced with a new set of medoids {[}Rec 2,
+  p.~7{]}.
   
   Experiments indicate that 5 samples of size 40+ 2 \emph{k} give
   satisfactory results {[}Rec 6, p.~146{]}.
@@ -480,13 +556,86 @@ predict cluster.
   medoids obtained so far. 5. Return to Step 1 to start the next
   iteration.
   
-  *PAM on samples
+  CLARA performs well on large data sets, i.e.~around 1000 objects (n) in
+  10 clusters (k). CLARA can work on larger data sets because the
+  complexity for each iteration is \(O{k(40 + k)^2 + k(n-k)}\), which is
+  much smaller than \(O(k(n-k)^2)\) (which is the complexity for each
+  iteration in PAM).
   
   \url{https://www.coursera.org/lecture/cluster-analysis/3-4-the-k-medoids-clustering-method-nJ0Sb}
   
   \section{CLARANS}\label{clarans}
   
   (Ng \& Han, 1994)
+  
+  CLARANS was created to handle even larger data sets than CLARA, and
+  provides the highest quality clusters, in comparison to PAM and CLARA.
+  
+  The easiest way to understand CLARANS, is through a graphic example
+  including both PAM and CLARA as well.
+  
+  The processes of finding \emph{k} medoids can be described as searching
+  through a graph of objects. This graph, denoted \(G_{n,k}\) contains
+  nodes represented by a set of \emph{k} objects
+  \{\(O_{m1},... , O_{mk}\)\}, indicating that the medoids of the objects
+  are: \(O_{m1},... , O_{mk}\). The set of nodes in the graph is the set
+  \{\{\(O_{m1},... , O_{mk}\)\} \textbar{} \(O_{m1},... , O_{mk}\) are
+  objects in the data set\}.
+  
+  Two nodes are considered neighbors if their sets differ by only one
+  object. Furthermore, two nodes, \(S_1\) = \{\{\(O_{m1},... , O_{mk}\)\}
+  and \(S_2\) = \{\{\(O_{w1},... , O_{wk}\)\} are neighbors if the
+  intersection of \(S_1, S_2\) is \emph{k}-1. Each node therefore has
+  \(k(n-k)\) neighbors. Each node is a cluster; each node can be assigned
+  a cost that defines the total dissimilarity between every object and the
+  medoid of its cluster.
+  
+  PAM can be viewed as a search for a minimum on the graph \(G_{n,k}\). At
+  each iteration, the neighbors of the current node are examined, and the
+  current node gets replaced by the neighbor with the greatest descent in
+  costs. The search continues until a minimum is obtained. Examining
+  \(k(n-k)\) neighbors of a node is time consuming, which is why CLARA was
+  created.
+  
+  CLARA examines fewer neighbors and restricts the search in general on
+  subgraphs of \(G_{n,k}\). The subgraph \(G_{Sa,k}\) contains all the
+  nodes that are subgraphs of \(Sa\). CLARA searches through the nodes
+  using PAM, however, the search is confined within \(G_{Sa,k}\). This is
+  problematic, because if M is the minimum node in the original graph
+  \(G_{n,k}\), but if M is not included in \(G_{Sa,k}\), M will never be
+  found. To make up for this deficiency, many many samples would have to
+  be collected and processed. {[}Rec 3, p.~9{]}.
+  
+  CLARANS was developed because of this deficiency. CLARANS does not
+  restrict to a particular subgraph, instead if searches the entire graph
+  \(G_{n,k}\). CLARANS is unlike PAM in that it only checks a subgroup of
+  the neighbors of a node (like CLARA). But in contrast to CLARA, each
+  sample is drawn in a way that no nodes corresponding to particular
+  objects are outright eliminated.
+  
+  CLARA draws a sample of \emph{nodes} at the beginning of the search,
+  while CLARANS draws a sample of \emph{neighbors} in each step of a
+  search. CLARANS provides higher quality clusters than CLARA and only
+  requires few searches.
+  
+  For the CLARANS algorithm, there are two parameters used:
+  \emph{maxneighbor} (the maximum numbers of neighbors examined) and
+  \emph{numlocal} (the number of local minima obtained). The higher the
+  value of maxneighbor, the closer CLARANS is to PAM.
+  
+  Steps for the CLARANS algorithm {[}Rec 3, p.~9{]}: 1. Input parameters
+  \emph{maxneighbor} and \emph{numlocal}. Initialize i to 1, and mincost
+  to a large number. 2. Set \emph{current} to an arbitrary node in
+  \(G_{n,k}\). 3. Set \emph{j}=1. 4. Consider a random neighbor of
+  \emph{S} of \emph{current}. Calculate the cost differential of the two
+  nodes, using: \[ TC_{mp} = \sum_j(C_{jmp}) \] 5. If \emph{S} has a lower
+  cost, ser \emph{current} to \emph{S}, and go to Step 3. 6. Otherwise,
+  increment \emph{j} by 1. If \(j <= maxneighbor\), go to Step 4. 7.
+  Otherwise, when \(j > maxneighbor\), compare the cost of \(current\)
+  compared to \(mincost\). If \(current < mincost\), set \(mincost\) to
+  the cost of \(current\), and set \(bestnode\) to \(current\). 8.
+  Increment \emph{i} by 1. If \(i> numlocal\), output \(bestnode\) and
+  stop. Otherwise, go to Step 2.
   
   *Randomized re-sampling, ensuring efficiency and quality
   
@@ -549,22 +698,25 @@ predict cluster.
   use data from 2016 because of size restrictions. The data contains
   spatial information, quantitative, and a few categorical variables.
   
-  There is demographic information as well as variables that are
-  indicators of health status. The health status variables include: poor
-  to fair health (the percentage of adults reporting fair or poor health
-  (age-adjusted)), poor physical health days (average number of physically
-  unhealthy days reported in the past 30 days (age-adjusted)), physical
-  inactivity (the percentage of adults aged 20 and over reporting no
-  leisure-time physical inactivity), and adult obesity (the percentage of
-  adults to report a BMI of greater than or equal to 30). In interpreting
-  the health indicator variables, the higher the values for these
-  variables, the less healthy a person is.
+  The data contians demographic information, latitude and longitude, and
+  variables that are indicators of health status. The health status
+  variables include: poor to fair health (the percentage of adults
+  reporting fair or poor health (age-adjusted)), poor physical health days
+  (average number of physically unhealthy days reported in the past 30
+  days (age-adjusted)), physical inactivity (the percentage of adults aged
+  20 and over reporting no leisure-time physical inactivity), and adult
+  obesity (the percentage of adults to report a BMI of greater than or
+  equal to 30). In interpreting the health indicator variables, the higher
+  the values for these variables, the less healthy a person is.
   
   For our Stat 495 project, we used mapping techniques to visualize and
-  analyze the data. We were unable to draw many conclusions from the map,
-  which is why I am interested in analyzing the data through clustering.
-  Since clustering utilizes spatial information, it may be helpful in
-  finding patterns in the data.
+  analyze our data. The only significant relationships we were able to
+  find were between demographic information and health status; we were
+  unable to relate health status with location. I am interested in
+  analyzing the data through clustering, to further analyze whether the
+  location of an observation is related to one's health status. Since
+  clustering utilizes spatial information, it may be helpful in finding
+  patterns in the data.
   
   My research question is to see whether there are clusters of people with
   exceptionally good or exceptionally poor health. This information could
@@ -899,14 +1051,33 @@ predict cluster.
   is very high, which is a concern when interpreting the cluster
   results\ldots{}
   
+  Another method is to look at the silhouette width of the cluster. As
+  mentioned in Chapter 1 the Silhouette method helps us determine how many
+  clusters best fits the data. The Silhoutte widths of the cluster
+  determine how well an object truly belongs to its assigned cluster.
+  Based on many experiments and research, a silhouette width of 0.71-1
+  indicates a strong cluster, 0.51-0.7 indicates a resonable cluster,
+  0.26- 0.5 indicates a weak or artifical cluster, and less than or equal
+  to 0.25 indicates no cluster found.
+  
+  In this example, the silhouette widths were: 0.422183 for cluster 1,
+  0.634548 for cluster 2, and 0.172013 for cluster 3. In analyzing these
+  values, cluster 1 is a weak or artifical cluster, cluster 2 is a
+  reasonable cluster, and cluster 3 indicates no cluster found.
+  
+  The overall evaluation of CLARA with this data is that the algorithm did
+  not work well. The clusters were very weak, therefore, one should not
+  draw conclusions based on the results from this analysis.
+  
   \subsection{Model to Predict Cluster}\label{model-to-predict-cluster}
   
   The CLARA method found three clusters to group the health data. While
-  the WSS value of over 30,000 indicated the clustering may not be very
-  accurate or useful, I want to determine if I can predict the cluster
-  number (1, 2, or 3), given the health indicators. This would be helpful
-  information, say there is a new data observation and I want to
-  categorize it into cluster 1, 2, or 3.
+  the WSS value and silhouette widths of the clusters indicated the
+  clustering may not be very accurate or useful, I still want to
+  investigate if I can predict the cluster number (1, 2, or 3), given the
+  health indicator variables. This would be helpful information, if I
+  wanted to categorize a new observation, given its values for the health
+  variables used.
   
   To start this process, I first had to include a variable with cluster
   number (from the CLARA method) to the original sample of the data set.
@@ -1157,72 +1328,36 @@ predict cluster.
   
   \setcounter{chapter}{4} \setcounter{section}{0}
   
-  If we don't want Conclusion to have a chapter number next to it, we can
-  add the \texttt{\{.unnumbered\}} attribute. This has an unintended
-  consequence of the sections being labeled as 3.6 for example though
-  instead of 4.1. The \LaTeX~commands immediately following the Conclusion
-  declaration get things back on track.
+  In conclusion, clustering methods are very useful for spatial data in
+  determining patterns and in visulizing data sets. There are MANY
+  algorithms out there that analyze spatial data, and these methods
+  continue to grow year to year both in quanitity and quality (handling
+  more data and higher complexity data). The methods discussed in this
+  paper are considered partioning clustering methods. The most popular
+  partitioning clustering method was K-means, which was discussed in
+  comparison to K-medoids. To further dive into K-medoids methods, PAM
+  (Partitioning Around Medoids), CLARA (Clustering LArge Applications),
+  and CLARANS (Clustering Large Applications based on RANdomized Search)
+  were explained and explored.
   
-  \subsubsection{More info}\label{more-info}
+  Finally, example data from my Stat 495 project provided an explicit
+  example of the CLARA algorithm. In my Stat 495 project, we were unable
+  to draw conclusions about the health status and location of data
+  observations through mapping visualizations. This lead to my interest in
+  further analyzing the data using clustering algorithms, such as CLARA.
   
-  And here's some other random info: the first paragraph after a chapter
-  title or section head \emph{shouldn't be} indented, because indents are
-  to tell the reader that you're starting a new paragraph. Since that's
-  obvious after a chapter or section title, proper typesetting doesn't add
-  an indent there.
+  For the example, the Elbow and Silhouette methods were used to determine
+  \emph{k} clusters, and the CLARA algorithm then divided the objects into
+  clusters. A brief evaluation of the clusters revealed a very high
+  within-cluster sum of squares, indicating that the clusters were not of
+  very high quality.
   
-  \appendix
-  
-  \singlespacing
-  
-  \chapter{The First Appendix}\label{the-first-appendix}
-  
-  This first appendix includes all of the R chunks of code that were
-  hidden throughout the document (using the \texttt{include\ =\ FALSE}
-  chunk tag) to help with readibility and/or setup.
-  
-  \subsubsection{In the main Rmd file:}\label{in-the-main-rmd-file}
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
-  \CommentTok{# This chunk ensures that the acstats package is}
-  \CommentTok{# installed and loaded. This acstats package includes}
-  \CommentTok{# the template files for the thesis and also two functions}
-  \CommentTok{# used for labeling and referencing}
-  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(devtools))}
-    \KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
-  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(acstats))\{}
-    \KeywordTok{library}\NormalTok{(devtools)}
-  \NormalTok{  devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"Amherst-Statistics/acstats"}\NormalTok{)}
-  \NormalTok{\}}
-  \KeywordTok{library}\NormalTok{(acstats)}
-  \end{Highlighting}
-  \end{Shaded}
-  
-  \subsubsection{\texorpdfstring{In
-  \protect\hyperlink{ref_labels}{}:}{In :}}\label{in}
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
-  \CommentTok{# This chunk ensures that the acstats package is}
-  \CommentTok{# installed and loaded. This acstats package includes}
-  \CommentTok{# the template files for the thesis and also two functions}
-  \CommentTok{# used for labeling and referencing}
-  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(devtools))}
-    \KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
-  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(dplyr))}
-      \KeywordTok{install.packages}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
-  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(ggplot2))}
-      \KeywordTok{install.packages}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
-  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(acstats))\{}
-    \KeywordTok{library}\NormalTok{(devtools)}
-  \NormalTok{  devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"Amherst-Statistics/acstats"}\NormalTok{)}
-  \NormalTok{\}}
-  \end{Highlighting}
-  \end{Shaded}
-  
-  \chapter{The Second Appendix, for
-  Fun}\label{the-second-appendix-for-fun}
+  In determining whether one could predict an observation's cluster based
+  on a person's health status, multivariate linear regression models were
+  performed. None of the models proved to be very useful; however, the
+  best model ended up being able to predict 17.5\% of the variation in the
+  model. The data again didn't seem to have many patterns, which further
+  confirmed the results from my Stat 495 project.
   
   \backmatter
   
