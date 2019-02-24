@@ -9,14 +9,14 @@ output: pdf_document
 You can delete the header-includes (lines 3-5 above) if you like and also the chunk below since it is loaded in the skeleton.Rmd file.  They are included so that chap2.Rmd will compile by itself when you hit Knit PDF.
 -->
 
-# Spatial Clustering Methods {#typeset-equ}
+# Clustering Methods Continued {#typeset-equ}
 
 ## PAM
 Partitioning Around Medoids (PAM) is the most commonly used type of k-medoid clustering (Kaufmann & Rousseeuw, 1987).
 
-It iterates through all the k cluster centers and tries to replace the center with one of the other objects (n-k possibilities). [rec 2]. For a replacement to occur, the squared error function must decrease (if it does not decrease, there is no replacement). The algorithm eventually terminates with a local optimum. 
+It iterates through all the k cluster centers and tries to replace the center with one of the other objects (n-k possibilities) [Rec 2]. For a replacement to occur, the squared error function must decrease (if it does not decrease, there is no replacement). The algorithm eventually terminates with a local optimum. 
 
-The total complexity of PAM in one iteration is **formula: $$O(k(n-k)^2)$$ (o= each non-medoid data point, _k_= # of cluster centers, $$(n-k)$$ objects to compare to, and $$(n-k)$$ operations for calculating E). This makes for a costly computation when n is large. Works best for n= 100, k=5. 
+The total complexity of PAM in one iteration is $$O(k(n-k)^2)$$ (O= each non-medoid data point, _k_= # of cluster centers, $$(n-k)$$ objects to compare to, and $$(n-k)$$ operations for calculating E). This makes for a costly computation when n is large. The algorithm works best when n= 100 and _k_=5. 
 
 Explanation of PAM, REC 6, P. 146--> 4 cases, and algorithm Rec 6 bibliography [@ng1994]
 
