@@ -441,6 +441,8 @@ predict cluster.
   it does not decrease, there is no replacement). The algorithm eventually
   terminates with a local optimum.
   
+  The squared error function calculates the average dissimilarity
+  
   The total complexity of PAM in one iteration is \[O(k(n-k)^2)\] (O= each
   non-medoid data point, \emph{k}= \# of cluster centers, \[(n-k)\]
   objects to compare to, and \[(n-k)\] operations for calculating E). This
@@ -463,6 +465,20 @@ predict cluster.
   or how it is calculated). If a new set of medoids gives a lower
   dissimilarity than a previous best solution, then the best solution is
   replaced with a new set of medoids {[}Rec 2, p.~7{]}.
+  
+  Experiments indicate that 5 samples of size 40+ 2 \emph{k} give
+  satisfactory results {[}Rec 6, p.~146{]}.
+  
+  The steps for the algorithm are as follows: 1. For i= 1 to 5, repeat the
+  following steps: 2. Draw a sample of 40+ 2 \emph{k} objects from the
+  entire data set, and use PAM to find \emph{k} medoids of the sample. 3.
+  For each object \(O_j\) in the entire data set, determine which of the
+  \emph{k} medoids are most similar to \(O_j\). 4. Calculate the average
+  dissimilarity of the clustering obtained in the previous step. If this
+  value is less than the current minimum, use this value as the current
+  minimum, and retain the \emph{k} meoids found in Step 2 as the best
+  medoids obtained so far. 5. Return to Step 1 to start the next
+  iteration.
   
   *PAM on samples
   
@@ -527,10 +543,40 @@ predict cluster.
   
   \section{Exploring the Data}\label{exploring-the-data}
   
-  Data came from Stat 495 final project. (use info from project\ldots{}).
-  Needed a sample of 1000\ldots{}
+  In this example, I will further explore the data from my Stat 495 final
+  project. The data is from DataUSA, which uses public US Government data
+  to analyze and visualize relationships. In the project, we decided to
+  use data from 2016 because of size restrictions. The data contains
+  spatial information, quantitative, and a few categorical variables.
   
-  Importing the data:
+  There is demographic information as well as variables that are
+  indicators of health status. The health status variables include: poor
+  to fair health (the percentage of adults reporting fair or poor health
+  (age-adjusted)), poor physical health days (average number of physically
+  unhealthy days reported in the past 30 days (age-adjusted)), physical
+  inactivity (the percentage of adults aged 20 and over reporting no
+  leisure-time physical inactivity), and adult obesity (the percentage of
+  adults to report a BMI of greater than or equal to 30). In interpreting
+  the health indicator variables, the higher the values for these
+  variables, the less healthy a person is.
+  
+  For our Stat 495 project, we used mapping techniques to visualize and
+  analyze the data. We were unable to draw many conclusions from the map,
+  which is why I am interested in analyzing the data through clustering.
+  Since clustering utilizes spatial information, it may be helpful in
+  finding patterns in the data.
+  
+  My research question is to see whether there are clusters of people with
+  exceptionally good or exceptionally poor health. This information could
+  lead to further insights into what environmental or other factors are
+  impacting peoples' health.
+  
+  I plan to use the CLARA method, since I have more than 100 observations.
+  The data set in fact has over 60,000 observations, so I will need to
+  sample about 1000 observations in order to produce the best results
+  using CLARA.
+  
+  My first step is to import the data.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -557,6 +603,9 @@ predict cluster.
   See spec(...) for full column specifications.
   \end{verbatim}
   
+  Next, I will take a random sample of 1000 observations. I assume the
+  sample is representative of the data set because n=1000.
+  
   \begin{Shaded}
   \begin{Highlighting}[]
   \KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
@@ -566,8 +615,10 @@ predict cluster.
   \end{Highlighting}
   \end{Shaded}
   
-  Picking variables to focus on--\textgreater{} expanding conclusions from
-  Stat 495 project
+  The data set I imported has 64 variables, which are too many for this
+  example. Since my research question is focused around peoples' health, I
+  will only include the health indicator variables and the latitude and
+  longitude of the data (spatial information).
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -577,9 +628,16 @@ predict cluster.
   \end{Highlighting}
   \end{Shaded}
   
+  The data is now ready to apply CLARA.
+  
   \section{Applying CLARA}\label{applying-clara}
   
-  Step 1: finding k
+  Step 1: Determining \emph{k}.
+  
+  One of the major steps in clustering algorithms is determining how many
+  \emph{k} clusters is appropriate. In Chapter 1, I explained the Elbow
+  and Silhouette methods of determining \emph{k}. I will perform both
+  methods on this data to start.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -590,185 +648,203 @@ predict cluster.
   \CommentTok{#library(factoextra)}
   \CommentTok{#library(NbClust)}
   \CommentTok{#library(ggplot2)}
+  \CommentTok{#first I must omit any of the missing data, so that the functions can run}
   \NormalTok{new<-}\StringTok{ }\KeywordTok{na.omit}\NormalTok{(smallsample)}
   \CommentTok{# Elbow method}
+  \CommentTok{#fviz_nbclust(new, kmeans, method = "wss") +}
+   \CommentTok{#   geom_vline(xintercept = 4, linetype = 2)+}
+    \CommentTok{#labs(subtitle = "Elbow method")}
+  
   \KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"wss"}\NormalTok{) }\OperatorTok{+}
   \StringTok{    }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \DecValTok{4}\NormalTok{, }\DataTypeTok{linetype =} \DecValTok{2}\NormalTok{)}\OperatorTok{+}
   \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Elbow method"}\NormalTok{)}
   \end{Highlighting}
   \end{Shaded}
   
-  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-4-1} \end{center}
-  
-  Step 2: Run CLARA function
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-5-1} \end{center}
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \CommentTok{#new<- na.omit(smallsample)}
+  \KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"silhouette"}\NormalTok{) }\OperatorTok{+}
+  \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Silhouette method"}\NormalTok{)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-5-2} \end{center}
+  
+  According to the Elbow method, \emph{k} should be 4 (where the elbow is
+  in the graph). According to the Silhouette method, \emph{k} should be 2
+  (the maximum point in the graph). Since there is variation in values of
+  \emph{k} for these methods I will take the average of the two to
+  determine \emph{k}.
+  
+  Step 2: Run CLARA function
+  
+  Next, I will run the CLARA algorithm on the data, using the criteria of
+  \emph{k}=3.
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
   \CommentTok{#library(cluster)}
   \NormalTok{## run CLARA}
-  \NormalTok{clarasamp <-}\StringTok{ }\KeywordTok{clara}\NormalTok{(new[}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{], }\DecValTok{4}\NormalTok{)}
+  \NormalTok{clarasamp <-}\StringTok{ }\KeywordTok{clara}\NormalTok{(new[}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{], }\DecValTok{3}\NormalTok{)}
   \end{Highlighting}
   \end{Shaded}
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \NormalTok{## print components of clarax}
+  \NormalTok{## print components of clara}
   \KeywordTok{print}\NormalTok{(clarasamp)}
   \end{Highlighting}
   \end{Shaded}
   
   \begin{verbatim}
-  Call:    clara(x = new[1:6], k = 4) 
+  Call:    clara(x = new[1:6], k = 3) 
   Medoids:
        Latitude_tri Longitude_tri poor_or_fair_health
-  [1,]      38.6364      -83.6929               0.200
+  [1,]      39.3265      -84.4388               0.155
   [2,]      40.3973      -75.9357               0.165
-  [3,]      36.1335      -96.0532               0.196
-  [4,]      45.4342     -123.0000               0.110
+  [3,]      36.1336      -96.1039               0.196
        poor_physical_health_days physical_inactivity adult_obesity
-  [1,]                       4.4               0.299         0.283
+  [1,]                       3.7               0.232         0.289
   [2,]                       3.7               0.245         0.308
   [3,]                       4.6               0.353         0.355
-  [4,]                       3.3               0.137         0.244
-  Objective function:  4.691022
-  Clustering vector:   int [1:925] 1 2 1 3 1 3 1 1 1 1 1 3 1 2 1 3 3 3 ...
-  Cluster sizes:           453 195 230 47 
+  Objective function:  5.659219
+  Clustering vector:   int [1:925] 1 2 1 3 1 3 1 1 1 1 1 3 1 2 1 3 1 3 ...
+  Cluster sizes:           457 205 263 
   Best sample:
-   [1]   5  11  24  86 139 149 162 175 177 192 208 224 242 285 306 311 316
-  [18] 353 361 370 389 400 404 410 429 468 471 478 489 506 589 679 691 703
-  [35] 719 726 736 741 800 811 815 818 877 882 883 895 902 918
+   [1]   5  24  86 139 149 175 177 192 208 224 242 285 306 316 333 353 361
+  [18] 370 389 400 404 410 429 468 471 489 502 506 567 593 679 691 703 719
+  [35] 726 741 780 800 811 815 818 877 882 883 902 918
   
   Available components:
    [1] "sample"     "medoids"    "i.med"      "clustering" "objective" 
    [6] "clusinfo"   "diss"       "call"       "silinfo"    "data"      
   \end{verbatim}
   
+  This output tells us a lot about the results of the clustering. To
+  start, the information from the Medoids section show that cluster 3
+  contains people with the worst health, in comparison to cluster 1 and 2.
+  For example, cluster 1 and 2 average 3.7 poor\_physical\_health\_days,
+  while cluster 3 averages 4.6. This difference was seen in all four
+  health indicator variables.
+  
+  The cluster sizes are also noted. There are 457 observations in cluster
+  1, 205 in cluster 2, and 263 in cluster 3.
+  
   \begin{Shaded}
   \begin{Highlighting}[]
-  \KeywordTok{summary}\NormalTok{(clarasamp)}
+  \CommentTok{#more output from CLARA}
+  
+  \CommentTok{#cluster number for each observation}
+  \KeywordTok{print}\NormalTok{(clarasamp}\OperatorTok{$}\NormalTok{cluster)}
   \end{Highlighting}
   \end{Shaded}
   
   \begin{verbatim}
-  Object of class 'clara' from call:
-   clara(x = new[1:6], k = 4) 
-  Medoids:
-       Latitude_tri Longitude_tri poor_or_fair_health
-  [1,]      38.6364      -83.6929               0.200
-  [2,]      40.3973      -75.9357               0.165
-  [3,]      36.1335      -96.0532               0.196
-  [4,]      45.4342     -123.0000               0.110
-       poor_physical_health_days physical_inactivity adult_obesity
-  [1,]                       4.4               0.299         0.283
-  [2,]                       3.7               0.245         0.308
-  [3,]                       4.6               0.353         0.355
-  [4,]                       3.3               0.137         0.244
-  Objective function:   4.691022 
-  Numerical information per cluster:
-       size  max_diss  av_diss isolation
-  [1,]  453 13.228882 4.578281  1.656594
-  [2,]  195  8.392191 2.971767  1.050917
-  [3,]  230 14.554453 6.249473  1.153918
-  [4,]   47 42.497226 5.284278  1.489171
-  Average silhouette width per cluster:
-  [1] 0.2863797 0.6457187 0.4655863 0.9673973
-  Average silhouette width of best sample: 0.4306859 
-  
-  Best sample:
-   [1]   5  11  24  86 139 149 162 175 177 192 208 224 242 285 306 311 316
-  [18] 353 361 370 389 400 404 410 429 468 471 478 489 506 589 679 691 703
-  [35] 719 726 736 741 800 811 815 818 877 882 883 895 902 918
-  Clustering vector:
-    [1] 1 2 1 3 1 3 1 1 1 1 1 3 1 2 1 3 3 3 3 2 1 3 2 1 1 3 3 2 2 1 1 2 3 1 3
-   [36] 1 1 1 3 3 1 1 1 1 1 1 1 1 1 2 1 1 3 1 1 1 1 4 1 1 1 1 2 2 3 3 1 2 1 3
-   [71] 1 1 3 3 1 3 1 4 1 2 1 2 4 1 1 3 1 2 4 3 3 3 1 1 3 4 4 1 2 2 1 2 3 3 1
-  [106] 1 1 3 3 4 1 3 3 4 2 1 2 3 2 3 2 2 1 3 1 2 1 1 1 3 2 4 1 2 1 1 2 1 3 3
-  [141] 1 2 1 1 1 1 2 1 1 2 2 1 1 3 3 1 3 1 3 1 3 1 1 2 1 3 1 4 3 1 1 3 1 3 3
-  [176] 1 3 1 1 4 2 1 1 1 1 2 1 1 3 1 1 3 2 1 2 3 3 2 1 1 1 2 1 3 2 1 2 1 1 1
-  [211] 1 1 1 2 1 3 4 2 4 3 1 1 3 2 1 1 3 4 3 2 2 1 1 1 3 3 1 1 3 1 1 2 1 2 3
-  [246] 2 1 1 3 1 1 3 4 2 1 1 2 3 1 2 1 1 1 3 1 4 2 3 2 1 3 2 2 3 1 1 3 2 1 3
-  [281] 1 1 3 3 1 1 3 1 2 2 3 1 1 3 1 2 1 1 1 1 1 3 1 1 1 1 3 3 1 3 1 1 3 1 1
-  [316] 3 1 2 1 1 1 3 2 3 1 1 3 1 1 4 2 1 1 1 3 1 2 1 2 2 1 3 1 1 3 3 4 3 1 1
-  [351] 1 1 1 1 1 3 1 3 1 1 1 3 3 1 2 1 3 1 2 3 1 3 3 2 2 2 1 1 3 2 3 3 3 1 1
-  [386] 1 1 2 1 3 1 1 2 1 2 2 1 3 3 2 1 4 2 2 1 1 1 1 1 1 3 1 1 1 1 1 2 1 3 1
-  [421] 3 3 2 3 1 2 1 3 2 1 1 1 1 4 4 1 1 3 1 2 1 1 1 3 1 2 1 1 2 1 3 1 1 2 4
-  [456] 1 1 2 1 1 1 2 1 1 4 3 1 1 4 4 1 1 3 1 4 1 1 1 1 3 4 2 1 1 1 1 2 2 3 1
-  [491] 2 3 1 3 3 1 2 2 2 2 1 2 2 3 1 1 2 3 2 1 1 2 3 2 3 3 2 2 2 3 2 1 3 2 3
-  [526] 3 3 1 4 1 1 2 2 2 1 3 2 1 1 1 3 4 1 1 3 1 1 2 3 1 2 1 3 1 1 3 2 3 3 3
-  [561] 1 2 1 2 1 3 2 3 1 4 1 1 3 3 2 1 1 3 2 2 1 1 2 1 2 1 1 1 1 3 2 1 3 4 1
-  [596] 3 1 1 2 1 3 2 3 4 1 3 1 1 1 4 3 1 2 1 1 3 4 2 1 2 3 2 1 2 3 1 1 2 1 2
-  [631] 1 1 4 3 1 2 3 1 1 3 1 4 3 1 1 1 2 2 3 2 1 1 1 2 1 1 1 2 3 1 3 1 1 3 1
-  [666] 1 1 1 3 1 2 1 3 1 1 1 1 1 2 2 3 1 2 3 2 2 1 1 2 2 3 2 1 1 1 2 1 3 3 1
-  [701] 1 1 1 4 2 1 3 1 1 2 4 3 1 1 1 3 3 1 1 1 1 3 1 1 2 4 2 3 1 1 1 3 1 1 3
-  [736] 1 2 1 2 3 2 2 2 1 3 3 3 1 1 1 2 3 3 3 1 3 3 2 1 2 3 3 1 2 4 2 1 1 3 1
-  [771] 2 1 1 1 3 1 3 3 1 1 3 3 1 3 1 2 1 1 3 1 4 1 1 1 1 3 2 2 2 4 1 3 3 1 1
-  [806] 1 3 1 1 1 2 1 1 1 2 2 2 1 1 2 1 3 3 3 3 1 3 2 4 2 1 2 3 1 1 3 2 1 1 4
-  [841] 2 2 2 2 2 1 3 1 2 1 2 4 3 3 1 1 3 1 1 1 1 1 2 3 3 2 4 1 2 1 1 1 1 2 1
-  [876] 1 3 1 1 1 3 3 1 1 1 3 1 1 3 1 1 3 1 3 1 3 2 2 2 3 1 2 2 2 1 1 4 1 2 1
+    [1] 1 2 1 3 1 3 1 1 1 1 1 3 1 2 1 3 1 3 3 2 1 3 2 1 1 1 3 2 2 1 1 2 3 1 3
+   [36] 2 1 1 3 3 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 3 1 1 1 1 2 2 3 3 1 2 1 3
+   [71] 1 1 3 3 1 3 1 3 1 2 1 2 3 1 1 3 1 2 3 3 3 3 1 1 3 3 3 1 2 2 1 2 3 3 1
+  [106] 1 1 3 3 3 1 3 3 3 2 1 2 3 2 3 2 2 1 3 1 2 1 1 1 3 2 3 1 2 1 1 2 1 3 3
+  [141] 1 2 1 1 1 1 2 1 1 2 2 1 1 3 3 1 3 1 3 1 3 1 1 2 1 3 1 3 3 1 1 3 1 3 3
+  [176] 1 3 1 2 3 2 1 2 1 1 2 1 1 3 1 1 3 2 1 2 3 3 2 1 1 1 2 1 3 2 1 2 1 1 1
+  [211] 1 1 1 2 1 3 3 2 3 3 1 1 3 2 1 1 3 3 3 2 2 1 1 1 3 3 1 1 1 1 1 2 1 2 3
+  [246] 2 1 1 1 1 1 3 3 2 1 1 2 1 1 2 1 1 1 3 2 3 2 3 2 2 3 2 2 3 1 1 3 2 1 3
+  [281] 2 1 1 3 1 1 3 1 2 2 3 1 1 3 1 2 1 1 1 1 1 3 1 1 1 1 3 3 1 3 1 1 3 1 1
+  [316] 3 1 2 1 1 1 3 2 3 1 1 3 1 1 3 2 1 1 1 3 1 2 1 2 2 1 3 1 1 3 3 3 3 1 1
+  [351] 1 1 1 1 1 3 1 3 2 1 1 3 3 1 2 2 3 1 2 3 1 3 3 2 2 2 1 1 3 2 3 3 3 1 1
+  [386] 1 1 2 1 3 1 1 2 1 2 2 1 3 3 2 1 3 2 2 1 1 1 1 1 1 3 1 1 1 1 1 2 1 3 1
+  [421] 3 3 2 3 1 2 1 3 2 1 1 2 1 3 3 1 1 3 1 2 1 1 1 3 1 2 1 1 2 1 3 1 1 2 3
+  [456] 1 1 2 1 1 1 2 1 1 3 3 1 1 3 3 1 1 3 1 3 1 1 1 1 3 3 2 1 1 1 1 2 2 3 1
+  [491] 2 3 1 3 3 1 2 2 2 2 1 2 2 3 1 1 2 3 2 1 1 2 3 2 3 3 2 2 2 1 2 1 3 2 3
+  [526] 3 3 1 3 1 1 2 2 2 1 3 2 1 1 1 3 3 1 1 3 1 1 2 3 1 2 1 3 1 1 3 2 3 3 3
+  [561] 1 2 1 2 1 3 2 3 1 3 1 1 3 3 2 1 1 3 2 2 1 1 2 1 2 1 1 1 1 1 2 1 3 3 1
+  [596] 3 1 2 2 1 3 2 3 3 1 3 1 1 1 3 3 1 2 1 1 3 3 2 1 2 3 2 1 2 3 1 1 2 1 2
+  [631] 1 1 3 3 1 2 3 1 1 3 1 3 3 1 1 1 2 2 3 2 1 1 1 2 1 1 1 2 3 1 3 1 1 3 1
+  [666] 1 1 1 3 1 2 1 3 1 1 1 1 1 2 2 3 1 2 1 2 2 1 1 2 2 3 2 1 1 1 2 1 3 3 1
+  [701] 1 1 1 3 2 1 3 1 1 2 3 3 1 1 1 3 3 1 1 1 1 3 1 1 2 3 2 3 1 1 1 3 1 1 3
+  [736] 1 2 1 2 3 2 2 2 1 3 3 3 1 1 1 2 3 3 3 1 3 3 2 1 2 3 3 1 2 3 2 1 1 3 1
+  [771] 2 1 1 1 3 1 3 1 1 1 3 1 1 3 1 2 1 1 3 1 3 1 1 1 1 3 2 2 2 3 1 3 3 1 1
+  [806] 1 3 1 1 1 2 1 1 1 2 2 2 1 1 2 1 3 3 3 3 1 3 2 3 2 1 2 1 1 1 3 2 1 1 3
+  [841] 2 2 2 2 2 1 3 1 2 1 2 3 3 3 1 1 3 1 1 1 1 1 2 3 3 2 3 1 2 1 1 1 1 2 1
+  [876] 1 3 1 1 1 3 3 1 1 1 1 1 1 3 1 1 3 1 3 1 3 2 2 2 3 1 2 2 2 1 1 3 1 2 1
   [911] 3 1 3 2 3 3 1 1 2 1 3 1 1 3 1
-  
-  Silhouette plot information for best sample:
-      cluster neighbor   sil_width
-  11        1        2  0.51160188
-  703       1        2  0.50784463
-  149       1        3  0.50590891
-  208       1        2  0.48693148
-  162       1        3  0.47468187
-  471       1        2  0.44956360
-  410       1        2  0.42362707
-  389       1        2  0.42157038
-  5         1        2  0.41457596
-  719       1        2  0.41289559
-  468       1        2  0.37020730
-  361       1        2  0.35061984
-  306       1        2  0.34569720
-  285       1        2  0.34506744
-  818       1        3  0.30770633
-  506       1        3  0.21671937
-  589       1        2  0.20444489
-  918       1        2  0.19851903
-  736       1        3  0.18549695
-  478       1        2  0.16554915
-  24        1        2  0.15565598
-  311       1        2  0.04768370
-  353       1        3  0.03173421
-  883       1        2 -0.12930919
-  895       1        2 -0.24550081
-  224       2        1  0.76643863
-  679       2        1  0.75957431
-  902       2        1  0.74802681
-  404       2        1  0.74508892
-  242       2        1  0.73417881
-  400       2        1  0.73283435
-  741       2        1  0.61737358
-  811       2        1  0.47833894
-  815       2        1  0.43844208
-  429       2        1  0.43689016
-  691       3        1  0.62256512
-  370       3        1  0.62175433
-  489       3        1  0.61988506
-  882       3        1  0.60671130
-  139       3        1  0.58178390
-  177       3        1  0.55053388
-  175       3        1  0.43464488
-  86        3        1  0.29525285
-  192       3        1  0.28445790
-  316       3        1  0.27777790
-  877       3        1  0.22608234
-  800       4        3  0.96743579
-  726       4        3  0.96735884
-  
-  1128 dissimilarities, summarized :
-     Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.0507  6.3776 10.6340 12.8320 15.7130 51.8530 
-  Metric :  euclidean 
-  Number of objects : 48
-  
-  Available components:
-   [1] "sample"     "medoids"    "i.med"      "clustering" "objective" 
-   [6] "clusinfo"   "diss"       "call"       "silinfo"    "data"      
   \end{verbatim}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \CommentTok{#silhouette width for each cluster}
+  \KeywordTok{print}\NormalTok{(clarasamp}\OperatorTok{$}\NormalTok{silinfo)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{verbatim}
+  $widths
+      cluster neighbor   sil_width
+  703       1        2  0.59850204
+  780       1        2  0.59563931
+  208       1        2  0.58522416
+  149       1        2  0.55721957
+  471       1        2  0.54671717
+  719       1        2  0.52773515
+  818       1        2  0.52638884
+  410       1        2  0.52317171
+  5         1        2  0.49272339
+  333       1        2  0.48262589
+  361       1        2  0.46877636
+  306       1        2  0.46546394
+  389       1        2  0.40532336
+  506       1        2  0.40333194
+  468       1        2  0.35920963
+  353       1        3  0.32935312
+  285       1        2  0.31204760
+  918       1        2  0.16440373
+  24        1        2  0.13034904
+  883       1        2 -0.03054377
+  224       2        1  0.75049734
+  679       2        1  0.74239308
+  404       2        1  0.73164794
+  902       2        1  0.73161340
+  242       2        1  0.73125890
+  400       2        1  0.73078958
+  502       2        1  0.65554544
+  741       2        1  0.64706730
+  567       2        1  0.62730880
+  811       2        1  0.46502193
+  815       2        1  0.40449435
+  429       2        1  0.39693747
+  882       3        1  0.33188295
+  139       3        1  0.31419706
+  726       3        1  0.31186219
+  800       3        1  0.31127063
+  691       3        1  0.29040279
+  370       3        1  0.28765117
+  489       3        1  0.28371053
+  177       3        1  0.26300486
+  175       3        1  0.23220663
+  86        3        1  0.06439635
+  593       3        1  0.03655278
+  877       3        1 -0.06313781
+  192       3        1 -0.11112090
+  316       3        1 -0.14469112
+  
+  $clus.avg.widths
+  [1] 0.4221831 0.6345480 0.1720134
+  
+  $avg.width
+  [1] 0.401444
+  \end{verbatim}
+  
+  This information tells us even more about the CLARA output. The first
+  part gives us the categorizations of each data point to its cluster. The
+  second part of information gives us the average silhouette width for
+  each cluster. The silhouette widths were: 0.422183 for cluster 1,
+  0.634548 for cluster 2, and 0.172013 for cluster 3. The better the
+  clustering is, the greater the silhouette width; so we can determine
+  that cluster 2 was best compared to cluster 1 and 3.
+  
+  Next, I will walk through some of the visualizations given this new
+  clustering information.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -779,7 +855,14 @@ predict cluster.
   \end{Highlighting}
   \end{Shaded}
   
-  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-7-1} \end{center}
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-9-1} \end{center}
+  
+  The plot of the clusters does not look great. Aside from comparing
+  longitude with the other variables, the plots have entirely overlapping
+  clusters. This indicates that the CLARA method was unable to find great
+  patterns in the data.
+  
+  Next, I will use a version of a ggplot to plot the clusters.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -788,14 +871,45 @@ predict cluster.
   \end{Highlighting}
   \end{Shaded}
   
-  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-8-1} \end{center}
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-10-1} \end{center}
   
   \section{Evaluation of CLARA}\label{evaluation-of-clara}
   
+  There are multiple ways to determine the effectiveness of CLARA and the
+  quality of its clusters. One of the ways to internally validate the
+  method, is to look at its WSS. If there is a high WSS, it is likely the
+  method did not work very well.
+  
+  I plotted in the previous section in the Elbow method plot to determine
+  the number of clusters to use. Since I decided to use \emph{k}=3
+  clusters, I can now go back and calculate the WSS for the method.
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \NormalTok{elbow<-}\StringTok{ }\KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"wss"}\NormalTok{) }\OperatorTok{+}
+  \StringTok{    }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \DecValTok{3}\NormalTok{, }\DataTypeTok{linetype =} \DecValTok{2}\NormalTok{)}\OperatorTok{+}
+  \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Elbow method"}\NormalTok{)}
+  \NormalTok{elbow}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-11-1} \end{center}
+  
+  The Elbow method when \emph{k}=3, shows a WSS to be about 30,000. This
+  is very high, which is a concern when interpreting the cluster
+  results\ldots{}
+  
   \subsection{Model to Predict Cluster}\label{model-to-predict-cluster}
   
-  First, had to include a cluster variable in the original data set, using
-  the data provided by the CLARA function.
+  The CLARA method found three clusters to group the health data. While
+  the WSS value of over 30,000 indicated the clustering may not be very
+  accurate or useful, I want to determine if I can predict the cluster
+  number (1, 2, or 3), given the health indicators. This would be helpful
+  information, say there is a new data observation and I want to
+  categorize it into cluster 1, 2, or 3.
+  
+  To start this process, I first had to include a variable with cluster
+  number (from the CLARA method) to the original sample of the data set.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -804,6 +918,11 @@ predict cluster.
   \NormalTok{cluster_data<-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(new, cluster)}
   \end{Highlighting}
   \end{Shaded}
+  
+  Next, I looked at possible relationships between the health indicator
+  variables and cluster number. To start, I quickly looked at a
+  multivariate linear regression model to predict cluster using all of the
+  possible variables.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -818,65 +937,220 @@ predict cluster.
   lm(formula = cluster ~ ., data = cluster_data)
   
   Residuals:
-      Min      1Q  Median      3Q     Max 
-  -2.3742 -0.6013  0.0600  0.6334  1.6092 
+       Min       1Q   Median       3Q      Max 
+  -2.33635 -0.62036 -0.00065  0.59937  1.48615 
   
   Coefficients:
                              Estimate Std. Error t value Pr(>|t|)    
-  (Intercept)               -1.373221   0.386769  -3.550 0.000404 ***
-  Latitude_tri               0.004183   0.006661   0.628 0.530140    
-  Longitude_tri             -0.055900   0.002255 -24.786  < 2e-16 ***
-  poor_or_fair_health        8.194392   1.457716   5.621 2.51e-08 ***
-  poor_physical_health_days -0.913749   0.090846 -10.058  < 2e-16 ***
-  physical_inactivity        1.395680   0.751308   1.858 0.063536 .  
-  adult_obesity             -0.419444   0.839018  -0.500 0.617249    
+  (Intercept)                0.383530   0.376180   1.020  0.30822    
+  Latitude_tri              -0.007281   0.006479  -1.124  0.26141    
+  Longitude_tri             -0.039276   0.002194 -17.905  < 2e-16 ***
+  poor_or_fair_health       10.089001   1.417808   7.116 2.24e-12 ***
+  poor_physical_health_days -1.081969   0.088359 -12.245  < 2e-16 ***
+  physical_inactivity        1.986841   0.730739   2.719  0.00667 ** 
+  adult_obesity              0.332835   0.816048   0.408  0.68347    
   ---
   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
   
-  Residual standard error: 0.6984 on 918 degrees of freedom
-  Multiple R-squared:  0.4751,    Adjusted R-squared:  0.4717 
-  F-statistic: 138.5 on 6 and 918 DF,  p-value: < 2.2e-16
+  Residual standard error: 0.6793 on 918 degrees of freedom
+  Multiple R-squared:  0.3765,    Adjusted R-squared:  0.3724 
+  F-statistic: 92.38 on 6 and 918 DF,  p-value: < 2.2e-16
   \end{verbatim}
+  
+  According to this model, longitude, poor\_or\_fair\_health,
+  poor\_physical\_health\_days, and physical\_inactivity were strong
+  predictors of cluster number. Overall, the model seemed to fit the data
+  fairly well. The model had a high F-statistic and a low p-value of
+  \textless{}2e-16. The adjusted R-squared value was 0.372.
+  
+  In analyzing this model I realized that latitude and longitude were used
+  as quantitative variables instead of categorical. Since linear and
+  multivariate regression predictive models only use quantitative or
+  categorical variables, I realized that the latitude and longitude
+  (spatial information) would not be helpful.
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \CommentTok{#taking out lat and long}
+  \CommentTok{#taking out latitude and longitude}
   \NormalTok{vars <-}\StringTok{ }\KeywordTok{names}\NormalTok{(cluster_data) }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Latitude_tri"}\NormalTok{, }\StringTok{"Longitude_tri"}\NormalTok{)}
   \NormalTok{cluster_data_new <-}\StringTok{ }\NormalTok{cluster_data[}\OperatorTok{!}\NormalTok{vars]}
-  
-  \KeywordTok{ggpairs}\NormalTok{(cluster_data_new)}
   \end{Highlighting}
   \end{Shaded}
   
-  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-10-1} \end{center}
+  I ran another kitchen sink model, with only the health variables and
+  cluster information.
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \NormalTok{fun1<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \KeywordTok{summary}\NormalTok{(fun1)}
+  \NormalTok{new_kitchen_sink<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data=}\NormalTok{cluster_data_new)}
+  \KeywordTok{summary}\NormalTok{(new_kitchen_sink)}
   \end{Highlighting}
   \end{Shaded}
   
   \begin{verbatim}
   
   Call:
-  lm(formula = cluster ~ poor_physical_health_days, data = cluster_data_new)
+  lm(formula = cluster ~ ., data = cluster_data_new)
   
   Residuals:
       Min      1Q  Median      3Q     Max 
-  -1.3539 -0.8070 -0.1857  0.8144  2.4875 
+  -1.4582 -0.6918 -0.1393  0.6406  2.2221 
   
   Coefficients:
                             Estimate Std. Error t value Pr(>|t|)    
-  (Intercept)                3.40573    0.19278  17.667  < 2e-16 ***
-  poor_physical_health_days -0.42072    0.05183  -8.118 1.51e-15 ***
+  (Intercept)                 3.5366     0.2297  15.399  < 2e-16 ***
+  poor_or_fair_health        13.0696     1.3988   9.343  < 2e-16 ***
+  poor_physical_health_days  -1.2089     0.0964 -12.540  < 2e-16 ***
+  physical_inactivity        -0.9774     0.8086  -1.209  0.22705    
+  adult_obesity               2.8044     0.9247   3.033  0.00249 ** 
   ---
   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
   
-  Residual standard error: 0.9288 on 923 degrees of freedom
-  Multiple R-squared:  0.06664,   Adjusted R-squared:  0.06563 
-  F-statistic:  65.9 on 1 and 923 DF,  p-value: 1.509e-15
+  Residual standard error: 0.7882 on 920 degrees of freedom
+  Multiple R-squared:  0.1587,    Adjusted R-squared:  0.1551 
+  F-statistic: 43.39 on 4 and 920 DF,  p-value: < 2.2e-16
   \end{verbatim}
+  
+  This model had three significant predictors (poor\_or\_fair\_health,
+  poor\_physical\_health\_days, and adult\_obesity), a high F-statistic,
+  and a low p-value of \textless{}2e-16. The model did not fit the data
+  very well, and had an adjusted R-squared value of 0.155.
+  
+  Next, I looked at the possible correlations between cluster number and
+  the health indicator variables. I predicted the healthier people (lower
+  scores on the health indicator variables) would be in cluster 1, while
+  the least healthy people (higher scores on health indicator variables)
+  would be in cluster 3. I also predicted the health indicator variables
+  would be highly correlated with each other, considering they all are
+  aiding in predicting one's health.
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \KeywordTok{ggpairs}\NormalTok{(cluster_data_new)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-16-1} \end{center}
+  
+  The correlation plot shows strong positive correlations between
+  poor\_or\_fair\_health, poor\_physical\_health\_days,
+  physical\_inactivity, and adult\_obesity, as I had predicted. The
+  highest correlation was 0.884, between poor\_physical\_health\_days and
+  poor\_to\_fair\_health. All of the variables in general show bell-shaped
+  curves with a relatively even shape.
+  
+  The plots comparing the variables to the cluster number are hard to
+  interpret at first. To start, the poor\_to\_fair\_health versus cluster
+  plot shows that the highest values of poor\_or\_fair\_health are in
+  cluster 3. These look to be possible outliers, but regardless, it
+  confirms the prediction that the unhealthy people (high health variable
+  scores) are in cluster 3.
+  
+  The poor\_physical\_health\_days versus cluster number and
+  adult\_obesity versus cluster number show a couple of observations with
+  high health variable scores in cluster 3 as well. It is again unclear if
+  these points are outliers or not.
+  
+  In general, the plots show that cluster 2 has the smallest range of
+  health scores, which further confirms that cluster 2 had the highest
+  quality of clustering (the largest silhouette width). In terms of
+  correlation values, cluster number was shows to be sightly negatively
+  correlated with poor\_physical\_health\_days, with a correlation value
+  of -0.25.
+  
+  I had predicted the correlation to be positive, because the CLARA output
+  revealed cluster 3 to have the most unhealthy people. This would mean
+  the higher the health variable value, the higher the cluster number.
+  Since the correlations are in fact slightly negative, I believe the
+  reason for the higher health value mean score for cluster 3 was probably
+  due to the outliers also shown in the plots.
+  
+  All of correlations between the health variables and cluster number were
+  negative, indicating that the clustering was not very effective and
+  instead there may be outliers impacting the original analysis of CLARA.
+  
+  Nevertheless, I will continue to explore possible relationships between
+  health variables and cluster number. Based on the correlation plot, I
+  will explore poor\_or\_fair\_health (because of the plot),
+  poor\_physical\_health\_days (because of the correlation value), and
+  adult\_obesity (because of the plot).
+  
+  I tried numerous combinations of the variables as well as interaction
+  terms, because the variables are so highly correlated.
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \KeywordTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+  \CommentTok{#exploring possible relationships between health variables and cluster number}
+  
+  \NormalTok{fun1<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#low adjusted R-squared (0.155), but significant predictors}
+   
+  \NormalTok{fun2<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{fun3<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{fun4<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#low adjusted R-squared, highest of the 3 functions was 0.06}
+  
+  \NormalTok{fun5<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#added an interaction, raised the adjusted R-squared to 0.165}
+  
+  \NormalTok{fun6<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#tried a different interaction, about the same adjusted R-squared}
+  
+  \NormalTok{fun7<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#last combination of an interaction, highest adjusted R-squared yet (0.175)!}
+  \CommentTok{#only predictor not significant was poor_or_fair_health}
+  
+  \NormalTok{fun8<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{  }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#dropped poor_or_fair_health, about the same adjusted R-squared (0.174)}
+  
+  \NormalTok{fun9<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#tried a different interaction, low adjusted R-squared (0.0958)}
+  
+  \NormalTok{fun10<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#tried last combination of interaction, adjusted R-squared= 0.166}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  Most of the model had significant predictors; however, the R-squared
+  values were small; indicating that the models did not fit the data very
+  well.
+  
+  In comparing adjusted R-squared values and the number of predictors
+  used, the best model ended up being:
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \KeywordTok{summary}\NormalTok{(fun8)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{verbatim}
+  
+  Call:
+  lm(formula = cluster ~ poor_physical_health_days + adult_obesity + 
+      poor_or_fair_health:adult_obesity, data = cluster_data_new)
+  
+  Residuals:
+      Min      1Q  Median      3Q     Max 
+  -1.5661 -0.6691 -0.1815  0.5856  2.2755 
+  
+  Coefficients:
+                                    Estimate Std. Error t value Pr(>|t|)    
+  (Intercept)                        5.73676    0.36071  15.904  < 2e-16 ***
+  poor_physical_health_days         -1.24651    0.08954 -13.921  < 2e-16 ***
+  adult_obesity                     -4.81191    1.07188  -4.489 8.05e-06 ***
+  adult_obesity:poor_or_fair_health 42.15924    4.03943  10.437  < 2e-16 ***
+  ---
+  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  
+  Residual standard error: 0.7795 on 921 degrees of freedom
+  Multiple R-squared:  0.1763,    Adjusted R-squared:  0.1736 
+  F-statistic: 65.71 on 3 and 921 DF,  p-value: < 2.2e-16
+  \end{verbatim}
+  
+  This model used three predictors and had about the same \(R_squared\)
+  value as the previous model, with one less predictor.
   
   \chapter*{Conclusion}\label{conclusion}
   \addcontentsline{toc}{chapter}{Conclusion}
