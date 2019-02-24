@@ -20,29 +20,26 @@ if(!require(acstats)){
 ```
 
 # How to Cluster {#rmd-basics}
-There are many factors to consider when chosing a clustering algorithm, such as the application of the problem (what do you want to find out about this data?), quality vs speed trade off (size of data plays a role), characteristics of the data (i.e. numeric distance measures), dimensionality (typically as dimension increases the time it takes to run the method increases and quality of the data clusters decrease), and outliers (some methods are very sensitive to outliers) [Rec 2]. 
+There are many factors to consider when choosing a clustering algorithm, such as the application of the problem (what do you want to find out about this data?), quality vs speed trade off (the size of the data plays a role), characteristics of the data (i.e. numeric distance measures), dimensionality (typically as dimension increases the time it takes to run the method increases and quality of the data clusters decrease), and outliers (some methods are very sensitive to outliers) [Rec 2]. 
 
 ## Types of Clustering: Partitioning 
-There are four main types of clustering: hierarchial, partitioning, density-based, and methods-based. We will now dive into the partioning clustering techinque. 
+There are four main types of clustering: hierarchical, partitioning, density-based, and methods-based. Next, I'll dive into the partitioning clustering technique. 
 
 Partitioning cluster methods divide a set of data items into a number of non-overlapping clusters. A data item is typically assigned to a cluster based on a proximity or dissimilarity measure [Rec 2, p. 405]. 
 
-Typically, there is a dataset with _n_ observations and the goal is to divide them into  _K_ clusters so that an objective function is optimized (sum of square distances is minimized). 
+Usually, there is a data set with _n_ observations and the goal is to divide the data points into  _K_ clusters so that an objective function is optimized. 
 
-The most common objective function is the sum of squared errors (SSE), where $c_k$ is the centroid or mediod of the cluster $C_k$.
+The most common objective function is the sum of squared errors (SSE), where $c_k$ is the centroid or medoid of the cluster $C_k$.
 
 $$SSE(C)= \sum_{k=1}^K \sum_{x_{i}C_{k}} ||{x_i}- c_k||^2$$
 
-Partitioning clustering algorithms classifies the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group. [Rec 5, p. 18]. 
+Partitioning clustering algorithms classify the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group. [Rec 5, p. 18]. 
 
 
+## Methods to Create Clusters: _K_-Medoids
+There are many ways to create clusters. The most basic method is the _K_-means algorithm, which was developed by MacQueen in 1967 [Rec 5, p. 18]. In response to _K_-means being very sensitive to outliers, the _K_-medoid algorithm was created in 1987 [Rec 5, p. 19]. Both partitioning methods use iterative processes to find _K_ clusters; however, they use different ways to represent these clusters. 
 
-## How to Create Clusters: _K_-Means vs _K_-Medoids
-_K_-means algorithm and _k_-medoid algorithm are two examples of partitioning algorithms. They both ise iterative processes to find _K_ clusters; however, they use different ways to represent these clusters. 
-
-
-
-### _K_-Means (maybe don't include this)
+### _K_-Means
 
 _K_-means algorithm represents its n observations in _k_ groups, with the center of the groups being the mean/average observation. The goal of the algorithm is to find k centroids, one for each cluster. In order to do this, we must minimize an _objective function_, which is the squared error function for _k_ means. The objective function is: 
 $$O= \sum_{j=1}^k \sum_{i=1}^j ||{{X_i^{(j)}- C_j}}||^2$$
@@ -51,12 +48,21 @@ Where $|{{X_i^{(j)}- C_j}}|$ is an indicator of the distance of the data points 
 
 The steps of the algorithm are as follows:
 
-1. Choose K points in the space to represent the centroid. This works best if they are chosen to be far apart from eachother. 
-2. Assign each object to the cluster with the closest centroid. 
+1. Choose K points in the space to represent the centroid. This works best if they are chosen to be far apart from each other. 
+2. Assign each object in the data set to the cluster with the closest centroid. 
 3. When all of the clusters have been made, recalculate the positions of the K centroids. 
 4. Repeat steps 2 and 3 until the centroids no longer move. 
 
-This algorithm always terminates; however, it is sensitive both to outliers and to the initial randomly selected K cluster centers. Therefore, the algorithm should be run multiple times to reduce the effects from this sensitivity. [Rec 5, p. 18]. 
+This algorithm always terminates; however, it is sensitive both to outliers and to the initial randomly selected K cluster centers. Therefore, the algorithm should be run multiple times to reduce the effects from this sensitivity. 
+
+[Rec 5, p. 18]
+
+In order to determine how well _K_means worked, we use the within cluster sum-of-squares to determine the compactness/"goodness" of the clustering (and we want it as small as possible).
+
+We calculate the WSS by the following equation:
+
+$$WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- mu_k}})^2$$
+Where $x_i$ is a data point in cluster $C_k$ and $mu_k$ is the mean value assigned to the cluster $C_k$. [Rec 7].
 
 ### _K_ Medoids
 On the contrary, instead of taking the mean value of the objects in a cluster, the k-medoid method uses the most centrally located object in a cluster to be the cluster center [Rec 2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
@@ -64,47 +70,44 @@ On the contrary, instead of taking the mean value of the objects in a cluster, t
 Steps for K-medoids:
 1. Initial guess for centers $C_1$, $C_2$,... $C_k$ (i.e. randomly select k points from $X_1$, $X_2$,... $X_n$)
 2. Minimize over C: for each i= 1, 2,... n, find the cluster center $C_k$ closest to Xi and let C(i)=k. 
-3. Minimize over $C_1$, $C_2$,... $C_k$: for each k=1,... K, $C_k = X_k^*$, the medoid of points in cluster k. ie, the point Xi in the cluster k that minimizes $$\sum _{c(j)=k} ||{{X_j- X_i}}||^2$$
+3. Minimize over $C_1$, $C_2$,... $C_k$: for each k=1,... K, $C_k = X_k^*$, the medoid of points in cluster k. ie, the point Xi in the cluster k that minimizes $$\sum  _{c(j)=k} ||{{X_j- X_i}}||^2$$
 
-**same steps as K-means except BLANK (p. 6 in Rec 2)
-**steps in Rec 5, p. 19 for k-medoids
-
-Rec 5 p. 18-19 ***
-
-
-```{r clustering_pic, results = "asis"}
-#How to insert a figure, make sure amherst.png is in main directory
-
-label(path = "clustering_pic.png", 
-      caption = "CLARANS searching for a better solution", 
-      label = "CLARANS", type = "figure", scale= 0.5)
-```
-
+Basically, _K_means and _K_medoids follow very similar algorithms; however, _K_medoids uses the most centrally located object (medoid) in a cluster to be the cluster center. This causes there to only be at most one center changed for each iteration (makes the algorithm run slower). [rec 2, p. 6].
 
 ## How to Choose _K_
-Many ways to choose _k_, which is why these methods are so subjective. 
+Now that we've discussed different kinds of _K_means and _K_medoids partitioning methods, we know how to find _K_ clusters of data points; but how do we determine what _K_ is?
 
-I will describe two of the many ways to determine K, both of which use visuals to determine what value of k is appropriate for the data. The elbow method and silhouette method are common ways to find K when using the _K_ means and _K_ medoids algorithms. 
+Well, there are many ways to choose _k_, which is why these methods are so subjective. 
+
+I will describe two of the many ways to determine _K_, both of which use visuals to determine what value of _k_ is appropriate for the data. The elbow method and silhouette method are common ways to find _K_ when using the _K_ means and _K_ medoids algorithms. 
 
 ###Elbow Method
-To start, the elbow method looks at the total within-cluster sum of squares (WSS) and determines when there are enough clusters so that the next cluster does not improve the total WSS very much. This would be the appropriate _K_. 
+To start, the elbow method looks at the total within-cluster sum of squares (WSS) and determines when there are enough clusters so that the next cluster does not improve the total WSS very much. This would be the appropriate _K_ to choose. 
 
 The steps for this algorithm are as follows:
 
-1. Compute the clustering algorithm for different values of k (i.e. k from 1 to 10).
-2. For each k, calculate the total WSS.
+1. Compute the clustering algorithm (i.e. _k_medoids method) for different values of _k_ (i.e. _k_ from 1 to 10).
+2. For each _k_, calculate the total WSS.
+WSS can be calculated as:
+
+$$WSS= \sum_{i=1}^k \sum_{x_i = C_k} ||{{x_i- c_k}}||^2$$
+Where $x_i$ is a data point in cluster $C_k$ and $c_k$ is the medoid assigned to the cluster $C_k$. [Rec 7]. 
+
 3. Plot the curve of the total WSSs according to the number of clusters (k). 
 4. The location of the bend in the plot is generally considered an indicator for the appropriate number of clusters. 
+
+There will be an example of this method used in Chapter 3. 
 
 ###Silhouette Method
 The Silhouette Method focuses on the quality of clustering. A high average silhouette width indicates a good clustering (how well each object lies within its cluster). 
 
 The steps of the Silhouette Algorithm are:
 
-1. Compute clustering algoritm for different values of k (i.e. k from 1 to 10). 
+1. Compute clustering algorithm for different values of k (i.e. k from 1 to 10). 
 2. For each k, calculate the average silhouette of observations. 
+There is a silhouette method in R that can calculate this for us... 
 3. Plot the curve of the average silhouettes according to the number of clusters (k). 
 4. The location of the maximum is considered the appropriate number of clusters. 
 
-
+There will also be an example of this method used in Chapter 3. 
 --> datanovia website

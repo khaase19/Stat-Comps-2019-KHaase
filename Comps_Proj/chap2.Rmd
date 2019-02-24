@@ -34,3 +34,12 @@ https://www.coursera.org/lecture/cluster-analysis/3-4-the-k-medoids-clustering-m
 (Ng & Han, 1994)
 
 *Randomized re-sampling, ensuring efficiency and quality 
+
+```{r clustering_pic, results = "asis"}
+#How to insert a figure, make sure amherst.png is in main directory
+
+label(path = "clustering_pic.png", 
+      caption = "CLARANS searching for a better solution", 
+      label = "CLARANS", type = "figure", scale= 0.5)
+```
+

@@ -3,26 +3,23 @@
 \onehalfspacing
 
 # Introduction {.unnumbered}
-As mentioned in the abstract, we have much more spatial data than we have had in the past. Spatial data analysis is analyzing data based on topological, geometric, and geographic information. Spatial data may include latitude and longtitude, zip code, or street address.  
+As mentioned in the abstract, we have much more spatial data than we have had in the past. Spatial data analysis is analyzing data based on topological, geometric, and geographic information. Spatial data may include latitude and longitude, zip code, or street address.  
 
 ## Why Analyze Spatial Data?
-We are interested in analyzing spatial data for many reasons, one being because there is so much of it available. Investigating spatial data can help us find dissimilarities and similarities amoung objects. This can aid us in allocating resources to areas that need them most, discovering changes over time, and categorizing new objects. 
+We are interested in analyzing spatial data for many reasons, one being because there is so much of it available. Investigating spatial data can help us find dissimilarities and similarities among objects. This can aid us in allocating resources to areas that need them most, discovering changes over time, and categorizing new objects. 
 
-## Big Picture Analyzing Spatial Data Algorithms
-There are many algorithms out there that handle spatial data. To get a glimpse of the number of algorithms and strategies to analyze spatial data, the chart below provides some examples.  
+## Analyzing Spatial Data Algorithms
+There are many algorithms out there that handle spatial data; most algorithms are focused around clustering. To get a glimpse of the number of algorithms and strategies to analyze spatial data, the chart below provides some examples.  
 
 ```{r clustering_methods, results = "asis"}
-#How to insert a figure, make sure amherst.png is in main directory
-
 label(path = "clustering_methods.png", 
       caption = "Clustering Methods", 
       label = "Clustering", type = "figure", scale= 0.5)
 ```
 
-The methods are aimed around clustering, which we will further explore in the next section. 
+As noted, the methods are aimed around clustering, which we will further explore in the next section. 
 
 ### Clustering
-Clustering organizes a set of data items into groups so that items in the same group are similar to each other and different from those in other groups [Rec 1]. Clustering is helpful in finding patterns and similarities/differences between data points and groups; however it can be quite subjective, as we will discuss later on in the project. 
-
-Clustering can be used in categorizing data based on non-spatial dat, 
+Clustering organizes a set of data items into groups so that items in the same group are similar to each other and different from those in other groups [Rec 1]. Clustering is helpful in finding patterns and similarities/differences between data points and groups; however it can be quite subjective. It is up to the statistician to determine how many clusters are appropriate for the data, as well as the cut off for what is considered "dissimilar" or "similar". Additionally, the statistician must choose which clustering algorithm is best to use... This will be discussed in more detail later on in the project. 
+ 
 
