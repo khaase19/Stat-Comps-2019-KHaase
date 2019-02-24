@@ -78,6 +78,34 @@ https://www.coursera.org/lecture/cluster-analysis/3-4-the-k-medoids-clustering-m
 ## CLARANS 
 (Ng & Han, 1994)
 
+CLARANS was created to handle even larger data sets than CLARA, and provides the highest quality clusters, in comparison to PAM and CLARA. 
+
+The easiest way to understand CLARANS, is through a graphic example including both PAM and CLARA as well. 
+
+The processes of finding _k_ medoids can be described as searching through a graph of objects. This graph, denoted $G_{n,k}$ contains nodes represented by a set of _k_ objects {$O_{m1},... , O_{mk}$}, indicating that the medoids of the objects are: $O_{m1},... , O_{mk}$. The set of nodes in the graph is the set {{$O_{m1},... , O_{mk}$} | $O_{m1},... , O_{mk}$ are objects in the data set}. 
+
+Two nodes are considered neighbors if their sets differ by only one object. Furthermore, two nodes, $S_1$ = {{$O_{m1},... , O_{mk}$} and $S_2$ = {{$O_{w1},... , O_{wk}$} are neighbors if the intersection of $S_1, S_2$ is _k_-1. Each node therefore has $k(n-k)$ neighbors. Each node is a cluster; each node can be assigned a cost that defines the total dissimilarity between every object and the medoid of its cluster. 
+
+PAM can be viewed as a search for a minimum on the graph $G_{n,k}$. At each iteration, the neighbors of the current node are examined, and the current node gets replaced by the neighbor with the greatest descent in costs. The search continues until a minimum is obtained. Examining $k(n-k)$ neighbors of a node is time consuming, which is why CLARA was created. 
+
+CLARA examines fewer neighbors and restricts the search in general on subgraphs of $G_{n,k}$. The subgraph $G_{Sa,k}$ contains all the nodes that are subgraphs of $Sa$. CLARA searches through the nodes using PAM, however, the search is confined within $G_{Sa,k}$. This is problematic, because if M is the minimum node in the original graph $G_{n,k}$, but if M is not included in $G_{Sa,k}$, M will never be found. To make up for this deficiency, many many samples would have to be collected and processed. [Rec 3, p. 9]. 
+
+CLARANS was developed because of this deficiency. CLARANS does not restrict to a particular subgraph, instead if searches the entire graph $G_{n,k}$. CLARANS is unlike PAM in that it only checks a subgroup of the neighbors of a node (like CLARA). But in contrast to CLARA, each sample is drawn in a way that no nodes corresponding to particular objects are outright eliminated. 
+
+CLARA draws a sample of _nodes_ at the beginning of the search, while CLARANS draws a sample of _neighbors_ in each step of a search. CLARANS provides higher quality clusters than CLARA and only requires few searches. 
+
+For the CLARANS algorithm, there are two parameters used: _maxneighbor_ (the maximum numbers of neighbors examined) and _numlocal_ (the number of local minima obtained). The higher the value of maxneighbor, the closer CLARANS is to PAM. 
+
+Steps for the CLARANS algorithm [Rec 3, p. 9]:
+1. Input parameters _maxneighbor_ and _numlocal_. Initialize i to 1, and mincost to a large number. 
+2. Set _current_ to an arbitrary node in $G_{n,k}$. 
+3. Set _j_=1. 
+4. Consider a random neighbor of _S_ of _current_. Calculate the cost differential of the two nodes, using: 
+$$ TC_{mp} = \sum_j(C_{jmp}) $$
+5. If _S_ has a lower cost, ser _current_ to _S_, and go to Step 3.
+6. Otherwise, increment _j_ by 1. If $j <= maxneighbor$, go to Step 4. 
+7. Otherwise, when $j > maxneighbor$, compare the cost of $current$ compared to $mincost$. If $current < mincost$, set $mincost$ to the cost of $current$, and set $bestnode$ to $current$. 
+8. Increment _i_ by 1. If $i> numlocal$, output $bestnode$ and stop. Otherwise, go to Step 2. 
 
 
 *Randomized re-sampling, ensuring efficiency and quality 

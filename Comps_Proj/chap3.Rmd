@@ -151,9 +151,15 @@ elbow
 
 The Elbow method when _k_=3, shows a WSS to be about 30,000. This is very high, which is a concern when interpreting the cluster results...
 
+Another method is to look at the silhouette width of the cluster. As mentioned in Chapter 1 the Silhouette method helps us determine how many clusters best fits the data. The Silhoutte widths of the cluster determine how well an object truly belongs to its assigned cluster. Based on many experiments and research, a silhouette width of 0.71-1 indicates a strong cluster, 0.51-0.7 indicates a resonable cluster, 0.26- 0.5 indicates a weak or artifical cluster, and less than or equal to 0.25 indicates no cluster found. 
+
+In this example, the silhouette widths were: 0.422183 for cluster 1, 0.634548 for cluster 2, and 0.172013 for cluster 3. In analyzing these values, cluster 1 is a weak or artifical cluster, cluster 2 is a reasonable cluster, and cluster 3 indicates no cluster found. 
+
+The overall evaluation of CLARA with this data is that the algorithm did not work well. The clusters were very weak, therefore, one should not draw conclusions based on the results from this analysis. 
+
 ### Model to Predict Cluster
 
-The CLARA method found three clusters to group the health data. While the WSS value of over 30,000 indicated the clustering may not be very accurate or useful, I want to determine if I can predict the cluster number (1, 2, or 3), given the health indicators. This would be helpful information, say there is a new data observation and I want to categorize it into cluster 1, 2, or 3. 
+The CLARA method found three clusters to group the health data. While the WSS value and silhouette widths of the clusters indicated the clustering may not be very accurate or useful, I still want to investigate if I can predict the cluster number (1, 2, or 3), given the health indicator variables. This would be helpful information, if I wanted to categorize a new observation, given its values for the health variables used. 
 
 To start this process, I first had to include a variable with cluster number (from the CLARA method) to the original sample of the data set. 
 

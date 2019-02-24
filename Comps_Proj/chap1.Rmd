@@ -105,7 +105,11 @@ The steps of the Silhouette Algorithm are:
 
 1. Compute clustering algorithm for different values of k (i.e. k from 1 to 10). 
 2. For each k, calculate the average silhouette of observations. 
+
+The silhouette of an object $O_j$, is a quanitity varying between -1 and 1, that indicates how much $O_j$ truly belongs to the cluster to which $O_j$ is classified [Rec 6, p. 150].
+
 There is a silhouette method in R that can calculate this for us... 
+
 3. Plot the curve of the average silhouettes according to the number of clusters (k). 
 4. The location of the maximum is considered the appropriate number of clusters. 
 
