@@ -19,15 +19,15 @@ if(!require(acstats)){
 }
 ```
 
-# How to Cluster {#rmd-basics}
+# Clustering Basics {#rmd-basics}
 There are many factors to consider when choosing a clustering algorithm, such as the application of the problem (what do you want to find out about this data?), quality vs speed trade off (the size of the data plays a role), characteristics of the data (i.e. numeric distance measures), dimensionality (typically as dimension increases the time it takes to run the method increases and quality of the data clusters decrease), and outliers (some methods are very sensitive to outliers) [Rec 2]. 
 
-## Types of Clustering: Partitioning 
+## Partitioning 
 There are four main types of clustering: hierarchical, partitioning, density-based, and methods-based. Next, I'll dive into the partitioning clustering technique. 
 
 Partitioning cluster methods divide a set of data items into a number of non-overlapping clusters. A data item is typically assigned to a cluster based on a proximity or dissimilarity measure [Rec 2, p. 405]. 
 
-Usually, there is a data set with _n_ observations and the goal is to divide the data points into  _K_ clusters so that an objective function is optimized. 
+Usually, there is a data set with $n$ observations and the goal is to divide the data points into $K$ clusters so that an objective function is optimized. 
 
 The most common objective function is the sum of squared errors (SSE), where $c_k$ is the centroid or medoid of the cluster $C_k$.
 
@@ -36,64 +36,71 @@ $$SSE(C)= \sum_{k=1}^K \sum_{x_{i}C_{k}} ||{x_i}- c_k||^2$$
 Partitioning clustering algorithms classify the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group. [Rec 5, p. 18]. 
 
 
-## Methods to Create Clusters: _K_-Medoids
-There are many ways to create clusters. The most basic method is the _K_-means algorithm, which was developed by MacQueen in 1967 [Rec 5, p. 18]. In response to _K_-means being very sensitive to outliers, the _K_-medoid algorithm was created in 1987 [Rec 5, p. 19]. Both partitioning methods use iterative processes to find _K_ clusters; however, they use different ways to represent these clusters. 
+## Methods to Create Clusters
+There are many ways to create clusters. The most basic method is the $K$-means algorithm, which was developed by MacQueen in 1967 [Rec 5, p. 18]. In response to $K$-means being very sensitive to outliers, the $K$-medoid algorithm was created in 1987 [Rec 5, p. 19]. Both partitioning methods use iterative processes to find $K$ clusters; however, they use different ways to represent these clusters. 
 
-### _K_-Means
+### $K$-Means
 
-_K_-means algorithm represents its n observations in _k_ groups, with the center of the groups being the mean/average observation. The goal of the algorithm is to find k centroids, one for each cluster. In order to do this, we must minimize an _objective function_, which is the squared error function for _k_ means. The objective function is: 
+$K$-means algorithm represents its n observations in $k$ groups, with the center of the groups being the mean/average observation. The goal of the algorithm is to find k centroids, one for each cluster. In order to do this, we must minimize an $objective function$, which is the squared error function for $k$ means. The objective function is: 
 $$O= \sum_{j=1}^k \sum_{i=1}^j ||{{X_i^{(j)}- C_j}}||^2$$
 
 Where $|{{X_i^{(j)}- C_j}}|$ is an indicator of the distance of the data points from their cluster centers. 
 
 The steps of the algorithm are as follows:
 
-1. Choose K points in the space to represent the centroid. This works best if they are chosen to be far apart from each other. 
-2. Assign each object in the data set to the cluster with the closest centroid. 
+1. Choose K points in the space to represent the centroid. This works best if they are chosen to be far apart from each other.
+
+2. Assign each object in the data set to the cluster with the closest centroid.
+
 3. When all of the clusters have been made, recalculate the positions of the K centroids. 
+
 4. Repeat steps 2 and 3 until the centroids no longer move. 
 
 This algorithm always terminates; however, it is sensitive both to outliers and to the initial randomly selected K cluster centers. Therefore, the algorithm should be run multiple times to reduce the effects from this sensitivity. 
 
 [Rec 5, p. 18]
 
-In order to determine how well _K_means worked, we use the within cluster sum-of-squares to determine the compactness/"goodness" of the clustering (and we want it as small as possible).
+In order to determine how well $K$-means worked, we use the within cluster sum-of-squares to determine the compactness/"goodness" of the clustering (and we want it as small as possible).
 
 We calculate the WSS by the following equation:
 
 $$WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- mu_k}})^2$$
 Where $x_i$ is a data point in cluster $C_k$ and $mu_k$ is the mean value assigned to the cluster $C_k$. [Rec 7].
 
-### _K_ Medoids
-On the contrary, instead of taking the mean value of the objects in a cluster, the k-medoid method uses the most centrally located object in a cluster to be the cluster center [Rec 2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
+### $K$- Medoids
+On the contrary, instead of taking the mean value of the objects in a cluster, the $k$-medoid method uses the most centrally located object in a cluster to be the cluster center [Rec 2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
 
-Steps for K-medoids:
+Steps for $K$-medoids:
 1. Initial guess for centers $C_1$, $C_2$,... $C_k$ (i.e. randomly select k points from $X_1$, $X_2$,... $X_n$)
+
 2. Minimize over C: for each i= 1, 2,... n, find the cluster center $C_k$ closest to Xi and let C(i)=k. 
+
 3. Minimize over $C_1$, $C_2$,... $C_k$: for each k=1,... K, $C_k = X_k^*$, the medoid of points in cluster k. ie, the point Xi in the cluster k that minimizes $$\sum  _{c(j)=k} ||{{X_j- X_i}}||^2$$
 
-Basically, _K_means and _K_medoids follow very similar algorithms; however, _K_medoids uses the most centrally located object (medoid) in a cluster to be the cluster center. This causes there to only be at most one center changed for each iteration (makes the algorithm run slower). [rec 2, p. 6].
+Basically, $K$-means and $K$-medoids follow very similar algorithms; however, $K$-medoids uses the most centrally located object (medoid) in a cluster to be the cluster center. This causes there to only be at most one center changed for each iteration (makes the algorithm run slower). [rec 2, p. 6].
 
-## How to Choose _K_
-Now that we've discussed different kinds of _K_means and _K_medoids partitioning methods, we know how to find _K_ clusters of data points; but how do we determine what _K_ is?
+## How to Choose $K$
+Now that we've discussed different kinds of $K$-means and $K$-medoids partitioning methods, we know how to find $K$ clusters of data points; but how do we determine what $K$ is?
 
-Well, there are many ways to choose _k_, which is why these methods are so subjective. 
+Well, there are many ways to choose $k$, which is why these methods are so subjective. 
 
-I will describe two of the many ways to determine _K_, both of which use visuals to determine what value of _k_ is appropriate for the data. The elbow method and silhouette method are common ways to find _K_ when using the _K_ means and _K_ medoids algorithms. 
+I will describe two of the many ways to determine $K$, both of which use visuals to determine what value of $k$ is appropriate for the data. The elbow method and silhouette method are common ways to find $K$ when using the $K$ means and $K$ medoids algorithms. 
 
 ###Elbow Method
-To start, the elbow method looks at the total within-cluster sum of squares (WSS) and determines when there are enough clusters so that the next cluster does not improve the total WSS very much. This would be the appropriate _K_ to choose. 
+To start, the elbow method looks at the total within-cluster sum of squares (WSS) and determines when there are enough clusters so that the next cluster does not improve the total WSS very much. This would be the appropriate $K$ to choose. 
 
 The steps for this algorithm are as follows:
 
-1. Compute the clustering algorithm (i.e. _k_medoids method) for different values of _k_ (i.e. _k_ from 1 to 10).
-2. For each _k_, calculate the total WSS.
+1. Compute the clustering algorithm (i.e. _k_medoids method) for different values of $k$ (i.e. $k$ from 1 to 10).
+
+2. For each $k$, calculate the total WSS.
 WSS can be calculated as:
 
 $$WSS= \sum_{i=1}^k \sum_{x_i = C_k} ||{{x_i- c_k}}||^2$$
 Where $x_i$ is a data point in cluster $C_k$ and $c_k$ is the medoid assigned to the cluster $C_k$. [Rec 7]. 
 
 3. Plot the curve of the total WSSs according to the number of clusters (k). 
+
 4. The location of the bend in the plot is generally considered an indicator for the appropriate number of clusters. 
 
 There will be an example of this method used in Chapter 3. 

@@ -14,7 +14,7 @@ You can delete the header-includes (lines 3-5 above) if you like and also the ch
 ## PAM
 Partitioning Around Medoids (PAM) is the most commonly used type of k-medoid clustering (Kaufmann & Rousseeuw, 1987).
 
-As an overview, the algorithm iterates through all the k cluster centers and tries to replace the center with one of the other objects (n-k possibilities) [Rec 2]. For a replacement to occur, the squared error function must decrease (if it does not decrease, there is no replacement). The algorithm eventually terminates with a local optimum. 
+As an overview, the algorithm iterates through all the $k$ cluster centers and tries to replace the center with one of the other objects ($n-k$ possibilities) [Rec 2]. For a replacement to occur, the squared error function must decrease (if it does not decrease, there is no replacement). The algorithm eventually terminates with a local optimum. 
 
 For the set up of this algorithm, let's let $O_m$ be a current medoid that is to be replaced (i.e. A in Figure BLANK). Let's let $O_p$ be a new medoid to replace $O_m$ (i.e. M in Figure BLANK). $O_j$ is an other non-medoid object that may or may not be moved (i.e. Y and Z in Figure BLANK). $O_{j,2}$ is a current medoid that is nearest to $O_j$ without A and M (i.e. B in Figure BLANK). 
 
@@ -26,27 +26,35 @@ label(path = "PAM_pic.png",
 
 Now that we have our set up, there are four different ways or "cases" in which PAM calculates the cost, $C_{jmp}$ for all of the non-medoid objects $O_j$. For the sake of simplicity and in understanding the different cases, I will denote $O_m$ as A, $O_p$ as M, $O_j$ as Y or Z, $O_{j,2}$ as B. 
 
-Case 1: 
+**Case 1:**
+
 Suppose Y currently belongs to the cluster represented by A. Additionally, Y is more similar to B than to M (i.e. $d(Y, M) >= d(Y, B)$), where B is the second most similar medoid to Y. If A were to be replaced by M as a medoid, Y would belong to B (indicated by the Case 1 arrow in Figure BLANK). Therefore the cost of the switch is: $C_{jmp} = d(Y, B) - d(Y, A)$. 
 
 This equation will always give a non-negative $C_{jmp}$, indicating that there is a non-negative cost incurred in replacing A with M.
 
-Case 2: 
+**Case 2:**
+
 Suppose Y currently belonds to the cluster represented by A. But this time, A is less similar to B than to M ($d(Y, M) < d(Y, B)$). Then, if A is replaced by M, Y would belong to the cluster represented by M. The cost of this swap would be: $C_{jmp} = d(Y, M) - d(Y, A)$. The value of this $C_{jmp}$ could be positive or negative, depending on whether Y is more similar to A or M. 
 
-Case 3: 
+**Case 3:**
+
 Suppose Z currently belongs to the cluster other than the one represented by A. Also, let Z be more similar to B than to M. Then even if A is replaced by M, Z would stay in the cluster represented by B. The cost of this swap is: $C_{jmp} = 0$. 
 
-Case 4: 
+**Case 4:**
+
 Suppose Z belongs to a cluster represented by B, but Z is less similar to B than to M. If we replaced A with M, Z would jump to the cluster of M, from that of B. The cost in this case would be: $C_{jmp} = d(Z, M) - d(Z, B)$. This cost would always be negative. 
 
 In combining all of the four cases described, the total cost of replacing A with M is: 
 $$ TC_{mp} = \sum_j(C_{jmp}) $$. 
 
-The more formal steps of the algorithm are as follows: 
+The more formal steps of the algorithm are as follows:
+
 1. Select _k_ representative objects arbitratily. 
+
 2. Compute $TC_{mp}$ for all pairs of $O_m$, $O_p$ where $O_m$ is currently selected, and $O_p$ is not. 
-3. Select the pair $O_m$, $O_p$ which corresponds to $min_{O_m, O_p} TC_{mp}$. If the minimum $TC_{mp}$ is negative, replace $O_m$ with $O_p$ and go back to Step 2. 
+
+3. Select the pair $O_m$, $O_p$ which corresponds to $min_{O_m, O_p} TC_{mp}$. If the minimum $TC_{mp}$ is negative, replace $O_m$ with $O_p$ and go back to Step 2.
+
 4. Otherwise, for each non-selected object, find the most similar representative object. 
 
 
@@ -65,10 +73,15 @@ CLARA is a sampling based method, meaning a sample of the data is used to repres
 Experiments indicate that 5 samples of size 40+ 2 _k_ give satisfactory results [Rec 6, p. 146]. 
 
 The steps for the algorithm are as follows: 
+
 1. For i= 1 to 5, repeat the following steps:
+
 2. Draw a sample of 40+ 2 _k_ objects from the entire data set, and use PAM to find _k_ medoids of the sample. 
+
 3. For each object $O_j$ in the entire data set, determine which of the _k_ medoids are most similar to $O_j$. 
+
 4. Calculate the average dissimilarity of the clustering obtained in the previous step. If this value is less than the current minimum, use this value as the current minimum, and retain the _k_ meoids found in Step 2 as the best medoids obtained so far.
+  
 5. Return to Step 1 to start the next iteration. 
 
 CLARA performs well on large data sets, i.e. around 1000 objects (n) in 10 clusters (k). CLARA can work on larger data sets because the complexity for each iteration is $O{k(40 + k)^2 + k(n-k)}$, which is much smaller than $O(k(n-k)^2)$ (which is the complexity for each iteration in PAM). 
@@ -97,6 +110,7 @@ CLARA draws a sample of _nodes_ at the beginning of the search, while CLARANS dr
 For the CLARANS algorithm, there are two parameters used: _maxneighbor_ (the maximum numbers of neighbors examined) and _numlocal_ (the number of local minima obtained). The higher the value of maxneighbor, the closer CLARANS is to PAM. 
 
 Steps for the CLARANS algorithm [Rec 3, p. 9]:
+
 1. Input parameters _maxneighbor_ and _numlocal_. Initialize i to 1, and mincost to a large number. 
 2. Set _current_ to an arbitrary node in $G_{n,k}$. 
 3. Set _j_=1. 

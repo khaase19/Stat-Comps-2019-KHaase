@@ -45,9 +45,6 @@ if(!require(acstats)){
 library(acstats)
 ```
 
-```{r ab, child = 'abstract.Rmd'}
-```
-
 <!--
 This is the way to split your thesis into chapters and then include each of the chapters seperately.  You can Knit the Rmd files corresponding to each chapter individually and then put them all back together by Knit-ing this document.
 

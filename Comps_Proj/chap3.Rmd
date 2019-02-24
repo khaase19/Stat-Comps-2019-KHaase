@@ -9,7 +9,7 @@ output: pdf_document
 You can delete the header-includes (lines 3-5 above) if you like and also the chunk below since it is loaded in the skeleton.Rmd file.  They are included so that chap2.Rmd will compile by itself when you hit Knit PDF.
 -->
 
-# Example {#typeset-equ}
+# Application of CLARA to Health Data {#typeset-equ}
 
 ```{r, warning= FALSE}
 #loading in packages
@@ -24,7 +24,7 @@ library(GGally)
 ## Exploring the Data
 In this example, I will further explore the data from my Stat 495 final project. The data is from DataUSA, which uses public US Government data to analyze and visualize relationships. In the project, we decided to use data from 2016 because of size restrictions. The data contains spatial information, quantitative, and a few categorical variables.
 
-The data contians demographic information, latitude and longitude, and variables that are indicators of health status. The health status variables include: poor to fair health (the percentage of adults reporting fair or poor health (age-adjusted)), poor physical health days (average number of physically unhealthy days reported in the past 30 days (age-adjusted)), physical inactivity (the percentage of adults aged 20 and over reporting no leisure-time physical inactivity), and adult obesity (the percentage of adults to report a BMI of greater than or equal to 30). In interpreting the health indicator variables, the higher the values for these variables, the less healthy a person is.  
+The data contains demographic information, latitude and longitude, and variables that are indicators of health status. The health status variables include: poor to fair health (the percentage of adults reporting fair or poor health (age-adjusted)), poor physical health days (average number of physically unhealthy days reported in the past 30 days (age-adjusted)), physical inactivity (the percentage of adults aged 20 and over reporting no leisure-time physical inactivity), and adult obesity (the percentage of adults to report a BMI of greater than or equal to 30). In interpreting the health indicator variables, the higher the values for these variables, the less healthy a person is.  
 
 For our Stat 495 project, we used mapping techniques to visualize and analyze our data. The only significant relationships we were able to find were between demographic information and health status; we were unable to relate health status with location. I am interested in analyzing the data through clustering, to further analyze whether the location of an observation is related to one's health status. Since clustering utilizes spatial information, it may be helpful in finding patterns in the data. 
 
