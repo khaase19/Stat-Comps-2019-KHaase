@@ -183,27 +183,26 @@ predict cluster.
   As mentioned in the abstract, we have much more spatial data than we
   have had in the past. Spatial data analysis is analyzing data based on
   topological, geometric, and geographic information. Spatial data may
-  include latitude and longtitude, zip code, or street address.
+  include latitude and longitude, zip code, or street address.
   
   \section{Why Analyze Spatial Data?}\label{why-analyze-spatial-data}
   
   We are interested in analyzing spatial data for many reasons, one being
   because there is so much of it available. Investigating spatial data can
-  help us find dissimilarities and similarities amoung objects. This can
+  help us find dissimilarities and similarities among objects. This can
   aid us in allocating resources to areas that need them most, discovering
   changes over time, and categorizing new objects.
   
-  \section{Big Picture Analyzing Spatial Data
-  Algorithms}\label{big-picture-analyzing-spatial-data-algorithms}
+  \section{Analyzing Spatial Data
+  Algorithms}\label{analyzing-spatial-data-algorithms}
   
-  There are many algorithms out there that handle spatial data. To get a
-  glimpse of the number of algorithms and strategies to analyze spatial
-  data, the chart below provides some examples.
+  There are many algorithms out there that handle spatial data; most
+  algorithms are focused around clustering. To get a glimpse of the number
+  of algorithms and strategies to analyze spatial data, the chart below
+  provides some examples.
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \CommentTok{#How to insert a figure, make sure amherst.png is in main directory}
-  
   \KeywordTok{label}\NormalTok{(}\DataTypeTok{path =} \StringTok{"clustering_methods.png"}\NormalTok{, }
         \DataTypeTok{caption =} \StringTok{"Clustering Methods"}\NormalTok{, }
         \DataTypeTok{label =} \StringTok{"Clustering"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"figure"}\NormalTok{, }\DataTypeTok{scale=} \FloatTok{0.5}\NormalTok{)}
@@ -217,8 +216,8 @@ predict cluster.
   \label{fig:Clustering}
   \end{figure}
   
-  The methods are aimed around clustering, which we will further explore
-  in the next section.
+  As noted, the methods are aimed around clustering, which we will further
+  explore in the next section.
   
   \subsection{Clustering}\label{clustering}
   
@@ -226,54 +225,60 @@ predict cluster.
   the same group are similar to each other and different from those in
   other groups {[}Rec 1{]}. Clustering is helpful in finding patterns and
   similarities/differences between data points and groups; however it can
-  be quite subjective, as we will discuss later on in the project.
-  
-  Clustering can be used in categorizing data based on non-spatial dat,
+  be quite subjective. It is up to the statistician to determine how many
+  clusters are appropriate for the data, as well as the cut off for what
+  is considered ``dissimilar'' or ``similar''. Additionally, the
+  statistician must choose which clustering algorithm is best to
+  use\ldots{} This will be discussed in more detail later on in the
+  project.
   
   \chapter{How to Cluster}\label{rmd-basics}
   
-  There are many factors to consider when chosing a clustering algorithm,
+  There are many factors to consider when choosing a clustering algorithm,
   such as the application of the problem (what do you want to find out
-  about this data?), quality vs speed trade off (size of data plays a
-  role), characteristics of the data (i.e.~numeric distance measures),
-  dimensionality (typically as dimension increases the time it takes to
-  run the method increases and quality of the data clusters decrease), and
-  outliers (some methods are very sensitive to outliers) {[}Rec 2{]}.
+  about this data?), quality vs speed trade off (the size of the data
+  plays a role), characteristics of the data (i.e.~numeric distance
+  measures), dimensionality (typically as dimension increases the time it
+  takes to run the method increases and quality of the data clusters
+  decrease), and outliers (some methods are very sensitive to outliers)
+  {[}Rec 2{]}.
   
   \section{Types of Clustering:
   Partitioning}\label{types-of-clustering-partitioning}
   
-  There are four main types of clustering: hierarchial, partitioning,
-  density-based, and methods-based. We will now dive into the partioning
-  clustering techinque.
+  There are four main types of clustering: hierarchical, partitioning,
+  density-based, and methods-based. Next, I'll dive into the partitioning
+  clustering technique.
   
   Partitioning cluster methods divide a set of data items into a number of
   non-overlapping clusters. A data item is typically assigned to a cluster
   based on a proximity or dissimilarity measure {[}Rec 2, p.~405{]}.
   
-  Typically, there is a dataset with \emph{n} observations and the goal is
-  to divide them into \emph{K} clusters so that an objective function is
-  optimized (sum of square distances is minimized).
+  Usually, there is a data set with \emph{n} observations and the goal is
+  to divide the data points into \emph{K} clusters so that an objective
+  function is optimized.
   
   The most common objective function is the sum of squared errors (SSE),
-  where \(c_k\) is the centroid or mediod of the cluster \(C_k\).
+  where \(c_k\) is the centroid or medoid of the cluster \(C_k\).
   
   \[SSE(C)= \sum_{k=1}^K \sum_{x_{i}C_{k}} ||{x_i}- c_k||^2\]
   
-  Partitioning clustering algorithms classifies the data into K groups by
+  Partitioning clustering algorithms classify the data into K groups by
   satisfying both that each group has at least one data point, and that
   each data point belongs to exactly one group. {[}Rec 5, p.~18{]}.
   
-  \section{\texorpdfstring{How to Create Clusters: \emph{K}-Means vs
-  \emph{K}-Medoids}{How to Create Clusters: K-Means vs K-Medoids}}\label{how-to-create-clusters-k-means-vs-k-medoids}
+  \section{\texorpdfstring{Methods to Create Clusters:
+  \emph{K}-Medoids}{Methods to Create Clusters: K-Medoids}}\label{methods-to-create-clusters-k-medoids}
   
-  \emph{K}-means algorithm and \emph{k}-medoid algorithm are two examples
-  of partitioning algorithms. They both ise iterative processes to find
+  There are many ways to create clusters. The most basic method is the
+  \emph{K}-means algorithm, which was developed by MacQueen in 1967 {[}Rec
+  5, p.~18{]}. In response to \emph{K}-means being very sensitive to
+  outliers, the \emph{K}-medoid algorithm was created in 1987 {[}Rec 5,
+  p.~19{]}. Both partitioning methods use iterative processes to find
   \emph{K} clusters; however, they use different ways to represent these
   clusters.
   
-  \subsection{\texorpdfstring{\emph{K}-Means (maybe don't include
-  this)}{K-Means (maybe don't include this)}}\label{k-means-maybe-dont-include-this}
+  \subsection{\texorpdfstring{\emph{K}-Means}{K-Means}}\label{k-means}
   
   \emph{K}-means algorithm represents its n observations in \emph{k}
   groups, with the center of the groups being the mean/average
@@ -293,9 +298,10 @@ predict cluster.
   \tightlist
   \item
     Choose K points in the space to represent the centroid. This works
-    best if they are chosen to be far apart from eachother.
+    best if they are chosen to be far apart from each other.
   \item
-    Assign each object to the cluster with the closest centroid.
+    Assign each object in the data set to the cluster with the closest
+    centroid.
   \item
     When all of the clusters have been made, recalculate the positions of
     the K centroids.
@@ -306,7 +312,19 @@ predict cluster.
   This algorithm always terminates; however, it is sensitive both to
   outliers and to the initial randomly selected K cluster centers.
   Therefore, the algorithm should be run multiple times to reduce the
-  effects from this sensitivity. {[}Rec 5, p.~18{]}.
+  effects from this sensitivity.
+  
+  {[}Rec 5, p.~18{]}
+  
+  In order to determine how well \_K\_means worked, we use the within
+  cluster sum-of-squares to determine the compactness/``goodness'' of the
+  clustering (and we want it as small as possible).
+  
+  We calculate the WSS by the following equation:
+  
+  \[WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- mu_k}})^2\] Where \(x_i\) is
+  a data point in cluster \(C_k\) and \(mu_k\) is the mean value assigned
+  to the cluster \(C_k\). {[}Rec 7{]}.
   
   \subsection{\texorpdfstring{\emph{K}
   Medoids}{K Medoids}}\label{k-medoids}
@@ -322,47 +340,35 @@ predict cluster.
   n, find the cluster center \(C_k\) closest to Xi and let C(i)=k. 3.
   Minimize over \(C_1\), \(C_2\),\ldots{} \(C_k\): for each k=1,\ldots{}
   K, \(C_k = X_k^*\), the medoid of points in cluster k. ie, the point Xi
-  in the cluster k that minimizes \[\sum _{c(j)=k} ||{{X_j- X_i}}||^2\]
+  in the cluster k that minimizes \[\sum  _{c(j)=k} ||{{X_j- X_i}}||^2\]
   
-  \textbf{same steps as K-means except BLANK (p.~6 in Rec 2) }steps in Rec
-  5, p.~19 for k-medoids
-  
-  Rec 5 p.~18-19 ***
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
-  \CommentTok{#How to insert a figure, make sure amherst.png is in main directory}
-  
-  \KeywordTok{label}\NormalTok{(}\DataTypeTok{path =} \StringTok{"clustering_pic.png"}\NormalTok{, }
-        \DataTypeTok{caption =} \StringTok{"CLARANS searching for a better solution"}\NormalTok{, }
-        \DataTypeTok{label =} \StringTok{"CLARANS"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"figure"}\NormalTok{, }\DataTypeTok{scale=} \FloatTok{0.5}\NormalTok{)}
-  \end{Highlighting}
-  \end{Shaded}
-  
-  \begin{figure}[htbp]
-  \centering
-  \includegraphics[scale = 0.5,angle = 0]{clustering_pic.png}
-  \caption[CLARANS searching for a better solution]{\normalsize{CLARANS searching for a better solution}}
-  \label{fig:CLARANS}
-  \end{figure}
+  Basically, \_K\_means and \_K\_medoids follow very similar algorithms;
+  however, \_K\_medoids uses the most centrally located object (medoid) in
+  a cluster to be the cluster center. This causes there to only be at most
+  one center changed for each iteration (makes the algorithm run slower).
+  {[}rec 2, p.~6{]}.
   
   \section{\texorpdfstring{How to Choose
   \emph{K}}{How to Choose K}}\label{how-to-choose-k}
   
-  Many ways to choose \emph{k}, which is why these methods are so
-  subjective.
+  Now that we've discussed different kinds of \_K\_means and \_K\_medoids
+  partitioning methods, we know how to find \emph{K} clusters of data
+  points; but how do we determine what \emph{K} is?
   
-  I will describe two of the many ways to determine K, both of which use
-  visuals to determine what value of k is appropriate for the data. The
-  elbow method and silhouette method are common ways to find K when using
-  the \emph{K} means and \emph{K} medoids algorithms.
+  Well, there are many ways to choose \emph{k}, which is why these methods
+  are so subjective.
+  
+  I will describe two of the many ways to determine \emph{K}, both of
+  which use visuals to determine what value of \emph{k} is appropriate for
+  the data. The elbow method and silhouette method are common ways to find
+  \emph{K} when using the \emph{K} means and \emph{K} medoids algorithms.
   
   \subsection{Elbow Method}\label{elbow-method}
   
   To start, the elbow method looks at the total within-cluster sum of
   squares (WSS) and determines when there are enough clusters so that the
   next cluster does not improve the total WSS very much. This would be the
-  appropriate \emph{K}.
+  appropriate \emph{K} to choose.
   
   The steps for this algorithm are as follows:
   
@@ -370,10 +376,20 @@ predict cluster.
   \def\labelenumi{\arabic{enumi}.}
   \tightlist
   \item
-    Compute the clustering algorithm for different values of k (i.e.~k
-    from 1 to 10).
+    Compute the clustering algorithm (i.e. \_k\_medoids method) for
+    different values of \emph{k} (i.e. \emph{k} from 1 to 10).
   \item
-    For each k, calculate the total WSS.
+    For each \emph{k}, calculate the total WSS. WSS can be calculated as:
+  \end{enumerate}
+  
+  \[WSS= \sum_{i=1}^k \sum_{x_i = C_k} ||{{x_i- c_k}}||^2\] Where \(x_i\)
+  is a data point in cluster \(C_k\) and \(c_k\) is the medoid assigned to
+  the cluster \(C_k\). {[}Rec 7{]}.
+  
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{2}
+  \tightlist
   \item
     Plot the curve of the total WSSs according to the number of clusters
     (k).
@@ -381,6 +397,8 @@ predict cluster.
     The location of the bend in the plot is generally considered an
     indicator for the appropriate number of clusters.
   \end{enumerate}
+  
+  There will be an example of this method used in Chapter 3.
   
   \subsection{Silhouette Method}\label{silhouette-method}
   
@@ -394,10 +412,11 @@ predict cluster.
   \def\labelenumi{\arabic{enumi}.}
   \tightlist
   \item
-    Compute clustering algoritm for different values of k (i.e.~k from 1
+    Compute clustering algorithm for different values of k (i.e.~k from 1
     to 10).
   \item
-    For each k, calculate the average silhouette of observations.
+    For each k, calculate the average silhouette of observations. There is
+    a silhouette method in R that can calculate this for us\ldots{}
   \item
     Plot the curve of the average silhouettes according to the number of
     clusters (k).
@@ -406,9 +425,10 @@ predict cluster.
     clusters.
   \end{enumerate}
   
+  There will also be an example of this method used in Chapter 3.
   --\textgreater{} datanovia website
   
-  \chapter{Spatial Clustering Methods}\label{typeset-equ}
+  \chapter{Clustering Methods Continued}\label{typeset-equ}
   
   \section{PAM}\label{pam}
   
@@ -416,16 +436,16 @@ predict cluster.
   k-medoid clustering (Kaufmann \& Rousseeuw, 1987).
   
   It iterates through all the k cluster centers and tries to replace the
-  center with one of the other objects (n-k possibilities). {[}rec 2{]}.
+  center with one of the other objects (n-k possibilities) {[}Rec 2{]}.
   For a replacement to occur, the squared error function must decrease (if
   it does not decrease, there is no replacement). The algorithm eventually
   terminates with a local optimum.
   
-  The total complexity of PAM in one iteration is **formula:
-  \[O(k(n-k)^2)\] (o= each non-medoid data point, \emph{k}= \# of cluster
-  centers, \[(n-k)\] objects to compare to, and \[(n-k)\] operations for
-  calculating E). This makes for a costly computation when n is large.
-  Works best for n= 100, k=5.
+  The total complexity of PAM in one iteration is \[O(k(n-k)^2)\] (O= each
+  non-medoid data point, \emph{k}= \# of cluster centers, \[(n-k)\]
+  objects to compare to, and \[(n-k)\] operations for calculating E). This
+  makes for a costly computation when n is large. The algorithm works best
+  when n= 100 and \emph{k}=5.
   
   Explanation of PAM, REC 6, P. 146--\textgreater{} 4 cases, and algorithm
   Rec 6 bibliography (Ng \& Han, 2000)
@@ -453,6 +473,23 @@ predict cluster.
   (Ng \& Han, 1994)
   
   *Randomized re-sampling, ensuring efficiency and quality
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \CommentTok{#How to insert a figure, make sure amherst.png is in main directory}
+  
+  \KeywordTok{label}\NormalTok{(}\DataTypeTok{path =} \StringTok{"clustering_pic.png"}\NormalTok{, }
+        \DataTypeTok{caption =} \StringTok{"CLARANS searching for a better solution"}\NormalTok{, }
+        \DataTypeTok{label =} \StringTok{"CLARANS"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"figure"}\NormalTok{, }\DataTypeTok{scale=} \FloatTok{0.5}\NormalTok{)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{figure}[htbp]
+  \centering
+  \includegraphics[scale = 0.5,angle = 0]{clustering_pic.png}
+  \caption[CLARANS searching for a better solution]{\normalsize{CLARANS searching for a better solution}}
+  \label{fig:CLARANS}
+  \end{figure}
   
   \chapter{Example}\label{typeset-equ}
   
