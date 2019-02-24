@@ -8,7 +8,7 @@ output: pdf_document
 
 In conclusion, clustering methods are very useful for spatial data in determining patterns and in visulizing data sets. There are MANY algorithms out there that analyze spatial data, and these methods continue to grow year to year both in quanitity and quality (handling more data and higher complexity data). The methods discussed in this paper are considered partioning clustering methods. The most popular partitioning clustering method was K-means, which was discussed in comparison to K-medoids. To further dive into K-medoids methods, PAM (Partitioning Around Medoids), CLARA (Clustering LArge Applications), and CLARANS (Clustering BLANK) were explained and explored.  
 
-Finally, example data from my Stat 495 project provided an explicit example of the CLARA algorithm. In my Stat 495 project, we were unable to draw conclusions about the data through mapping visualizations. This lead to my interest in further analyzing the data using clustering algorithms, such as CLARA. 
+Finally, example data from my Stat 495 project provided an explicit example of the CLARA algorithm. In my Stat 495 project, we were unable to draw conclusions about the health status and location of data observations through mapping visualizations. This lead to my interest in further analyzing the data using clustering algorithms, such as CLARA. 
 
 For the example, the Elbow and Silhouette methods were used to determine _k_ clusters, and the CLARA algorithm then divided the objects into clusters. A brief evaluation of the clusters revealed a very high within-cluster sum of squares, indicating that the clusters were not of very high quality. 
 
