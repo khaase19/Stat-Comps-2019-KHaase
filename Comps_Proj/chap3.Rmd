@@ -22,7 +22,12 @@ library(GGally)
 ```
 
 ## Exploring the Data
-Data came from Stat 495 final project. (use info from project...). 
+In this example, I will further explore the data from my Stat 495 final project. The data is from DataUSA, which uses public US Government data to analyze and visualize relationships. In the project, we decided to use data from 2016 because of size restrictions. The data contains spatial information, quantitative, and a few categorical variables. 
+
+There is demographic information as well as variables that are indicators of health status. The health status variables include: poor to fair health (the percentage of adults reporting fair or poor health (age-adjusted)), poor physical health days (average number of physically unhealthy days reported in the past 30 days (age-adjusted)), physical inactivity (the percentage of adults aged 20 and over reporting no leisure-time physical inactivity), and adult obesity (the percentage of adults to report a BMI of greater than or equal to 30). 
+
+For our Stat 495 project, 
+
 Needed a sample of 1000...
 
 Importing the data:

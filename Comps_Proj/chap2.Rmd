@@ -16,6 +16,8 @@ Partitioning Around Medoids (PAM) is the most commonly used type of k-medoid clu
 
 It iterates through all the k cluster centers and tries to replace the center with one of the other objects (n-k possibilities) [Rec 2]. For a replacement to occur, the squared error function must decrease (if it does not decrease, there is no replacement). The algorithm eventually terminates with a local optimum. 
 
+The squared error function calculates the average dissimilarity 
+
 The total complexity of PAM in one iteration is $$O(k(n-k)^2)$$ (O= each non-medoid data point, _k_= # of cluster centers, $$(n-k)$$ objects to compare to, and $$(n-k)$$ operations for calculating E). This makes for a costly computation when n is large. The algorithm works best when n= 100 and _k_=5. 
 
 Explanation of PAM, REC 6, P. 146--> 4 cases, and algorithm Rec 6 bibliography [@ng1994]
@@ -24,6 +26,15 @@ Explanation of PAM, REC 6, P. 146--> 4 cases, and algorithm Rec 6 bibliography [
 Because PAM does not scale well to large data sets, Clustering LARge Applications (CLARA) was developed to deal with larger data sets (Kaufmann & Rousseeuw, 1990).
 
 CLARA is a sampling based method, meaning a sample of the data is used to represent the entire data set. Medoids are chosen from this sample data using PAM and then "the average dissimilarity is computed using the whole dataset" (**don't know what "average dissimilarity" means or how it is calculated). If a new set of medoids gives a lower dissimilarity than a previous best solution, then the best solution is replaced with a new set of medoids [Rec 2, p. 7].
+
+Experiments indicate that 5 samples of size 40+ 2 _k_ give satisfactory results [Rec 6, p. 146]. 
+
+The steps for the algorithm are as follows: 
+1. For i= 1 to 5, repeat the following steps:
+2. Draw a sample of 40+ 2 _k_ objects from the entire data set, and use PAM to find _k_ medoids of the sample. 
+3. For each object $O_j$ in the entire data set, determine which of the _k_ medoids are most similar to $O_j$. 
+4. Calculate the average dissimilarity of the clustering obtained in the previous step. If this value is less than the current minimum, use this value as the current minimum, and retain the _k_ meoids found in Step 2 as the best medoids obtained so far.
+5. Return to Step 1 to start the next iteration. 
 
 *PAM on samples
 
