@@ -48,11 +48,11 @@ Where $|{{X_i^{(j)}- C_j}}|$ is an indicator of the distance of the data points 
 
 The steps of the algorithm are as follows:
 
-1. Choose K points in the space to represent the centroid. This works best if they are chosen to be far apart from each other.
+1. Choose $K$ points in the space to represent the centroid. This works best if they are chosen to be far apart from each other.
 
 2. Assign each object in the data set to the cluster with the closest centroid.
 
-3. When all of the clusters have been made, recalculate the positions of the K centroids. 
+3. When all of the clusters have been made, recalculate the positions of the $K$ centroids. 
 
 4. Repeat steps 2 and 3 until the centroids no longer move. 
 
@@ -64,8 +64,8 @@ In order to determine how well $K$-means worked, we use the within cluster sum-o
 
 We calculate the WSS by the following equation:
 
-$$WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- mu_k}})^2$$
-Where $x_i$ is a data point in cluster $C_k$ and $mu_k$ is the mean value assigned to the cluster $C_k$. [Rec 7].
+$$WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- \mu_k}})^2$$
+Where $x_i$ is a data point in cluster $C_k$ and $\mu_k$ is the mean value assigned to the cluster $C_k$. [Rec 7].
 
 ### $K$- Medoids
 On the contrary, instead of taking the mean value of the objects in a cluster, the $k$-medoid method uses the most centrally located object in a cluster to be the cluster center [Rec 2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
@@ -102,8 +102,6 @@ Where $x_i$ is a data point in cluster $C_k$ and $c_k$ is the medoid assigned to
 3. Plot the curve of the total WSSs according to the number of clusters (k). 
 
 4. The location of the bend in the plot is generally considered an indicator for the appropriate number of clusters. 
-
-There will be an example of this method used in Chapter 3. 
 
 ###Silhouette Method
 The Silhouette Method focuses on the quality of clustering. A high average silhouette width indicates a good clustering (how well each object lies within its cluster). 

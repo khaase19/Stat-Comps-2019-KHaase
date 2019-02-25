@@ -9,9 +9,9 @@ As mentioned in the abstract, we have much more spatial data than we have had in
 We are interested in analyzing spatial data for many reasons, one being because there is so much of it available. Investigating spatial data can help us find dissimilarities and similarities among objects. This can aid us in allocating resources to areas that need them most, discovering changes over time, and categorizing new objects. 
 
 ## Analyzing Spatial Data Algorithms
-There are many algorithms out there that handle spatial data; most algorithms are focused around clustering. To get a glimpse of the number of algorithms and strategies to analyze spatial data, the chart below provides some examples.  
+There are many algorithms out there that handle spatial data; most algorithms are focused around clustering. To get a glimpse of the number of algorithms and strategies to analyze spatial data, Figure 1 provides some examples.  
 
-```{r clustering_methods, results = "asis"}
+```{r clustering_methods, results = "asis", echo= FALSE}
 label(path = "clustering_methods.png", 
       caption = "Clustering Methods", 
       label = "Clustering", type = "figure", scale= 0.5)
@@ -20,6 +20,6 @@ label(path = "clustering_methods.png",
 As noted, the methods are aimed around clustering, which we will further explore in the next section. 
 
 ### Clustering
-Clustering organizes a set of data items into groups so that items in the same group are similar to each other and different from those in other groups [Rec 1]. Clustering is helpful in finding patterns and similarities/differences between data points and groups; however it can be quite subjective. It is up to the statistician to determine how many clusters are appropriate for the data, as well as the cut off for what is considered "dissimilar" or "similar". Additionally, the statistician must choose which clustering algorithm is best to use... This will be discussed in more detail later on in the project. 
+Clustering organizes a set of data items into groups so that items in the same group are similar to each other and different from those in other groups [Rec 1]. Clustering is helpful in finding patterns and similarities/differences between data points and groups; however it can be quite subjective. It is up to the statistician to determine how many clusters are appropriate for the data, as well as the cut off for what is considered "dissimilar" or "similar". Additionally, the statistician must choose which clustering algorithm is best to use- this will be discussed in more detail later on in the project. 
  
 
