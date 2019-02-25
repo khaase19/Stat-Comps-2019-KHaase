@@ -60,7 +60,7 @@ In order to determine how well $K$-means worked, we use the within cluster sum-o
 
 We calculate the WSS by the following equation:
 
-$$WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- \mu_k}})^2$$
+$$WSS = \sum_{k=1}^k \sum_{x_i∈C_k} ({{x_i- \mu_k}})^2$$
 Where $x_i$ is a data point in cluster $C_k$ and $\mu_k$ is the mean value assigned to the cluster $C_k$ [@Rec7].
 
 ### *K*-Medoids
@@ -79,7 +79,7 @@ Basically, $K$-means and $K$-medoids follow very similar algorithms; however, $K
 ## How to Choose $K$
 Now that we've discussed different kinds of $K$-means and $K$-medoids partitioning methods, we know how to find $K$ clusters of data points; but how do we determine what $K$ is?
 
-Well, there are many ways to choose $k$, which is why these methods are so subjective. 
+Well, there are many ways to choose $k$, which is why these methods are so subjective.
 
 I will describe two of the many ways to determine $K$, both of which use visuals to determine what value of $k$ is appropriate for the data. The elbow method and silhouette method are common ways to find $K$ when using the $K$ means and $K$ medoids algorithms [@Rec7]. 
 
@@ -93,7 +93,7 @@ The steps for this algorithm are as follows [@Rec7]:
 2. For each $k$, calculate the total WSS.
 WSS can be calculated as:
 
-$$WSS= \sum_{i=1}^k \sum_{x_i = C_k} ||{{x_i- c_k}}||^2$$
+$$WSS= \sum_{i=1}^k \sum_{x_i∈C_k} ||{{x_i- c_k}}||^2$$
 Where $x_i$ is a data point in cluster $C_k$ and $c_k$ is the medoid assigned to the cluster $C_k$. [@Rec7]. 
 
 3. Plot the curve of the total WSSs according to the number of clusters (k). 

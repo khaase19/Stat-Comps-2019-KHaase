@@ -28,7 +28,7 @@ Now that we have our set up, there are four different ways or "cases" in which P
 
 **Case 1:**
 
-Suppose Y currently belongs to the cluster represented by A. Additionally, Y is more similar to B than to M (i.e. $d(Y, M) >= d(Y, B)$), where B is the second most similar medoid to Y. If A were to be replaced by M as a medoid, Y would belong to B (indicated by the Case 1 arrow in Figure BLANK). Therefore the cost of the switch is: $C_{jmp} = d(Y, B) - d(Y, A)$. 
+Suppose Y currently belongs to the cluster represented by A. Additionally, Y is more similar to B than to M (i.e. $d(Y, M) \geq d(Y, B)$), where B is the second most similar medoid to Y. If A were to be replaced by M as a medoid, Y would belong to B (indicated by the Case 1 arrow in Figure BLANK). Therefore the cost of the switch is: $C_{jmp} = d(Y, B) - d(Y, A)$. 
 
 This equation will always give a non-negative $C_{jmp}$, indicating that there is a non-negative cost incurred in replacing A with M.
 

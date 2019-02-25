@@ -101,18 +101,21 @@ I want to thank my family.
 }
 
 \Abstract{
-In recent years, the amount of geographic data has increased immensely.
-With new technology, the accuracy and complexity of data has also
-improved. This has provoked statisticians to create techniques to best
-analyze and draw conclusions from this new-found data. Earlier
-techniques of spatial data were not equipped to handle the complexity
-and quantity of the data. This project first explores how and why we
-analyze data based on geographic information. Next, I will explain some
-of the newer spatial data algorithms, including PAM (Partitioning Around
-Medoids), CLARA (Clustering LARge Applications), and CLARANS (Clustering
-Large Applications based on RANdomized Search). Example data will be
-used to demonstrate CLARA, and the project will conclude a model to
-predict cluster.
+In recent years, the amount of geographic data has increased immensely
+with new technology such as GPS and surveillance cameras. With new
+technology, the accuracy and complexity of data has also improved. This
+has provoked statisticians to create techniques to best analyze and draw
+conclusions from this new-found data. Earlier techniques of spatial data
+were not equipped to handle the complexity and quantity of the data.
+This project first explores how and why we analyze data based on
+geographic information. Next, I will explain some of the newer spatial
+data algorithms, including PAM (Partitioning Around Medoids), CLARA
+(Clustering LARge Applications), and CLARANS (Clustering Large
+Applications based on RANdomized Search). The purpose of this
+exploration is to better analyze government health data from the
+previous STAT 495 project. I will: use a sample of the STAT 495 project
+data to demonstrate CLARA, evaluate how CLARA performed, and develop a
+model to best predict cluster.
 }
 
 
@@ -144,18 +147,21 @@ predict cluster.
       \listoffigures
   
       \begin{abstract}
-      In recent years, the amount of geographic data has increased immensely.
-      With new technology, the accuracy and complexity of data has also
-      improved. This has provoked statisticians to create techniques to best
-      analyze and draw conclusions from this new-found data. Earlier
-      techniques of spatial data were not equipped to handle the complexity
-      and quantity of the data. This project first explores how and why we
-      analyze data based on geographic information. Next, I will explain some
-      of the newer spatial data algorithms, including PAM (Partitioning Around
-      Medoids), CLARA (Clustering LARge Applications), and CLARANS (Clustering
-      Large Applications based on RANdomized Search). Example data will be
-      used to demonstrate CLARA, and the project will conclude a model to
-      predict cluster.
+      In recent years, the amount of geographic data has increased immensely
+      with new technology such as GPS and surveillance cameras. With new
+      technology, the accuracy and complexity of data has also improved. This
+      has provoked statisticians to create techniques to best analyze and draw
+      conclusions from this new-found data. Earlier techniques of spatial data
+      were not equipped to handle the complexity and quantity of the data.
+      This project first explores how and why we analyze data based on
+      geographic information. Next, I will explain some of the newer spatial
+      data algorithms, including PAM (Partitioning Around Medoids), CLARA
+      (Clustering LARge Applications), and CLARANS (Clustering Large
+      Applications based on RANdomized Search). The purpose of this
+      exploration is to better analyze government health data from the
+      previous STAT 495 project. I will: use a sample of the STAT 495 project
+      data to demonstrate CLARA, evaluate how CLARA performed, and develop a
+      model to best predict cluster.
     \end{abstract}
   
   
@@ -167,8 +173,17 @@ predict cluster.
   \chapter*{Introduction}\label{introduction}
   \addcontentsline{toc}{chapter}{Introduction}
   
-  As mentioned in the abstract, we have much more spatial data than we
-  have had in the past. Spatial data analysis is analyzing data based on
+  For our STAT 495 project, we used mapping techniques to visualize and
+  analyze our data. The only significant relationships we were able to
+  find were between demographic information and health status; we were
+  unable to relate health status with location. I am interested in
+  analyzing the data through clustering, to further analyze whether the
+  location of an observation is related to one's health status. Since
+  clustering utilizes spatial information, it may be helpful in finding
+  patterns in the data.
+  
+  More broadly speaking, we have much more spatial data than we have had
+  in the past. Spatial data analysis is analyzing data based on
   topological, geometric, and geographic information. Spatial data may
   include latitude and longitude, zip code, or street address.
   
@@ -202,13 +217,14 @@ predict cluster.
   
   Clustering organizes a set of data items into groups so that items in
   the same group are similar to each other and different from those in
-  other groups {[}Rec 1{]}. Clustering is helpful in finding patterns and
-  similarities/differences between data points and groups; however it can
-  be quite subjective. It is up to the statistician to determine how many
-  clusters are appropriate for the data, as well as the cut off for what
-  is considered ``dissimilar'' or ``similar''. Additionally, the
-  statistician must choose which clustering algorithm is best to use- this
-  will be discussed in more detail later on in the project.
+  other groups (Huo \& Mennis, 2009). Clustering is helpful in finding
+  patterns and similarities/differences between data points and groups;
+  however it can be quite subjective. It is up to the statistician to
+  determine how many clusters are appropriate for the data, as well as the
+  cut off for what is considered ``dissimilar'' or ``similar''.
+  Additionally, the statistician must choose which clustering algorithm is
+  best to use- this will be discussed in more detail later on in the
+  project.
   
   \chapter{Clustering Basics}\label{rmd-basics}
   
@@ -255,9 +271,9 @@ predict cluster.
   find \(K\) clusters; however, they use different ways to represent these
   clusters.
   
-  \subsection{\texorpdfstring{\(K\)-Means}{K-Means}}\label{k-means}
+  \subsection{\texorpdfstring{\emph{K}-Means}{K-Means}}\label{k-means}
   
-  \(K\)-means algorithm represents its n observations in \(k\) groups,
+  \(K\)-means algorithm represents its \(n\) observations in \(k\) groups,
   with the center of the groups being the mean/average observation. The
   goal of the algorithm is to find k centroids, one for each cluster. In
   order to do this, we must minimize an \(objective function\), which is
@@ -299,8 +315,7 @@ predict cluster.
   is a data point in cluster \(C_k\) and \(\mu_k\) is the mean value
   assigned to the cluster \(C_k\) (Datanovia, n.d.).
   
-  \subsection{\texorpdfstring{\(K\)-
-  Medoids}{K- Medoids}}\label{k--medoids}
+  \subsection{\texorpdfstring{\emph{K}-Medoids}{K-Medoids}}\label{k-medoids}
   
   On the contrary, instead of taking the mean value of the objects in a
   cluster, the \(k\)-medoid method uses the most centrally located object
@@ -308,13 +323,13 @@ predict cluster.
   causes the method to be less sensitive to outliers, but also requires
   more time to run.
   
-  Steps for \(K\)-medoids (Jiawei Han \& Tung, n.d.): 1. Initial guess for
-  centers \(C_1\), \(C_2\),\ldots{} \(C_k\) (i.e.~randomly select k points
-  from \(X_1\), \(X_2\),\ldots{} \(X_n\))
+  Steps for \(K\)-medoids (Jiawei Han \& Tung, n.d.):
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{1}
+  \item
+    Initial guess for centers \(C_1\), \(C_2\),\ldots{} \(C_k\)
+    (i.e.~randomly select k points from \(X_1\), \(X_2\),\ldots{} \(X_n\))
   \item
     Minimize over C: for each i= 1, 2,\ldots{} n, find the cluster center
     \(C_k\) closest to Xi and let C(i)=k.
@@ -421,7 +436,7 @@ predict cluster.
   \section{PAM}\label{pam}
   
   Partitioning Around Medoids (PAM) is the most commonly used type of
-  k-medoid clustering (Kaufmann \& Rousseeuw, 1987).
+  \(k\)-medoid clustering (Kaufmann \& Rousseeuw, 1987).
   
   As an overview, the algorithm iterates through all the \(k\) cluster
   centers and tries to replace the center with one of the other objects
@@ -644,16 +659,21 @@ predict cluster.
     stop. Otherwise, go to Step 2.
   \end{enumerate}
   
+  Since my data from my STAT 495 project has over 60,000 observations, I
+  originally wanted to apply the CLARANS method. Unfortunately, the
+  CLARANS function in R only works for SNP data (used in biology).
+  Therefore, I had to sample my data, and apply the CLARA method instead.
+  
   \chapter{Application to Health Data}\label{typeset-equ}
   
   \section{Exploring the Data}\label{exploring-the-data}
   
-  In this example, I will further explore the data from my Stat 495 final
-  project. The data is from DataUSA, which uses public US Government data
-  to analyze and visualize relationships (DataUSA, n.d.). In the previous
-  project, we decided to use data from 2016 because of size restrictions.
-  The data contains spatial information, quantitative, and a few
-  categorical variables.
+  In this application, I will further explore the data from my Stat 495
+  final project. The data is from DataUSA, which uses public US Government
+  data to analyze and visualize relationships (DataUSA, n.d.). In the
+  previous project, we decided to use data from 2016 because of size
+  restrictions. The data contains spatial information, quantitative, and a
+  few categorical variables.
   
   The data contains demographic information, latitude and longitude, and
   variables that are indicators of health status. The health status
@@ -666,24 +686,15 @@ predict cluster.
   equal to 30). In interpreting the health indicator variables, the higher
   the values for these variables, the less healthy a person is.
   
-  For our Stat 495 project, we used mapping techniques to visualize and
-  analyze our data. The only significant relationships we were able to
-  find were between demographic information and health status; we were
-  unable to relate health status with location. I am interested in
-  analyzing the data through clustering, to further analyze whether the
-  location of an observation is related to one's health status. Since
-  clustering utilizes spatial information, it may be helpful in finding
-  patterns in the data.
-  
   My research question is to see whether there are clusters of people with
   exceptionally good or exceptionally poor health. This information could
   lead to further insights into what environmental or other factors are
   impacting peoples' health.
   
-  I plan to use the CLARA method, since I have more than 100 observations.
-  The data set in fact has over 60,000 observations, so I will need to
-  sample about 1000 observations in order to produce the best results
-  using CLARA.
+  I plan to use the CLARA method, since I have more than 100 observations
+  (PAM works on data sets of \(n\)=100). The data set has over 60,000
+  observations, so I will need to sample about 1000 observations in order
+  to produce the best results using CLARA.
   
   My first step is to import the data.
   
@@ -701,7 +712,7 @@ predict cluster.
   
   The data set I imported has 64 variables, which are too many for this
   example. Since my research question is focused around peoples' health, I
-  will only include the health indicator variables and the latitude and
+  will include four health indicator variables and the latitude and
   longitude of the data (spatial information).
   
   \begin{Shaded}
@@ -717,7 +728,7 @@ predict cluster.
   
   \section{Applying CLARA}\label{applying-clara}
   
-  Step 1: Determining \(k\).
+  \textbf{Step 1}: Determining \(k\).
   
   One of the major steps in clustering algorithms is determining how many
   \(k\) clusters is appropriate. In Chapter 1, I explained the Elbow and
@@ -751,7 +762,7 @@ predict cluster.
   maximum point in the graph). Since there is variation in values of \(k\)
   for these methods I will take the average of the two to determine \(k\).
   
-  Step 2: Run CLARA function
+  \textbf{Step 2}: Run CLARA function
   
   Next, I will run the CLARA algorithm on the data, using the criteria of
   \(k\)=3.
@@ -853,12 +864,14 @@ predict cluster.
   
   \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-10-1} \end{center}
   
+  This plot shows the overlapping of the clusters as well.
+  
   \section{Evaluation of CLARA}\label{evaluation-of-clara}
   
   There are multiple ways to determine the effectiveness of CLARA and the
-  quality of its clusters. One of the ways to internally validate the
-  method, is to look at its WSS. If there is a high WSS, it is likely the
-  method did not work very well.
+  quality of its clusters. One way to internally validate the method, is
+  to look at its WSS. If the WSS is high, it is likely the method did not
+  work very well.
   
   I plotted in the previous section in the Elbow method plot to determine
   the number of clusters to use. Since I decided to use \(k\)=3 clusters,
@@ -879,15 +892,17 @@ predict cluster.
   mentioned in Chapter 1 the Silhouette method helps us determine how many
   clusters best fits the data. The Silhoutte widths of the cluster
   determine how well an object truly belongs to its assigned cluster.
+  
   Based on many experiments and research, a silhouette width of 0.71-1
   indicates a strong cluster, 0.51-0.7 indicates a resonable cluster,
   0.26-0.5 indicates a weak or artifical cluster, and less than or equal
-  to 0.25 indicates no cluster found.
+  to 0.25 indicates no cluster found (Ng \& Han, 2000).
   
   In this example, the silhouette widths were: 0.422183 for cluster 1,
   0.634548 for cluster 2, and 0.172013 for cluster 3. In analyzing these
-  values, cluster 1 is a weak or artifical cluster, cluster 2 is a
-  reasonable cluster, and cluster 3 indicates no cluster found.
+  values based on the criteria, cluster 1 is a weak or artifical cluster,
+  cluster 2 is a reasonable cluster, and cluster 3 indicates no cluster
+  found.
   
   The overall evaluation of CLARA with this data is that the algorithm did
   not work well. The clusters were very weak, therefore, one should not
@@ -1111,30 +1126,38 @@ predict cluster.
   continue to grow year to year both in quanitity and quality (handling
   more data and higher complexity data). The methods discussed in this
   paper are considered partioning clustering methods. The most popular
-  partitioning clustering method was K-means, which was discussed in
-  comparison to K-medoids. To further dive into K-medoids methods, PAM
-  (Partitioning Around Medoids), CLARA (Clustering LArge Applications),
-  and CLARANS (Clustering Large Applications based on RANdomized Search)
-  were explained and explored.
+  partitioning clustering method is \emph{K}-means, which was discussed in
+  comparison to \emph{K}-medoids. To further dive into \emph{K}-medoids
+  algorithms, PAM (Partitioning Around Medoids), CLARA (Clustering LArge
+  Applications), and CLARANS (Clustering Large Applications based on
+  RANdomized Search) were explained and explored. This fulfilled the first
+  proposed task: Exposition of spatial clustering methods (describing and
+  explaining), why they are useful, what they tell us, general
+  information, exposition of PAM, CLARA, and CLARANS method.
   
-  Finally, example data from my Stat 495 project provided an explicit
-  example of the CLARA algorithm. In my Stat 495 project, we were unable
-  to draw conclusions about the health status and location of data
-  observations through mapping visualizations. This lead to my interest in
-  further analyzing the data using clustering algorithms, such as CLARA.
+  Data from my STAT 495 project provided an explicit example of the CLARA
+  algorithm. In my STAT 495 project, we were unable to draw conclusions
+  about the health status and location of data observations through
+  mapping visualizations. This lead to my interest in further analyzing
+  the data using clustering algorithms, such as CLARA.
   
-  For the example, the Elbow and Silhouette methods were used to determine
-  \emph{k} clusters, and the CLARA algorithm then divided the objects into
-  clusters. A brief evaluation of the clusters revealed a very high
-  within-cluster sum of squares, indicating that the clusters were not of
-  very high quality.
+  For the application, the Elbow and Silhouette methods were used to
+  determine \emph{k} clusters, and the CLARA algorithm then divided the
+  objects into clusters. A brief evaluation of the clusters revealed a
+  very high within-cluster sum of squares and low silhouette widths,
+  indicating that the clusters were not of very high quality. This section
+  completed my second proposed task: Perform a CLARA analysis on my data
+  or another data set.
   
   In determining whether one could predict an observation's cluster based
   on a person's health status, multivariate linear regression models were
   performed. None of the models proved to be very useful; however, the
   best model ended up being able to predict 17.5\% of the variation in the
   model. The data again didn't seem to have many patterns, which further
-  confirmed the results from my Stat 495 project.
+  confirmed the results from my STAT 495 project. This completed the third
+  and final item on my proposed task list: Perform a model where the
+  cluster is the response variable to determine if we can predict the
+  cluster of an observation based on other variables in the data.
   
   \appendix
   
@@ -1242,6 +1265,11 @@ predict cluster.
   \hypertarget{ref-Rec13}{}
   Han, J. (n.d.). Clustering analysis in data mining. Retrieved from
   \url{https://www.coursera.org/lecture/cluster-analysis/3-4-the-k-medoids-clustering-method-nJ0Sb}
+  
+  \hypertarget{ref-Rec1}{}
+  Huo, D., \& Mennis, J. (2009). Spatial data mining and geographic
+  knowledge discovery- an introduction. \emph{Computers, Environmental and
+  Urban Systems}.
   
   \hypertarget{ref-Rec3}{}
   Jiawei Han, Micheline Kamber, \& Tung, A. K. (2002). CLARANS: A method
