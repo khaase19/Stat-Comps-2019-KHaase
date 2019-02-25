@@ -20,12 +20,12 @@ if(!require(acstats)){
 ```
 
 # Clustering Basics {#rmd-basics}
-There are many factors to consider when choosing a clustering algorithm, such as the application of the problem (what do you want to find out about this data?), quality vs speed trade off (the size of the data plays a role), characteristics of the data (i.e. numeric distance measures), dimensionality (typically as dimension increases the time it takes to run the method increases and quality of the data clusters decrease), and outliers (some methods are very sensitive to outliers) [Rec 2]. 
+There are many factors to consider when choosing a clustering algorithm, such as the application of the problem (what do you want to find out about this data?), quality vs speed trade off (the size of the data plays a role), characteristics of the data (i.e. numeric distance measures), dimensionality (typically as dimension increases the time it takes to run the method increases and quality of the data clusters decrease), and outliers (some methods are very sensitive to outliers) [@Rec2]. 
 
 ## Partitioning 
 There are four main types of clustering: hierarchical, partitioning, density-based, and methods-based. Next, I'll dive into the partitioning clustering technique. 
 
-Partitioning cluster methods divide a set of data items into a number of non-overlapping clusters. A data item is typically assigned to a cluster based on a proximity or dissimilarity measure [Rec 2, p. 405]. 
+Partitioning cluster methods divide a set of data items into a number of non-overlapping clusters. A data item is typically assigned to a cluster based on a proximity or dissimilarity measure [@Rec2]. 
 
 Usually, there is a data set with $n$ observations and the goal is to divide the data points into $K$ clusters so that an objective function is optimized. 
 
@@ -33,11 +33,11 @@ The most common objective function is the sum of squared errors (SSE), where $c_
 
 $$SSE(C)= \sum_{k=1}^K \sum_{x_{i}C_{k}} ||{x_i}- c_k||^2$$
 
-Partitioning clustering algorithms classify the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group. [Rec 5, p. 18]. 
+Partitioning clustering algorithms classify the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group [@Rec5]. 
 
 
 ## Methods to Create Clusters
-There are many ways to create clusters. The most basic method is the $K$-means algorithm, which was developed by MacQueen in 1967 [Rec 5, p. 18]. In response to $K$-means being very sensitive to outliers, the $K$-medoid algorithm was created in 1987 [Rec 5, p. 19]. Both partitioning methods use iterative processes to find $K$ clusters; however, they use different ways to represent these clusters. 
+There are many ways to create clusters. The most basic method is the $K$-means algorithm, which was developed by MacQueen in 1967 [@Rec5]. In response to $K$-means being very sensitive to outliers, the $K$-medoid algorithm was created in 1987 [@Rec5]. Both partitioning methods use iterative processes to find $K$ clusters; however, they use different ways to represent these clusters. 
 
 ### $K$-Means
 
@@ -46,7 +46,7 @@ $$O= \sum_{j=1}^k \sum_{i=1}^j ||{{X_i^{(j)}- C_j}}||^2$$
 
 Where $|{{X_i^{(j)}- C_j}}|$ is an indicator of the distance of the data points from their cluster centers. 
 
-The steps of the algorithm are as follows:
+The steps of the algorithm are as follows [@Rec5]:
 
 1. Choose $K$ points in the space to represent the centroid. This works best if they are chosen to be far apart from each other.
 
@@ -58,38 +58,37 @@ The steps of the algorithm are as follows:
 
 This algorithm always terminates; however, it is sensitive both to outliers and to the initial randomly selected K cluster centers. Therefore, the algorithm should be run multiple times to reduce the effects from this sensitivity. 
 
-[Rec 5, p. 18]
 
 In order to determine how well $K$-means worked, we use the within cluster sum-of-squares to determine the compactness/"goodness" of the clustering (and we want it as small as possible).
 
 We calculate the WSS by the following equation:
 
 $$WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- \mu_k}})^2$$
-Where $x_i$ is a data point in cluster $C_k$ and $\mu_k$ is the mean value assigned to the cluster $C_k$. [Rec 7].
+Where $x_i$ is a data point in cluster $C_k$ and $\mu_k$ is the mean value assigned to the cluster $C_k$ [@Rec7].
 
 ### $K$- Medoids
-On the contrary, instead of taking the mean value of the objects in a cluster, the $k$-medoid method uses the most centrally located object in a cluster to be the cluster center [Rec 2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
+On the contrary, instead of taking the mean value of the objects in a cluster, the $k$-medoid method uses the most centrally located object in a cluster to be the cluster center [@Rec2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
 
-Steps for $K$-medoids:
+Steps for $K$-medoids [@Rec2]:
 1. Initial guess for centers $C_1$, $C_2$,... $C_k$ (i.e. randomly select k points from $X_1$, $X_2$,... $X_n$)
 
 2. Minimize over C: for each i= 1, 2,... n, find the cluster center $C_k$ closest to Xi and let C(i)=k. 
 
 3. Minimize over $C_1$, $C_2$,... $C_k$: for each k=1,... K, $C_k = X_k^*$, the medoid of points in cluster k. ie, the point Xi in the cluster k that minimizes $$\sum  _{c(j)=k} ||{{X_j- X_i}}||^2$$
 
-Basically, $K$-means and $K$-medoids follow very similar algorithms; however, $K$-medoids uses the most centrally located object (medoid) in a cluster to be the cluster center. This causes there to only be at most one center changed for each iteration (makes the algorithm run slower). [rec 2, p. 6].
+Basically, $K$-means and $K$-medoids follow very similar algorithms; however, $K$-medoids uses the most centrally located object (medoid) in a cluster to be the cluster center. This causes there to only be at most one center changed for each iteration (makes the algorithm run slower).
 
 ## How to Choose $K$
 Now that we've discussed different kinds of $K$-means and $K$-medoids partitioning methods, we know how to find $K$ clusters of data points; but how do we determine what $K$ is?
 
 Well, there are many ways to choose $k$, which is why these methods are so subjective. 
 
-I will describe two of the many ways to determine $K$, both of which use visuals to determine what value of $k$ is appropriate for the data. The elbow method and silhouette method are common ways to find $K$ when using the $K$ means and $K$ medoids algorithms. 
+I will describe two of the many ways to determine $K$, both of which use visuals to determine what value of $k$ is appropriate for the data. The elbow method and silhouette method are common ways to find $K$ when using the $K$ means and $K$ medoids algorithms [@Rec7]. 
 
 ###Elbow Method
 To start, the elbow method looks at the total within-cluster sum of squares (WSS) and determines when there are enough clusters so that the next cluster does not improve the total WSS very much. This would be the appropriate $K$ to choose. 
 
-The steps for this algorithm are as follows:
+The steps for this algorithm are as follows [@Rec7]:
 
 1. Compute the clustering algorithm (i.e. _k_medoids method) for different values of $k$ (i.e. $k$ from 1 to 10).
 
@@ -97,7 +96,7 @@ The steps for this algorithm are as follows:
 WSS can be calculated as:
 
 $$WSS= \sum_{i=1}^k \sum_{x_i = C_k} ||{{x_i- c_k}}||^2$$
-Where $x_i$ is a data point in cluster $C_k$ and $c_k$ is the medoid assigned to the cluster $C_k$. [Rec 7]. 
+Where $x_i$ is a data point in cluster $C_k$ and $c_k$ is the medoid assigned to the cluster $C_k$. [@Rec7]. 
 
 3. Plot the curve of the total WSSs according to the number of clusters (k). 
 
@@ -106,17 +105,14 @@ Where $x_i$ is a data point in cluster $C_k$ and $c_k$ is the medoid assigned to
 ###Silhouette Method
 The Silhouette Method focuses on the quality of clustering. A high average silhouette width indicates a good clustering (how well each object lies within its cluster). 
 
-The steps of the Silhouette Algorithm are:
+The steps of the Silhouette Algorithm are [@Rec7]:
 
 1. Compute clustering algorithm for different values of k (i.e. k from 1 to 10). 
 2. For each k, calculate the average silhouette of observations. 
 
-The silhouette of an object $O_j$, is a quanitity varying between -1 and 1, that indicates how much $O_j$ truly belongs to the cluster to which $O_j$ is classified [Rec 6, p. 150].
+The silhouette of an object $O_j$, is a quanitity varying between -1 and 1, that indicates how much $O_j$ truly belongs to the cluster to which $O_j$ is classified [@Rec6].
 
 There is a silhouette method in R that can calculate this for us... 
 
 3. Plot the curve of the average silhouettes according to the number of clusters (k). 
 4. The location of the maximum is considered the appropriate number of clusters. 
-
-There will also be an example of this method used in Chapter 3. 
---> datanovia website

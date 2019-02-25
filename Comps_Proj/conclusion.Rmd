@@ -22,7 +22,7 @@ If you feel it necessary to include an appendix, it goes here.
 
 \singlespacing
 
-# Appendix A
+# The First Appendix
 
 This first appendix includes all of the R chunks of code that were hidden throughout the document.
 

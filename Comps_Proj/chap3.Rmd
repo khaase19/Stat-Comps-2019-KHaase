@@ -25,7 +25,7 @@ options(xtable.comment=FALSE)
 ```
 
 ## Exploring the Data
-In this example, I will further explore the data from my Stat 495 final project. The data is from DataUSA, which uses public US Government data to analyze and visualize relationships. In the previous project, we decided to use data from 2016 because of size restrictions. The data contains spatial information, quantitative, and a few categorical variables.
+In this example, I will further explore the data from my Stat 495 final project. The data is from DataUSA, which uses public US Government data to analyze and visualize relationships [@data]. In the previous project, we decided to use data from 2016 because of size restrictions. The data contains spatial information, quantitative, and a few categorical variables.
 
 The data contains demographic information, latitude and longitude, and variables that are indicators of health status. The health status variables include: poor to fair health (the percentage of adults reporting fair or poor health (age-adjusted)), poor physical health days (average number of physically unhealthy days reported in the past 30 days (age-adjusted)), physical inactivity (the percentage of adults aged 20 and over reporting no leisure-time physical inactivity), and adult obesity (the percentage of adults to report a BMI of greater than or equal to 30). In interpreting the health indicator variables, the higher the values for these variables, the less healthy a person is.  
 
@@ -63,9 +63,9 @@ smallsample <- mysample[myvars]
 The data is now ready to apply CLARA. 
 
 ## Applying CLARA
-Step 1: Determining _k_. 
+Step 1: Determining $k$. 
 
-One of the major steps in clustering algorithms is determining how many _k_ clusters is appropriate. In Chapter 1, I explained the Elbow and Silhouette methods of determining _k_. I will perform both methods on this data to start. 
+One of the major steps in clustering algorithms is determining how many $k$ clusters is appropriate. In Chapter 1, I explained the Elbow and Silhouette methods of determining $k$. I will perform both methods on this data to start. 
 
 ```{r}
 #finding k with project data, using Elbow Method
@@ -79,7 +79,7 @@ fviz_nbclust(new, kmeans, method = "silhouette") +
   labs(subtitle = "Silhouette method")
 ```
 
-According to the Elbow method, _k_ should be 4 (where the elbow is in the graph). According to the Silhouette method, _k_ should be 2 (the maximum point in the graph). Since there is variation in values of _k_ for these methods I will take the average of the two to determine _k_. 
+According to the Elbow method, $k$ should be 4 (where the elbow is in the graph). According to the Silhouette method, $k$ should be 2 (the maximum point in the graph). Since there is variation in values of $k$ for these methods I will take the average of the two to determine $k$. 
 
 Step 2: Run CLARA function
 
@@ -131,7 +131,7 @@ factoextra::fviz_cluster(clarasamp)
 
 There are multiple ways to determine the effectiveness of CLARA and the quality of its clusters. One of the ways to internally validate the method, is to look at its WSS. If there is a high WSS, it is likely the method did not work very well. 
 
-I plotted in the previous section in the Elbow method plot to determine the number of clusters to use. Since I decided to use _k_=3 clusters, I can now go back and calculate the WSS for the method. 
+I plotted in the previous section in the Elbow method plot to determine the number of clusters to use. Since I decided to use $k$=3 clusters, I can now go back and calculate the WSS for the method. 
 
 ```{r}
 elbow
@@ -248,9 +248,9 @@ fun10<- lm(cluster~ poor_physical_health_days + adult_obesity + poor_or_fair_hea
 Most of the model had significant predictors; however, the R-squared values were small; indicating that the models did not fit the data very well.
 
 In comparing adjusted R-squared values and the number of predictors used, the best model ended up being:
+
 ```{r}
 summary(fun8)
 ```
 
 This model used three predictors and had about the same R-squared value as the previous model, with one less predictor. 
-

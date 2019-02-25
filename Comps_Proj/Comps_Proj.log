@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.6.4)  25 FEB 2019 09:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.6.4)  25 FEB 2019 12:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -748,7 +748,7 @@ Non-PDF special ignored!
 
 
 ]
-<clustering_methods.png, id=193, 867.24pt x 446.66875pt>
+<clustering_methods.png, id=191, 867.24pt x 446.66875pt>
 File: clustering_methods.png Graphic file (type png)
 <use clustering_methods.png>
 Package pdftex.def Info: clustering_methods.png  used on input line 193.
@@ -782,199 +782,192 @@ Underfull \vbox (badness 3579) has occurred while \output is active []
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 256.
+(Font)              <14.4> on input line 258.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 256.
+(Font)              <10> on input line 258.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 256.
+(Font)              <7> on input line 258.
 [4]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <17.28> on input line 335.
-[5] [6] [7] [8
-
-]
+[5] [6]
 Chapter 2.
-<PAM_pic.png, id=250, 734.745pt x 315.1775pt>
+<PAM_pic.png, id=239, 734.745pt x 315.1775pt>
 File: PAM_pic.png Graphic file (type png)
 <use PAM_pic.png>
-Package pdftex.def Info: PAM_pic.png  used on input line 443.
+Package pdftex.def Info: PAM_pic.png  used on input line 441.
 (pdftex.def)             Requested size: 367.3716pt x 157.58836pt.
 
 Underfull \vbox (badness 4378) has occurred while \output is active []
 
-[9 <./PAM_pic.png>] [10] [11]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 564.
+[7
+
+ <./PAM_pic.png>] [8] [9] [10] [11] [12
+
+]
+Chapter 3.
+[13]
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 694.
 
 (/mnt/rstudio/shared/texlive/2018/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 564--565
-[][]$\T1/lmtt/m/n/12 https : / / www . coursera . org / lecture / cluster -[] a
-nalysis / 3 -[] 4 -[] the -[] k -[]
- []
-
-[12]
-<clustering_pic.png, id=281, 661.47125pt x 425.59pt>
-File: clustering_pic.png Graphic file (type png)
-<use clustering_pic.png>
-Package pdftex.def Info: clustering_pic.png  used on input line 660.
-(pdftex.def)             Requested size: 330.73482pt x 212.79446pt.
-[13] [14 <./clustering_pic.png>]
-Chapter 3.
-[15
-
-]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 713.
-<Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf, id=305, 461.725pt x 315.1
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 695.
+<Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf, id=290, 461.725pt x 315.1
 775pt>
 File: Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pd
 f)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf  u
-sed on input line 756.
+sed on input line 738.
 (pdftex.def)             Requested size: 461.72388pt x 315.17673pt.
 
-Overfull \hbox (28.10388pt too wide) in paragraph at lines 756--756
+Overfull \hbox (28.10388pt too wide) in paragraph at lines 738--738
  [] 
  []
 
-[16]
-<Comps_Proj_files/figure-latex/unnamed-chunk-5-2.pdf, id=312, 461.725pt x 315.1
+[14]
+<Comps_Proj_files/figure-latex/unnamed-chunk-5-2.pdf, id=298, 461.725pt x 315.1
 775pt>
 File: Comps_Proj_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (type pd
 f)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-5-2.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-5-2.pdf  u
-sed on input line 765.
+sed on input line 747.
 (pdftex.def)             Requested size: 461.72388pt x 315.17673pt.
 
-Overfull \hbox (28.10388pt too wide) in paragraph at lines 765--765
+Overfull \hbox (28.10388pt too wide) in paragraph at lines 747--747
  [] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[17 <./Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf>] [18 <./Comps_Proj_
-files/figure-latex/unnamed-chunk-5-2.pdf>] [19]
-<Comps_Proj_files/figure-latex/unnamed-chunk-9-1.pdf, id=340, 419.5675pt x 275.
+[15 <./Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf>] [16 <./Comps_Proj_
+files/figure-latex/unnamed-chunk-5-2.pdf>] [17]
+<Comps_Proj_files/figure-latex/unnamed-chunk-9-1.pdf, id=325, 419.5675pt x 275.
 0275pt>
 File: Comps_Proj_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pd
 f)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-9-1.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-9-1.pdf  u
-sed on input line 857.
+sed on input line 838.
 (pdftex.def)             Requested size: 419.56647pt x 275.02682pt.
-<Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf, id=341, 456.70625pt x 31
+<Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf, id=326, 456.70625pt x 31
 6.18124pt>
 File: Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type p
 df)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf  
-used on input line 873.
+used on input line 854.
 (pdftex.def)             Requested size: 456.70512pt x 316.18047pt.
 
-Overfull \hbox (23.08513pt too wide) in paragraph at lines 873--873
+Overfull \hbox (23.08513pt too wide) in paragraph at lines 854--854
  [] 
  []
 
 
 Underfull \vbox (badness 1748) has occurred while \output is active []
 
-[20 <./Comps_Proj_files/figure-latex/unnamed-chunk-9-1.pdf>]
-<Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf, id=353, 461.725pt x 315.
+[18 <./Comps_Proj_files/figure-latex/unnamed-chunk-9-1.pdf>]
+<Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf, id=338, 461.725pt x 315.
 1775pt>
 File: Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type p
 df)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf  
-used on input line 892.
+used on input line 873.
 (pdftex.def)             Requested size: 461.72388pt x 315.17673pt.
 
-Overfull \hbox (28.10388pt too wide) in paragraph at lines 892--892
+Overfull \hbox (28.10388pt too wide) in paragraph at lines 873--873
  [] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[21 <./Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf>]
+[19 <./Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[22 <./Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf>]
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 930
+[20 <./Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf>]
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 911
 .
 (/mnt/rstudio/shared/texlive/2018/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Overfull \hbox (8.37767pt too wide) in paragraph at lines 966--972
+Overfull \hbox (8.37767pt too wide) in paragraph at lines 947--953
 []\T1/lmr/m/n/12 (-20) According to this model, \T1/lmr/m/it/12 (-20) lon-gi-tu
 de\T1/lmr/m/n/12 (-20) , \T1/lmr/m/it/12 (-20) poor_or_fair_health\T1/lmr/m/n/1
 2 (-20) , \T1/lmr/m/it/12 (-20) poor_physical_health_days\T1/lmr/m/n/12 (-20) ,
 
  []
 
-[23]
-Overfull \hbox (51.36543pt too wide) in paragraph at lines 1013--1018
+[21]
+Overfull \hbox (51.36543pt too wide) in paragraph at lines 994--999
 []\T1/lmr/m/n/12 (-20) This model had three sig-nif-i-cant pre-dic-tors (\T1/lm
 r/m/it/12 (-20) poor_or_fair_health\T1/lmr/m/n/12 (-20) , \T1/lmr/m/it/12 (-20)
  poor_physical_health_days\T1/lmr/m/n/12 (-20) ,
  []
 
-<Comps_Proj_files/figure-latex/unnamed-chunk-18-1.pdf, id=384, 458.71375pt x 31
+<Comps_Proj_files/figure-latex/unnamed-chunk-18-1.pdf, id=370, 458.71375pt x 31
 3.17pt>
 File: Comps_Proj_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type p
 df)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-18-1.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-18-1.pdf  
-used on input line 1033.
+used on input line 1014.
 (pdftex.def)             Requested size: 458.71263pt x 313.16922pt.
 
-Overfull \hbox (25.09264pt too wide) in paragraph at lines 1033--1033
+Overfull \hbox (25.09264pt too wide) in paragraph at lines 1014--1014
  [] 
  []
 
 
 Underfull \vbox (badness 4582) has occurred while \output is active []
 
-[24]
-Overfull \hbox (2.70337pt too wide) in paragraph at lines 1035--1042
+[22]
+Overfull \hbox (2.70337pt too wide) in paragraph at lines 1016--1023
 []\T1/lmr/m/n/12 (-20) The cor-re-la-tion plot shows strong pos-i-tive cor-re-l
 a-tions be-tween \T1/lmr/m/it/12 (-20) poor_or_fair_health\T1/lmr/m/n/12 (-20) 
 ,
  []
 
-[25 <./Comps_Proj_files/figure-latex/unnamed-chunk-18-1.pdf>] [26] [27] [28
+[23 <./Comps_Proj_files/figure-latex/unnamed-chunk-18-1.pdf>] [24] [25] [26
 
-] [29] [30
+] [27] [28
 
 ]
 Appendix A.
-[31] [32]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1268.
-[33
+[29] [30]
+Underfull \hbox (badness 10000) in paragraph at lines 1243--1245
+ \T1/lmtt/m/n/12 / / www . coursera . org / lecture / cluster -[] analysis / 3 
+-[] 4 -[] the -[] k -[] medoids -[]
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1266.
+[31
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1268.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1266.
 (./Comps_Proj.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1268.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1268.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1266.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1266.
 
 Package rerunfilecheck Info: File `Comps_Proj.out' has not changed.
-(rerunfilecheck)             Checksum: 9E549E66BDD96D3BE5E0FAC0B2267A08;1508.
+(rerunfilecheck)             Checksum: A4F3448D77A48FC56379C3613E263C11;1516.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1268.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1266.
  ) 
 Here is how much of TeX's memory you used:
- 10847 strings out of 492647
- 169637 string characters out of 6125307
- 287342 words of memory out of 5000000
- 14262 multiletter control sequences out of 15000+600000
- 73267 words of font info for 140 fonts, out of 8000000 for 9000
+ 10836 strings out of 492647
+ 169446 string characters out of 6125307
+ 286277 words of memory out of 5000000
+ 14257 multiletter control sequences out of 15000+600000
+ 72918 words of font info for 137 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,12n,45p,452b,480s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/mnt/rstudio/shared/texlive/2018/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/
@@ -997,10 +990,10 @@ e/2018/texmf-dist/fonts/type1/public/lm/lmri12.pfb></mnt/rstudio/shared/texlive
 8/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></mnt/rstudio/shared/texlive/2018
 /texmf-dist/fonts/type1/public/lm/lmtt12.pfb></mnt/rstudio/shared/texlive/2018/
 texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Comps_Proj.pdf (45 pages, 2426629 bytes).
+Output written on Comps_Proj.pdf (43 pages, 2346504 bytes).
 PDF statistics:
- 526 PDF objects out of 1000 (max. 8388607)
- 436 compressed objects within 5 object streams
- 115 named destinations out of 1000 (max. 500000)
- 14574 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 523 PDF objects out of 1000 (max. 8388607)
+ 437 compressed objects within 5 object streams
+ 116 named destinations out of 1000 (max. 500000)
+ 14569 words of extra memory for PDF output out of 17280 (max. 10000000)
 

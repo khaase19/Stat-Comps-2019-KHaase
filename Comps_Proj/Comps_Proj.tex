@@ -219,7 +219,7 @@ predict cluster.
   measures), dimensionality (typically as dimension increases the time it
   takes to run the method increases and quality of the data clusters
   decrease), and outliers (some methods are very sensitive to outliers)
-  {[}Rec 2{]}.
+  (Jiawei Han \& Tung, n.d.).
   
   \section{Partitioning}\label{partitioning}
   
@@ -229,7 +229,8 @@ predict cluster.
   
   Partitioning cluster methods divide a set of data items into a number of
   non-overlapping clusters. A data item is typically assigned to a cluster
-  based on a proximity or dissimilarity measure {[}Rec 2, p.~405{]}.
+  based on a proximity or dissimilarity measure (Jiawei Han \& Tung,
+  n.d.).
   
   Usually, there is a data set with \(n\) observations and the goal is to
   divide the data points into \(K\) clusters so that an objective function
@@ -242,16 +243,17 @@ predict cluster.
   
   Partitioning clustering algorithms classify the data into K groups by
   satisfying both that each group has at least one data point, and that
-  each data point belongs to exactly one group. {[}Rec 5, p.~18{]}.
+  each data point belongs to exactly one group (V \& Surendran, 2013).
   
   \section{Methods to Create Clusters}\label{methods-to-create-clusters}
   
   There are many ways to create clusters. The most basic method is the
-  \(K\)-means algorithm, which was developed by MacQueen in 1967 {[}Rec 5,
-  p.~18{]}. In response to \(K\)-means being very sensitive to outliers,
-  the \(K\)-medoid algorithm was created in 1987 {[}Rec 5, p.~19{]}. Both
-  partitioning methods use iterative processes to find \(K\) clusters;
-  however, they use different ways to represent these clusters.
+  \(K\)-means algorithm, which was developed by MacQueen in 1967 (V \&
+  Surendran, 2013). In response to \(K\)-means being very sensitive to
+  outliers, the \(K\)-medoid algorithm was created in 1987 (V \&
+  Surendran, 2013). Both partitioning methods use iterative processes to
+  find \(K\) clusters; however, they use different ways to represent these
+  clusters.
   
   \subsection{\texorpdfstring{\(K\)-Means}{K-Means}}\label{k-means}
   
@@ -265,7 +267,7 @@ predict cluster.
   Where \(|{{X_i^{(j)}- C_j}}|\) is an indicator of the distance of the
   data points from their cluster centers.
   
-  The steps of the algorithm are as follows:
+  The steps of the algorithm are as follows (V \& Surendran, 2013):
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
@@ -287,8 +289,6 @@ predict cluster.
   Therefore, the algorithm should be run multiple times to reduce the
   effects from this sensitivity.
   
-  {[}Rec 5, p.~18{]}
-  
   In order to determine how well \(K\)-means worked, we use the within
   cluster sum-of-squares to determine the compactness/``goodness'' of the
   clustering (and we want it as small as possible).
@@ -297,20 +297,20 @@ predict cluster.
   
   \[WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- \mu_k}})^2\] Where \(x_i\)
   is a data point in cluster \(C_k\) and \(\mu_k\) is the mean value
-  assigned to the cluster \(C_k\). {[}Rec 7{]}.
+  assigned to the cluster \(C_k\) (Datanovia, n.d.).
   
   \subsection{\texorpdfstring{\(K\)-
   Medoids}{K- Medoids}}\label{k--medoids}
   
   On the contrary, instead of taking the mean value of the objects in a
   cluster, the \(k\)-medoid method uses the most centrally located object
-  in a cluster to be the cluster center {[}Rec 2{]}. This causes the
-  method to be less sensitive to outliers, but also requires more time to
-  run.
+  in a cluster to be the cluster center (Jiawei Han \& Tung, n.d.). This
+  causes the method to be less sensitive to outliers, but also requires
+  more time to run.
   
-  Steps for \(K\)-medoids: 1. Initial guess for centers \(C_1\),
-  \(C_2\),\ldots{} \(C_k\) (i.e.~randomly select k points from \(X_1\),
-  \(X_2\),\ldots{} \(X_n\))
+  Steps for \(K\)-medoids (Jiawei Han \& Tung, n.d.): 1. Initial guess for
+  centers \(C_1\), \(C_2\),\ldots{} \(C_k\) (i.e.~randomly select k points
+  from \(X_1\), \(X_2\),\ldots{} \(X_n\))
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
@@ -329,7 +329,7 @@ predict cluster.
   however, \(K\)-medoids uses the most centrally located object (medoid)
   in a cluster to be the cluster center. This causes there to only be at
   most one center changed for each iteration (makes the algorithm run
-  slower). {[}rec 2, p.~6{]}.
+  slower).
   
   \section{\texorpdfstring{How to Choose
   \(K\)}{How to Choose K}}\label{how-to-choose-k}
@@ -344,7 +344,8 @@ predict cluster.
   I will describe two of the many ways to determine \(K\), both of which
   use visuals to determine what value of \(k\) is appropriate for the
   data. The elbow method and silhouette method are common ways to find
-  \(K\) when using the \(K\) means and \(K\) medoids algorithms.
+  \(K\) when using the \(K\) means and \(K\) medoids algorithms
+  (Datanovia, n.d.).
   
   \subsection{Elbow Method}\label{elbow-method}
   
@@ -353,7 +354,7 @@ predict cluster.
   next cluster does not improve the total WSS very much. This would be the
   appropriate \(K\) to choose.
   
-  The steps for this algorithm are as follows:
+  The steps for this algorithm are as follows (Datanovia, n.d.):
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
@@ -366,7 +367,7 @@ predict cluster.
   
   \[WSS= \sum_{i=1}^k \sum_{x_i = C_k} ||{{x_i- c_k}}||^2\] Where \(x_i\)
   is a data point in cluster \(C_k\) and \(c_k\) is the medoid assigned to
-  the cluster \(C_k\). {[}Rec 7{]}.
+  the cluster \(C_k\). (Datanovia, n.d.).
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
@@ -385,7 +386,7 @@ predict cluster.
   average silhouette width indicates a good clustering (how well each
   object lies within its cluster).
   
-  The steps of the Silhouette Algorithm are:
+  The steps of the Silhouette Algorithm are (Datanovia, n.d.):
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
@@ -399,7 +400,7 @@ predict cluster.
   
   The silhouette of an object \(O_j\), is a quanitity varying between -1
   and 1, that indicates how much \(O_j\) truly belongs to the cluster to
-  which \(O_j\) is classified {[}Rec 6, p.~150{]}.
+  which \(O_j\) is classified (Ng \& Han, 2000).
   
   There is a silhouette method in R that can calculate this for us\ldots{}
   
@@ -415,9 +416,6 @@ predict cluster.
     clusters.
   \end{enumerate}
   
-  There will also be an example of this method used in Chapter 3.
-  --\textgreater{} datanovia website
-  
   \chapter{Clustering Methods Continued}\label{typeset-equ}
   
   \section{PAM}\label{pam}
@@ -427,9 +425,9 @@ predict cluster.
   
   As an overview, the algorithm iterates through all the \(k\) cluster
   centers and tries to replace the center with one of the other objects
-  (\(n-k\) possibilities) {[}Rec 2{]}. For a replacement to occur, the
-  squared error function must decrease. If it does not decrease, there is
-  no replacement. The algorithm eventually terminates.
+  (\(n-k\) possibilities) (Jiawei Han \& Tung, 2002). For a replacement to
+  occur, the squared error function must decrease. If it does not
+  decrease, there is no replacement. The algorithm eventually terminates.
   
   For the set up of this algorithm, let's let \(O_m\) be a current medoid
   that is to be replaced (i.e.~A in Figure 2.1). Let's let \(O_p\) be a
@@ -447,9 +445,9 @@ predict cluster.
   
   Now that we have our set up, there are four different ways or ``cases''
   in which PAM calculates the cost, \(C_{jmp}\) for all of the non-medoid
-  objects \(O_j\). For the sake of simplicity and in understanding the
-  different cases, I will denote \(O_m\) as A, \(O_p\) as M, \(O_j\) as Y
-  or Z, \(O_{j,2}\) as B.
+  objects \(O_j\) (Jiawei Han \& Tung, n.d.). For the sake of simplicity
+  and in understanding the different cases, I will denote \(O_m\) as A,
+  \(O_p\) as M, \(O_j\) as Y or Z, \(O_{j,2}\) as B.
   
   \textbf{Case 1:}
   
@@ -489,7 +487,8 @@ predict cluster.
   In combining all of the four cases described, the total cost of
   replacing A with M is: \[ TC_{mp} = \sum_j(C_{jmp}) \].
   
-  The more formal steps of the algorithm are as follows:
+  The more formal steps of the algorithm are as follows (Jiawei Han \&
+  Tung, n.d.):
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
@@ -513,10 +512,6 @@ predict cluster.
   makes for a costly computation when n is large. The algorithm works best
   when n= 100 and \emph{k}=5.
   
-  Explanation of PAM, {[}Rec 3, p.~5-7{]}.
-  
-  4 cases, and algorithm Rec 6 bibliography (Ng \& Han, 2000)
-  
   \section{CLARA}\label{clara}
   
   Because PAM does not scale well to large data sets, Clustering LARge
@@ -528,13 +523,13 @@ predict cluster.
   data using PAM and then the average dissimilarity is computed using the
   whole dataset, not only the objects in the samples. If a new set of
   medoids gives a lower dissimilarity than a previous best solution, then
-  the best solution is replaced with a new set of medoids {[}Rec 2,
-  p.~7{]}.
+  the best solution is replaced with a new set of medoids (Jiawei Han \&
+  Tung, n.d.).
   
   Experiments indicate that 5 samples of size 40+ 2\(k\) give satisfactory
   results {[}Rec 6, p.~146{]}.
   
-  The steps for the algorithm are as follows:
+  The steps for the algorithm are as follows (Jiawei Han \& Tung, n.d.):
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
@@ -559,19 +554,15 @@ predict cluster.
   10 clusters (k). CLARA can work on larger data sets because the
   complexity for each iteration is \(O{k(40 + k)^2 + k(n-k)}\), which is
   much smaller than \(O(k(n-k)^2)\) (which is the complexity for each
-  iteration in PAM).
-  
-  \url{https://www.coursera.org/lecture/cluster-analysis/3-4-the-k-medoids-clustering-method-nJ0Sb}
+  iteration in PAM) (J. Han, n.d.).
   
   \section{CLARANS}\label{clarans}
-  
-  (Ng \& Han, 1994)
   
   CLARANS was created to handle even larger data sets than CLARA, and
   provides the highest quality clusters, in comparison to PAM and CLARA.
   
   The easiest way to understand CLARANS, is through a graphic example
-  including both PAM and CLARA as well.
+  including both PAM and CLARA as well (Jiawei Han \& Tung, n.d.).
   
   The processes of finding \emph{k} medoids can be described as searching
   through a graph of objects. This graph, denoted \(G_{n,k}\) contains
@@ -603,7 +594,7 @@ predict cluster.
   problematic, because if M is the minimum node in the original graph
   \(G_{n,k}\), but if M is not included in \(G_{Sa,k}\), M will never be
   found. To make up for this deficiency, many many samples would have to
-  be collected and processed. {[}Rec 3, p.~9{]}.
+  be collected and processed. (Jiawei Han \& Tung, 2002).
   
   CLARANS was developed because of this deficiency. CLARANS does not
   restrict to a particular subgraph, instead if searches the entire graph
@@ -622,7 +613,7 @@ predict cluster.
   \emph{numlocal} (the number of local minima obtained). The higher the
   value of maxneighbor, the closer CLARANS is to PAM.
   
-  Steps for the CLARANS algorithm {[}Rec 3, p.~9{]}:
+  Steps for the CLARANS algorithm (Jiawei Han \& Tung, 2002):
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
@@ -653,25 +644,16 @@ predict cluster.
     stop. Otherwise, go to Step 2.
   \end{enumerate}
   
-  *Randomized re-sampling, ensuring efficiency and quality
-  
-  \begin{figure}[htbp]
-  \centering
-  \includegraphics[scale = 0.5,angle = 0]{clustering_pic.png}
-  \caption[CLARANS searching for a better solution]{\normalsize{CLARANS searching for a better solution}}
-  \label{fig:CLARANS}
-  \end{figure}
-  
   \chapter{Application to Health Data}\label{typeset-equ}
   
   \section{Exploring the Data}\label{exploring-the-data}
   
   In this example, I will further explore the data from my Stat 495 final
   project. The data is from DataUSA, which uses public US Government data
-  to analyze and visualize relationships. In the previous project, we
-  decided to use data from 2016 because of size restrictions. The data
-  contains spatial information, quantitative, and a few categorical
-  variables.
+  to analyze and visualize relationships (DataUSA, n.d.). In the previous
+  project, we decided to use data from 2016 because of size restrictions.
+  The data contains spatial information, quantitative, and a few
+  categorical variables.
   
   The data contains demographic information, latitude and longitude, and
   variables that are indicators of health status. The health status
@@ -735,12 +717,12 @@ predict cluster.
   
   \section{Applying CLARA}\label{applying-clara}
   
-  Step 1: Determining \emph{k}.
+  Step 1: Determining \(k\).
   
   One of the major steps in clustering algorithms is determining how many
-  \emph{k} clusters is appropriate. In Chapter 1, I explained the Elbow
-  and Silhouette methods of determining \emph{k}. I will perform both
-  methods on this data to start.
+  \(k\) clusters is appropriate. In Chapter 1, I explained the Elbow and
+  Silhouette methods of determining \(k\). I will perform both methods on
+  this data to start.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -764,11 +746,10 @@ predict cluster.
   
   \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-5-2} \end{center}
   
-  According to the Elbow method, \emph{k} should be 4 (where the elbow is
-  in the graph). According to the Silhouette method, \emph{k} should be 2
-  (the maximum point in the graph). Since there is variation in values of
-  \emph{k} for these methods I will take the average of the two to
-  determine \emph{k}.
+  According to the Elbow method, \(k\) should be 4 (where the elbow is in
+  the graph). According to the Silhouette method, \(k\) should be 2 (the
+  maximum point in the graph). Since there is variation in values of \(k\)
+  for these methods I will take the average of the two to determine \(k\).
   
   Step 2: Run CLARA function
   
@@ -880,8 +861,8 @@ predict cluster.
   method did not work very well.
   
   I plotted in the previous section in the Elbow method plot to determine
-  the number of clusters to use. Since I decided to use \emph{k}=3
-  clusters, I can now go back and calculate the WSS for the method.
+  the number of clusters to use. Since I decided to use \(k\)=3 clusters,
+  I can now go back and calculate the WSS for the method.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -1159,7 +1140,7 @@ predict cluster.
   
   \singlespacing
   
-  \chapter{Appendix A}\label{appendix-a}
+  \chapter{The First Appendix}\label{the-first-appendix}
   
   This first appendix includes all of the R chunks of code that were
   hidden throughout the document.
@@ -1249,18 +1230,35 @@ predict cluster.
   \setlength{\parskip}{8pt}
   
   \hypertarget{refs}{}
-  \hypertarget{ref-angel2001}{}
-  Angel, E. (2001a). \emph{Batch-file computer graphics : A bottom-up
-  approach with quicktime}. Boston, MA: Wesley Addison Longman.
+  \hypertarget{ref-Rec7}{}
+  Datanovia. (n.d.). Determining the optimal number of clusters: 3 must
+  know methods. Retrieved from
+  \url{https://www.datanovia.com/en/lessons/determining-the-optimal-number-of-clusters-3-must-know-methods/}
   
-  \hypertarget{ref-angel2002a}{}
-  Angel, E. (2001b). \emph{Test second book by angel}. Boston, MA: Wesley
-  Addison Longman.
+  \hypertarget{ref-data}{}
+  DataUSA. (n.d.). Retrieved from
+  \url{https://datausa.io/map/?level=county\&key=diabetes}
   
-  \hypertarget{ref-ng1994}{}
-  Ng, R. T., \& Han, J. (2000). \emph{Efficient and effective clustering
-  methods for spatial data mining}. San Francisco, CA: Morgan Kaufmann
-  Publishers Inc.
+  \hypertarget{ref-Rec13}{}
+  Han, J. (n.d.). Clustering analysis in data mining. Retrieved from
+  \url{https://www.coursera.org/lecture/cluster-analysis/3-4-the-k-medoids-clustering-method-nJ0Sb}
+  
+  \hypertarget{ref-Rec3}{}
+  Jiawei Han, Micheline Kamber, \& Tung, A. K. (2002). CLARANS: A method
+  for clustering objects for spatial data mining, 1--27.
+  
+  \hypertarget{ref-Rec2}{}
+  Jiawei Han, Micheline Kamber, \& Tung, A. K. (n.d.). Spatial clustering
+  method in data mining: A survey, 1--29.
+  
+  \hypertarget{ref-Rec6}{}
+  Ng, R. T., \& Han, J. (2000). Efficient and effective clustering methods
+  for spatial data mining, 144--155.
+  
+  \hypertarget{ref-Rec5}{}
+  V, N. C., \& Surendran, S. (2013). Review of spatial clustering methods.
+  \emph{International Journal of Information Technology Infastructure},
+  \emph{2}, 15--24.
 
 
   % Index?

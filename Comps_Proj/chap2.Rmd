@@ -14,7 +14,7 @@ You can delete the header-includes (lines 3-5 above) if you like and also the ch
 ## PAM
 Partitioning Around Medoids (PAM) is the most commonly used type of k-medoid clustering (Kaufmann & Rousseeuw, 1987).
 
-As an overview, the algorithm iterates through all the $k$ cluster centers and tries to replace the center with one of the other objects ($n-k$ possibilities) [Rec 2]. For a replacement to occur, the squared error function must decrease. If it does not decrease, there is no replacement. The algorithm eventually terminates.
+As an overview, the algorithm iterates through all the $k$ cluster centers and tries to replace the center with one of the other objects ($n-k$ possibilities) [@Rec3]. For a replacement to occur, the squared error function must decrease. If it does not decrease, there is no replacement. The algorithm eventually terminates.
 
 For the set up of this algorithm, let's let $O_m$ be a current medoid that is to be replaced (i.e. A in Figure 2.1). Let's let $O_p$ be a new medoid to replace $O_m$ (i.e. M in Figure 2.1). $O_j$ is an other non-medoid object that may or may not be moved (i.e. Y and Z in Figure 2.1). $O_{j,2}$ is a current medoid that is nearest to $O_j$ without A and M (i.e. B in Figure 2.1). 
 
@@ -24,7 +24,7 @@ label(path = "PAM_pic.png",
       label = "PAM", type = "figure", scale= 0.5)
 ```
 
-Now that we have our set up, there are four different ways or "cases" in which PAM calculates the cost, $C_{jmp}$ for all of the non-medoid objects $O_j$. For the sake of simplicity and in understanding the different cases, I will denote $O_m$ as A, $O_p$ as M, $O_j$ as Y or Z, $O_{j,2}$ as B. 
+Now that we have our set up, there are four different ways or "cases" in which PAM calculates the cost, $C_{jmp}$ for all of the non-medoid objects $O_j$ [@Rec2]. For the sake of simplicity and in understanding the different cases, I will denote $O_m$ as A, $O_p$ as M, $O_j$ as Y or Z, $O_{j,2}$ as B. 
 
 **Case 1:**
 
@@ -47,7 +47,7 @@ Suppose Z belongs to a cluster represented by B, but Z is less similar to B than
 In combining all of the four cases described, the total cost of replacing A with M is: 
 $$ TC_{mp} = \sum_j(C_{jmp}) $$. 
 
-The more formal steps of the algorithm are as follows:
+The more formal steps of the algorithm are as follows [@Rec2]:
 
 1. Select _k_ representative objects arbitratily. 
 
@@ -57,21 +57,16 @@ The more formal steps of the algorithm are as follows:
 
 4. Otherwise, for each non-selected object, find the most similar representative object. 
 
-
 The total complexity of PAM in one iteration is $$O(k(n-k)^2)$$ (O= each non-medoid data point, _k_= # of cluster centers, $$(n-k)$$ objects to compare to, and $$(n-k)$$ operations for calculating E). This makes for a costly computation when n is large. The algorithm works best when n= 100 and _k_=5. 
-
-Explanation of PAM, [Rec 3, p. 5-7]. 
-
-4 cases, and algorithm Rec 6 bibliography [@ng1994]
 
 ## CLARA
 Because PAM does not scale well to large data sets, Clustering LARge Applications (CLARA) was developed to deal with larger data sets (Kaufmann & Rousseeuw, 1990).
 
-CLARA is a sampling based method, meaning a sample of the data is used to represent the entire data set. Medoids are chosen from this sample data using PAM and then the average dissimilarity is computed using the whole dataset, not only the objects in the samples. If a new set of medoids gives a lower dissimilarity than a previous best solution, then the best solution is replaced with a new set of medoids [Rec 2, p. 7].
+CLARA is a sampling based method, meaning a sample of the data is used to represent the entire data set. Medoids are chosen from this sample data using PAM and then the average dissimilarity is computed using the whole dataset, not only the objects in the samples. If a new set of medoids gives a lower dissimilarity than a previous best solution, then the best solution is replaced with a new set of medoids [@Rec2].
 
 Experiments indicate that 5 samples of size 40+ 2$k$ give satisfactory results [Rec 6, p. 146]. 
 
-The steps for the algorithm are as follows: 
+The steps for the algorithm are as follows [@Rec2]: 
 
 1. For i= 1 to 5, repeat the following steps:
 
@@ -83,16 +78,13 @@ The steps for the algorithm are as follows:
   
 5. Return to Step 1 to start the next iteration. 
 
-CLARA performs well on large data sets, i.e. around 1000 objects (n) in 10 clusters (k). CLARA can work on larger data sets because the complexity for each iteration is $O{k(40 + k)^2 + k(n-k)}$, which is much smaller than $O(k(n-k)^2)$ (which is the complexity for each iteration in PAM). 
-
-https://www.coursera.org/lecture/cluster-analysis/3-4-the-k-medoids-clustering-method-nJ0Sb
+CLARA performs well on large data sets, i.e. around 1000 objects (n) in 10 clusters (k). CLARA can work on larger data sets because the complexity for each iteration is $O{k(40 + k)^2 + k(n-k)}$, which is much smaller than $O(k(n-k)^2)$ (which is the complexity for each iteration in PAM) [@Rec13]. 
 
 ## CLARANS 
-(Ng & Han, 1994)
 
 CLARANS was created to handle even larger data sets than CLARA, and provides the highest quality clusters, in comparison to PAM and CLARA. 
 
-The easiest way to understand CLARANS, is through a graphic example including both PAM and CLARA as well. 
+The easiest way to understand CLARANS, is through a graphic example including both PAM and CLARA as well [@Rec2]. 
 
 The processes of finding _k_ medoids can be described as searching through a graph of objects. This graph, denoted $G_{n,k}$ contains nodes represented by a set of _k_ objects {$O_{m1},... , O_{mk}$}, indicating that the medoids of the objects are: $O_{m1},... , O_{mk}$. The set of nodes in the graph is the set {{$O_{m1},... , O_{mk}$} | $O_{m1},... , O_{mk}$ are objects in the data set}. 
 
@@ -100,7 +92,7 @@ Two nodes are considered neighbors if their sets differ by only one object. Furt
 
 PAM can be viewed as a search for a minimum on the graph $G_{n,k}$. At each iteration, the neighbors of the current node are examined, and the current node gets replaced by the neighbor with the greatest descent in costs. The search continues until a minimum is obtained. Examining $k(n-k)$ neighbors of a node is time consuming, which is why CLARA was created. 
 
-CLARA examines fewer neighbors and restricts the search in general on subgraphs of $G_{n,k}$. The subgraph $G_{Sa,k}$ contains all the nodes that are subgraphs of $Sa$. CLARA searches through the nodes using PAM, however, the search is confined within $G_{Sa,k}$. This is problematic, because if M is the minimum node in the original graph $G_{n,k}$, but if M is not included in $G_{Sa,k}$, M will never be found. To make up for this deficiency, many many samples would have to be collected and processed. [Rec 3, p. 9]. 
+CLARA examines fewer neighbors and restricts the search in general on subgraphs of $G_{n,k}$. The subgraph $G_{Sa,k}$ contains all the nodes that are subgraphs of $Sa$. CLARA searches through the nodes using PAM, however, the search is confined within $G_{Sa,k}$. This is problematic, because if M is the minimum node in the original graph $G_{n,k}$, but if M is not included in $G_{Sa,k}$, M will never be found. To make up for this deficiency, many many samples would have to be collected and processed. [@Rec3]. 
 
 CLARANS was developed because of this deficiency. CLARANS does not restrict to a particular subgraph, instead if searches the entire graph $G_{n,k}$. CLARANS is unlike PAM in that it only checks a subgroup of the neighbors of a node (like CLARA). But in contrast to CLARA, each sample is drawn in a way that no nodes corresponding to particular objects are outright eliminated. 
 
@@ -108,7 +100,7 @@ CLARA draws a sample of _nodes_ at the beginning of the search, while CLARANS dr
 
 For the CLARANS algorithm, there are two parameters used: _maxneighbor_ (the maximum numbers of neighbors examined) and _numlocal_ (the number of local minima obtained). The higher the value of maxneighbor, the closer CLARANS is to PAM. 
 
-Steps for the CLARANS algorithm [Rec 3, p. 9]:
+Steps for the CLARANS algorithm [@Rec3]:
 
 1. Input parameters _maxneighbor_ and _numlocal_. Initialize i to 1, and mincost to a large number. 
 2. Set _current_ to an arbitrary node in $G_{n,k}$. 
@@ -119,15 +111,3 @@ $$ TC_{mp} = \sum_j(C_{jmp}) $$
 6. Otherwise, increment _j_ by 1. If $j <= maxneighbor$, go to Step 4. 
 7. Otherwise, when $j > maxneighbor$, compare the cost of $current$ compared to $mincost$. If $current < mincost$, set $mincost$ to the cost of $current$, and set $bestnode$ to $current$. 
 8. Increment _i_ by 1. If $i> numlocal$, output $bestnode$ and stop. Otherwise, go to Step 2. 
-
-
-*Randomized re-sampling, ensuring efficiency and quality 
-
-```{r clustering_pic, results = "asis", echo= FALSE}
-#How to insert a figure, make sure amherst.png is in main directory
-
-label(path = "clustering_pic.png", 
-      caption = "CLARANS searching for a better solution", 
-      label = "CLARANS", type = "figure", scale= 0.5)
-```
-
