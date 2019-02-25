@@ -185,16 +185,8 @@ predict cluster.
   
   There are many algorithms out there that handle spatial data; most
   algorithms are focused around clustering. To get a glimpse of the number
-  of algorithms and strategies to analyze spatial data, the chart below
-  provides some examples.
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
-  \KeywordTok{label}\NormalTok{(}\DataTypeTok{path =} \StringTok{"clustering_methods.png"}\NormalTok{, }
-        \DataTypeTok{caption =} \StringTok{"Clustering Methods"}\NormalTok{, }
-        \DataTypeTok{label =} \StringTok{"Clustering"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"figure"}\NormalTok{, }\DataTypeTok{scale=} \FloatTok{0.5}\NormalTok{)}
-  \end{Highlighting}
-  \end{Shaded}
+  of algorithms and strategies to analyze spatial data, Figure 1 provides
+  some examples.
   
   \begin{figure}[htbp]
   \centering
@@ -215,11 +207,10 @@ predict cluster.
   be quite subjective. It is up to the statistician to determine how many
   clusters are appropriate for the data, as well as the cut off for what
   is considered ``dissimilar'' or ``similar''. Additionally, the
-  statistician must choose which clustering algorithm is best to
-  use\ldots{} This will be discussed in more detail later on in the
-  project.
+  statistician must choose which clustering algorithm is best to use- this
+  will be discussed in more detail later on in the project.
   
-  \chapter{How to Cluster}\label{rmd-basics}
+  \chapter{Clustering Basics}\label{rmd-basics}
   
   There are many factors to consider when choosing a clustering algorithm,
   such as the application of the problem (what do you want to find out
@@ -230,8 +221,7 @@ predict cluster.
   decrease), and outliers (some methods are very sensitive to outliers)
   {[}Rec 2{]}.
   
-  \section{Types of Clustering:
-  Partitioning}\label{types-of-clustering-partitioning}
+  \section{Partitioning}\label{partitioning}
   
   There are four main types of clustering: hierarchical, partitioning,
   density-based, and methods-based. Next, I'll dive into the partitioning
@@ -241,9 +231,9 @@ predict cluster.
   non-overlapping clusters. A data item is typically assigned to a cluster
   based on a proximity or dissimilarity measure {[}Rec 2, p.~405{]}.
   
-  Usually, there is a data set with \emph{n} observations and the goal is
-  to divide the data points into \emph{K} clusters so that an objective
-  function is optimized.
+  Usually, there is a data set with \(n\) observations and the goal is to
+  divide the data points into \(K\) clusters so that an objective function
+  is optimized.
   
   The most common objective function is the sum of squared errors (SSE),
   where \(c_k\) is the centroid or medoid of the cluster \(C_k\).
@@ -254,25 +244,22 @@ predict cluster.
   satisfying both that each group has at least one data point, and that
   each data point belongs to exactly one group. {[}Rec 5, p.~18{]}.
   
-  \section{\texorpdfstring{Methods to Create Clusters:
-  \emph{K}-Medoids}{Methods to Create Clusters: K-Medoids}}\label{methods-to-create-clusters-k-medoids}
+  \section{Methods to Create Clusters}\label{methods-to-create-clusters}
   
   There are many ways to create clusters. The most basic method is the
-  \emph{K}-means algorithm, which was developed by MacQueen in 1967 {[}Rec
-  5, p.~18{]}. In response to \emph{K}-means being very sensitive to
-  outliers, the \emph{K}-medoid algorithm was created in 1987 {[}Rec 5,
-  p.~19{]}. Both partitioning methods use iterative processes to find
-  \emph{K} clusters; however, they use different ways to represent these
-  clusters.
+  \(K\)-means algorithm, which was developed by MacQueen in 1967 {[}Rec 5,
+  p.~18{]}. In response to \(K\)-means being very sensitive to outliers,
+  the \(K\)-medoid algorithm was created in 1987 {[}Rec 5, p.~19{]}. Both
+  partitioning methods use iterative processes to find \(K\) clusters;
+  however, they use different ways to represent these clusters.
   
-  \subsection{\texorpdfstring{\emph{K}-Means}{K-Means}}\label{k-means}
+  \subsection{\texorpdfstring{\(K\)-Means}{K-Means}}\label{k-means}
   
-  \emph{K}-means algorithm represents its n observations in \emph{k}
-  groups, with the center of the groups being the mean/average
-  observation. The goal of the algorithm is to find k centroids, one for
-  each cluster. In order to do this, we must minimize an \emph{objective
-  function}, which is the squared error function for \emph{k} means. The
-  objective function is:
+  \(K\)-means algorithm represents its n observations in \(k\) groups,
+  with the center of the groups being the mean/average observation. The
+  goal of the algorithm is to find k centroids, one for each cluster. In
+  order to do this, we must minimize an \(objective function\), which is
+  the squared error function for \(k\) means. The objective function is:
   \[O= \sum_{j=1}^k \sum_{i=1}^j ||{{X_i^{(j)}- C_j}}||^2\]
   
   Where \(|{{X_i^{(j)}- C_j}}|\) is an indicator of the distance of the
@@ -282,16 +269,15 @@ predict cluster.
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \tightlist
   \item
-    Choose K points in the space to represent the centroid. This works
+    Choose \(K\) points in the space to represent the centroid. This works
     best if they are chosen to be far apart from each other.
   \item
     Assign each object in the data set to the cluster with the closest
     centroid.
   \item
     When all of the clusters have been made, recalculate the positions of
-    the K centroids.
+    the \(K\) centroids.
   \item
     Repeat steps 2 and 3 until the centroids no longer move.
   \end{enumerate}
@@ -303,70 +289,79 @@ predict cluster.
   
   {[}Rec 5, p.~18{]}
   
-  In order to determine how well \_K\_means worked, we use the within
+  In order to determine how well \(K\)-means worked, we use the within
   cluster sum-of-squares to determine the compactness/``goodness'' of the
   clustering (and we want it as small as possible).
   
   We calculate the WSS by the following equation:
   
-  \[WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- mu_k}})^2\] Where \(x_i\) is
-  a data point in cluster \(C_k\) and \(mu_k\) is the mean value assigned
-  to the cluster \(C_k\). {[}Rec 7{]}.
+  \[WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- \mu_k}})^2\] Where \(x_i\)
+  is a data point in cluster \(C_k\) and \(\mu_k\) is the mean value
+  assigned to the cluster \(C_k\). {[}Rec 7{]}.
   
-  \subsection{\texorpdfstring{\emph{K}
-  Medoids}{K Medoids}}\label{k-medoids}
+  \subsection{\texorpdfstring{\(K\)-
+  Medoids}{K- Medoids}}\label{k--medoids}
   
   On the contrary, instead of taking the mean value of the objects in a
-  cluster, the k-medoid method uses the most centrally located object in a
-  cluster to be the cluster center {[}Rec 2{]}. This causes the method to
-  be less sensitive to outliers, but also requires more time to run.
+  cluster, the \(k\)-medoid method uses the most centrally located object
+  in a cluster to be the cluster center {[}Rec 2{]}. This causes the
+  method to be less sensitive to outliers, but also requires more time to
+  run.
   
-  Steps for K-medoids: 1. Initial guess for centers \(C_1\),
+  Steps for \(K\)-medoids: 1. Initial guess for centers \(C_1\),
   \(C_2\),\ldots{} \(C_k\) (i.e.~randomly select k points from \(X_1\),
-  \(X_2\),\ldots{} \(X_n\)) 2. Minimize over C: for each i= 1, 2,\ldots{}
-  n, find the cluster center \(C_k\) closest to Xi and let C(i)=k. 3.
-  Minimize over \(C_1\), \(C_2\),\ldots{} \(C_k\): for each k=1,\ldots{}
-  K, \(C_k = X_k^*\), the medoid of points in cluster k. ie, the point Xi
-  in the cluster k that minimizes \[\sum  _{c(j)=k} ||{{X_j- X_i}}||^2\]
+  \(X_2\),\ldots{} \(X_n\))
   
-  Basically, \_K\_means and \_K\_medoids follow very similar algorithms;
-  however, \_K\_medoids uses the most centrally located object (medoid) in
-  a cluster to be the cluster center. This causes there to only be at most
-  one center changed for each iteration (makes the algorithm run slower).
-  {[}rec 2, p.~6{]}.
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{1}
+  \item
+    Minimize over C: for each i= 1, 2,\ldots{} n, find the cluster center
+    \(C_k\) closest to Xi and let C(i)=k.
+  \item
+    Minimize over \(C_1\), \(C_2\),\ldots{} \(C_k\): for each k=1,\ldots{}
+    K, \(C_k = X_k^*\), the medoid of points in cluster k. ie, the point
+    Xi in the cluster k that minimizes
+    \[\sum  _{c(j)=k} ||{{X_j- X_i}}||^2\]
+  \end{enumerate}
+  
+  Basically, \(K\)-means and \(K\)-medoids follow very similar algorithms;
+  however, \(K\)-medoids uses the most centrally located object (medoid)
+  in a cluster to be the cluster center. This causes there to only be at
+  most one center changed for each iteration (makes the algorithm run
+  slower). {[}rec 2, p.~6{]}.
   
   \section{\texorpdfstring{How to Choose
-  \emph{K}}{How to Choose K}}\label{how-to-choose-k}
+  \(K\)}{How to Choose K}}\label{how-to-choose-k}
   
-  Now that we've discussed different kinds of \_K\_means and \_K\_medoids
-  partitioning methods, we know how to find \emph{K} clusters of data
-  points; but how do we determine what \emph{K} is?
+  Now that we've discussed different kinds of \(K\)-means and
+  \(K\)-medoids partitioning methods, we know how to find \(K\) clusters
+  of data points; but how do we determine what \(K\) is?
   
-  Well, there are many ways to choose \emph{k}, which is why these methods
+  Well, there are many ways to choose \(k\), which is why these methods
   are so subjective.
   
-  I will describe two of the many ways to determine \emph{K}, both of
-  which use visuals to determine what value of \emph{k} is appropriate for
-  the data. The elbow method and silhouette method are common ways to find
-  \emph{K} when using the \emph{K} means and \emph{K} medoids algorithms.
+  I will describe two of the many ways to determine \(K\), both of which
+  use visuals to determine what value of \(k\) is appropriate for the
+  data. The elbow method and silhouette method are common ways to find
+  \(K\) when using the \(K\) means and \(K\) medoids algorithms.
   
   \subsection{Elbow Method}\label{elbow-method}
   
   To start, the elbow method looks at the total within-cluster sum of
   squares (WSS) and determines when there are enough clusters so that the
   next cluster does not improve the total WSS very much. This would be the
-  appropriate \emph{K} to choose.
+  appropriate \(K\) to choose.
   
   The steps for this algorithm are as follows:
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \tightlist
   \item
     Compute the clustering algorithm (i.e. \_k\_medoids method) for
-    different values of \emph{k} (i.e. \emph{k} from 1 to 10).
+    different values of \(k\) (i.e. \(k\) from 1 to 10).
   \item
-    For each \emph{k}, calculate the total WSS. WSS can be calculated as:
+    For each \(k\), calculate the total WSS. WSS can be calculated as:
   \end{enumerate}
   
   \[WSS= \sum_{i=1}^k \sum_{x_i = C_k} ||{{x_i- c_k}}||^2\] Where \(x_i\)
@@ -376,7 +371,6 @@ predict cluster.
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \setcounter{enumi}{2}
-  \tightlist
   \item
     Plot the curve of the total WSSs according to the number of clusters
     (k).
@@ -384,8 +378,6 @@ predict cluster.
     The location of the bend in the plot is generally considered an
     indicator for the appropriate number of clusters.
   \end{enumerate}
-  
-  There will be an example of this method used in Chapter 3.
   
   \subsection{Silhouette Method}\label{silhouette-method}
   
@@ -433,26 +425,18 @@ predict cluster.
   Partitioning Around Medoids (PAM) is the most commonly used type of
   k-medoid clustering (Kaufmann \& Rousseeuw, 1987).
   
-  As an overview, the algorithm iterates through all the k cluster centers
-  and tries to replace the center with one of the other objects (n-k
-  possibilities) {[}Rec 2{]}. For a replacement to occur, the squared
-  error function must decrease (if it does not decrease, there is no
-  replacement). The algorithm eventually terminates with a local optimum.
+  As an overview, the algorithm iterates through all the \(k\) cluster
+  centers and tries to replace the center with one of the other objects
+  (\(n-k\) possibilities) {[}Rec 2{]}. For a replacement to occur, the
+  squared error function must decrease. If it does not decrease, there is
+  no replacement. The algorithm eventually terminates.
   
   For the set up of this algorithm, let's let \(O_m\) be a current medoid
-  that is to be replaced (i.e.~A in Figure BLANK). Let's let \(O_p\) be a
-  new medoid to replace \(O_m\) (i.e.~M in Figure BLANK). \(O_j\) is an
+  that is to be replaced (i.e.~A in Figure 2.1). Let's let \(O_p\) be a
+  new medoid to replace \(O_m\) (i.e.~M in Figure 2.1). \(O_j\) is an
   other non-medoid object that may or may not be moved (i.e.~Y and Z in
-  Figure BLANK). \(O_{j,2}\) is a current medoid that is nearest to
-  \(O_j\) without A and M (i.e.~B in Figure BLANK).
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
-  \KeywordTok{label}\NormalTok{(}\DataTypeTok{path =} \StringTok{"PAM_pic.png"}\NormalTok{, }
-        \DataTypeTok{caption =} \StringTok{"Four cases for Replacing A with M"}\NormalTok{, }
-        \DataTypeTok{label =} \StringTok{"PAM"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"figure"}\NormalTok{, }\DataTypeTok{scale=} \FloatTok{0.5}\NormalTok{)}
-  \end{Highlighting}
-  \end{Shaded}
+  Figure 2.1). \(O_{j,2}\) is a current medoid that is nearest to \(O_j\)
+  without A and M (i.e.~B in Figure 2.1).
   
   \begin{figure}[htbp]
   \centering
@@ -467,7 +451,9 @@ predict cluster.
   different cases, I will denote \(O_m\) as A, \(O_p\) as M, \(O_j\) as Y
   or Z, \(O_{j,2}\) as B.
   
-  Case 1: Suppose Y currently belongs to the cluster represented by A.
+  \textbf{Case 1:}
+  
+  Suppose Y currently belongs to the cluster represented by A.
   Additionally, Y is more similar to B than to M (i.e.
   \(d(Y, M) >= d(Y, B)\)), where B is the second most similar medoid to Y.
   If A were to be replaced by M as a medoid, Y would belong to B
@@ -477,33 +463,49 @@ predict cluster.
   This equation will always give a non-negative \(C_{jmp}\), indicating
   that there is a non-negative cost incurred in replacing A with M.
   
-  Case 2: Suppose Y currently belonds to the cluster represented by A. But
-  this time, A is less similar to B than to M (\(d(Y, M) < d(Y, B)\)).
-  Then, if A is replaced by M, Y would belong to the cluster represented
-  by M. The cost of this swap would be: \(C_{jmp} = d(Y, M) - d(Y, A)\).
-  The value of this \(C_{jmp}\) could be positive or negative, depending
-  on whether Y is more similar to A or M.
+  \textbf{Case 2:}
   
-  Case 3: Suppose Z currently belongs to the cluster other than the one
+  Suppose Y currently belonds to the cluster represented by A. But this
+  time, A is less similar to B than to M (\(d(Y, M) < d(Y, B)\)). Then, if
+  A is replaced by M, Y would belong to the cluster represented by M. The
+  cost of this swap would be: \(C_{jmp} = d(Y, M) - d(Y, A)\). The value
+  of this \(C_{jmp}\) could be positive or negative, depending on whether
+  Y is more similar to A or M.
+  
+  \textbf{Case 3:}
+  
+  Suppose Z currently belongs to the cluster other than the one
   represented by A. Also, let Z be more similar to B than to M. Then even
   if A is replaced by M, Z would stay in the cluster represented by B. The
   cost of this swap is: \(C_{jmp} = 0\).
   
-  Case 4: Suppose Z belongs to a cluster represented by B, but Z is less
-  similar to B than to M. If we replaced A with M, Z would jump to the
-  cluster of M, from that of B. The cost in this case would be:
+  \textbf{Case 4:}
+  
+  Suppose Z belongs to a cluster represented by B, but Z is less similar
+  to B than to M. If we replaced A with M, Z would jump to the cluster of
+  M, from that of B. The cost in this case would be:
   \(C_{jmp} = d(Z, M) - d(Z, B)\). This cost would always be negative.
   
   In combining all of the four cases described, the total cost of
   replacing A with M is: \[ TC_{mp} = \sum_j(C_{jmp}) \].
   
-  The more formal steps of the algorithm are as follows: 1. Select
-  \emph{k} representative objects arbitratily. 2. Compute \(TC_{mp}\) for
-  all pairs of \(O_m\), \(O_p\) where \(O_m\) is currently selected, and
-  \(O_p\) is not. 3. Select the pair \(O_m\), \(O_p\) which corresponds to
-  \(min_{O_m, O_p} TC_{mp}\). If the minimum \(TC_{mp}\) is negative,
-  replace \(O_m\) with \(O_p\) and go back to Step 2. 4. Otherwise, for
-  each non-selected object, find the most similar representative object.
+  The more formal steps of the algorithm are as follows:
+  
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \item
+    Select \emph{k} representative objects arbitratily.
+  \item
+    Compute \(TC_{mp}\) for all pairs of \(O_m\), \(O_p\) where \(O_m\) is
+    currently selected, and \(O_p\) is not.
+  \item
+    Select the pair \(O_m\), \(O_p\) which corresponds to
+    \(min_{O_m, O_p} TC_{mp}\). If the minimum \(TC_{mp}\) is negative,
+    replace \(O_m\) with \(O_p\) and go back to Step 2.
+  \item
+    Otherwise, for each non-selected object, find the most similar
+    representative object.
+  \end{enumerate}
   
   The total complexity of PAM in one iteration is \[O(k(n-k)^2)\] (O= each
   non-medoid data point, \emph{k}= \# of cluster centers, \[(n-k)\]
@@ -529,19 +531,29 @@ predict cluster.
   the best solution is replaced with a new set of medoids {[}Rec 2,
   p.~7{]}.
   
-  Experiments indicate that 5 samples of size 40+ 2 \emph{k} give
-  satisfactory results {[}Rec 6, p.~146{]}.
+  Experiments indicate that 5 samples of size 40+ 2\(k\) give satisfactory
+  results {[}Rec 6, p.~146{]}.
   
-  The steps for the algorithm are as follows: 1. For i= 1 to 5, repeat the
-  following steps: 2. Draw a sample of 40+ 2 \emph{k} objects from the
-  entire data set, and use PAM to find \emph{k} medoids of the sample. 3.
-  For each object \(O_j\) in the entire data set, determine which of the
-  \emph{k} medoids are most similar to \(O_j\). 4. Calculate the average
-  dissimilarity of the clustering obtained in the previous step. If this
-  value is less than the current minimum, use this value as the current
-  minimum, and retain the \emph{k} meoids found in Step 2 as the best
-  medoids obtained so far. 5. Return to Step 1 to start the next
-  iteration.
+  The steps for the algorithm are as follows:
+  
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \item
+    For i= 1 to 5, repeat the following steps:
+  \item
+    Draw a sample of 40+ 2\(k\) objects from the entire data set, and use
+    PAM to find \emph{k} medoids of the sample.
+  \item
+    For each object \(O_j\) in the entire data set, determine which of the
+    \emph{k} medoids are most similar to \(O_j\).
+  \item
+    Calculate the average dissimilarity of the clustering obtained in the
+    previous step. If this value is less than the current minimum, use
+    this value as the current minimum, and retain the \emph{k} meoids
+    found in Step 2 as the best medoids obtained so far.
+  \item
+    Return to Step 1 to start the next iteration.
+  \end{enumerate}
   
   CLARA performs well on large data sets, i.e.~around 1000 objects (n) in
   10 clusters (k). CLARA can work on larger data sets because the
@@ -610,31 +622,38 @@ predict cluster.
   \emph{numlocal} (the number of local minima obtained). The higher the
   value of maxneighbor, the closer CLARANS is to PAM.
   
-  Steps for the CLARANS algorithm {[}Rec 3, p.~9{]}: 1. Input parameters
-  \emph{maxneighbor} and \emph{numlocal}. Initialize i to 1, and mincost
-  to a large number. 2. Set \emph{current} to an arbitrary node in
-  \(G_{n,k}\). 3. Set \emph{j}=1. 4. Consider a random neighbor of
-  \emph{S} of \emph{current}. Calculate the cost differential of the two
-  nodes, using: \[ TC_{mp} = \sum_j(C_{jmp}) \] 5. If \emph{S} has a lower
-  cost, ser \emph{current} to \emph{S}, and go to Step 3. 6. Otherwise,
-  increment \emph{j} by 1. If \(j <= maxneighbor\), go to Step 4. 7.
-  Otherwise, when \(j > maxneighbor\), compare the cost of \(current\)
-  compared to \(mincost\). If \(current < mincost\), set \(mincost\) to
-  the cost of \(current\), and set \(bestnode\) to \(current\). 8.
-  Increment \emph{i} by 1. If \(i> numlocal\), output \(bestnode\) and
-  stop. Otherwise, go to Step 2.
+  Steps for the CLARANS algorithm {[}Rec 3, p.~9{]}:
+  
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Input parameters \emph{maxneighbor} and \emph{numlocal}. Initialize i
+    to 1, and mincost to a large number.
+  \item
+    Set \emph{current} to an arbitrary node in \(G_{n,k}\).
+  \item
+    Set \emph{j}=1.
+  \item
+    Consider a random neighbor of \emph{S} of \emph{current}. Calculate
+    the cost differential of the two nodes, using:
+    \[ TC_{mp} = \sum_j(C_{jmp}) \]
+  \item
+    If \emph{S} has a lower cost, ser \emph{current} to \emph{S}, and go
+    to Step 3.
+  \item
+    Otherwise, increment \emph{j} by 1. If \(j <= maxneighbor\), go to
+    Step 4.
+  \item
+    Otherwise, when \(j > maxneighbor\), compare the cost of \(current\)
+    compared to \(mincost\). If \(current < mincost\), set \(mincost\) to
+    the cost of \(current\), and set \(bestnode\) to \(current\).
+  \item
+    Increment \emph{i} by 1. If \(i> numlocal\), output \(bestnode\) and
+    stop. Otherwise, go to Step 2.
+  \end{enumerate}
   
   *Randomized re-sampling, ensuring efficiency and quality
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
-  \CommentTok{#How to insert a figure, make sure amherst.png is in main directory}
-  
-  \KeywordTok{label}\NormalTok{(}\DataTypeTok{path =} \StringTok{"clustering_pic.png"}\NormalTok{, }
-        \DataTypeTok{caption =} \StringTok{"CLARANS searching for a better solution"}\NormalTok{, }
-        \DataTypeTok{label =} \StringTok{"CLARANS"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"figure"}\NormalTok{, }\DataTypeTok{scale=} \FloatTok{0.5}\NormalTok{)}
-  \end{Highlighting}
-  \end{Shaded}
   
   \begin{figure}[htbp]
   \centering
@@ -643,49 +662,18 @@ predict cluster.
   \label{fig:CLARANS}
   \end{figure}
   
-  \chapter{Example}\label{typeset-equ}
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
-  \CommentTok{#loading in packages}
-  \KeywordTok{library}\NormalTok{(readr)}
-  \KeywordTok{library}\NormalTok{(factoextra)}
-  \end{Highlighting}
-  \end{Shaded}
-  
-  \begin{verbatim}
-  Welcome! Related Books: `Practical Guide To Cluster Analysis in R` at https://goo.gl/13EFCZ
-  \end{verbatim}
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
-  \KeywordTok{library}\NormalTok{(NbClust)}
-  \KeywordTok{library}\NormalTok{(ggplot2)}
-  \KeywordTok{library}\NormalTok{(cluster)}
-  \KeywordTok{library}\NormalTok{(GGally)}
-  \end{Highlighting}
-  \end{Shaded}
-  
-  \begin{verbatim}
-  
-  Attaching package: 'GGally'
-  \end{verbatim}
-  
-  \begin{verbatim}
-  The following object is masked from 'package:dplyr':
-  
-      nasa
-  \end{verbatim}
+  \chapter{Application to Health Data}\label{typeset-equ}
   
   \section{Exploring the Data}\label{exploring-the-data}
   
   In this example, I will further explore the data from my Stat 495 final
   project. The data is from DataUSA, which uses public US Government data
-  to analyze and visualize relationships. In the project, we decided to
-  use data from 2016 because of size restrictions. The data contains
-  spatial information, quantitative, and a few categorical variables.
+  to analyze and visualize relationships. In the previous project, we
+  decided to use data from 2016 because of size restrictions. The data
+  contains spatial information, quantitative, and a few categorical
+  variables.
   
-  The data contians demographic information, latitude and longitude, and
+  The data contains demographic information, latitude and longitude, and
   variables that are indicators of health status. The health status
   variables include: poor to fair health (the percentage of adults
   reporting fair or poor health (age-adjusted)), poor physical health days
@@ -717,31 +705,6 @@ predict cluster.
   
   My first step is to import the data.
   
-  \begin{Shaded}
-  \begin{Highlighting}[]
-  \CommentTok{#using data from final stat 495 project}
-  \CommentTok{#library(readr)}
-  \NormalTok{data_subset <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"CopyOfdata_subset.csv"}\NormalTok{)}
-  \end{Highlighting}
-  \end{Shaded}
-  
-  \begin{verbatim}
-  Parsed with column specification:
-  cols(
-    .default = col_double(),
-    geo_name = col_character(),
-    geo = col_character(),
-    zip = col_character(),
-    TRI.ID = col_character(),
-    County.x = col_character(),
-    County.y = col_character()
-  )
-  \end{verbatim}
-  
-  \begin{verbatim}
-  See spec(...) for full column specifications.
-  \end{verbatim}
-  
   Next, I will take a random sample of 1000 observations. I assume the
   sample is representative of the data set because n=1000.
   
@@ -762,7 +725,8 @@ predict cluster.
   \begin{Shaded}
   \begin{Highlighting}[]
   \CommentTok{#only keeping the variables I want to look at}
-  \NormalTok{myvars <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Latitude_tri"}\NormalTok{, }\StringTok{"Longitude_tri"}\NormalTok{, }\StringTok{"poor_or_fair_health"}\NormalTok{, }\StringTok{"poor_physical_health_days"}\NormalTok{, }\StringTok{"physical_inactivity"}\NormalTok{, }\StringTok{"adult_obesity"}\NormalTok{)}
+  \NormalTok{myvars <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Latitude_tri"}\NormalTok{, }\StringTok{"Longitude_tri"}\NormalTok{, }\StringTok{"poor_or_fair_health"}\NormalTok{, }
+              \StringTok{"poor_physical_health_days"}\NormalTok{, }\StringTok{"physical_inactivity"}\NormalTok{, }\StringTok{"adult_obesity"}\NormalTok{)}
   \NormalTok{smallsample <-}\StringTok{ }\NormalTok{mysample[myvars]}
   \end{Highlighting}
   \end{Shaded}
@@ -781,22 +745,11 @@ predict cluster.
   \begin{Shaded}
   \begin{Highlighting}[]
   \CommentTok{#finding k with project data, using Elbow Method}
-  \CommentTok{#pkgs <- c("factoextra",  "NbClust")}
-  \CommentTok{#install.packages(pkgs)}
-  
-  \CommentTok{#library(factoextra)}
-  \CommentTok{#library(NbClust)}
-  \CommentTok{#library(ggplot2)}
-  \CommentTok{#first I must omit any of the missing data, so that the functions can run}
   \NormalTok{new<-}\StringTok{ }\KeywordTok{na.omit}\NormalTok{(smallsample)}
-  \CommentTok{# Elbow method}
-  \CommentTok{#fviz_nbclust(new, kmeans, method = "wss") +}
-   \CommentTok{#   geom_vline(xintercept = 4, linetype = 2)+}
-    \CommentTok{#labs(subtitle = "Elbow method")}
   
-  \KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"wss"}\NormalTok{) }\OperatorTok{+}
+  \NormalTok{elbow<-}\StringTok{ }\KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"wss"}\NormalTok{) }\OperatorTok{+}
   \StringTok{    }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \DecValTok{4}\NormalTok{, }\DataTypeTok{linetype =} \DecValTok{2}\NormalTok{)}\OperatorTok{+}
-  \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Elbow method"}\NormalTok{)}
+  \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Elbow method"}\NormalTok{); elbow}
   \end{Highlighting}
   \end{Shaded}
   
@@ -820,11 +773,10 @@ predict cluster.
   Step 2: Run CLARA function
   
   Next, I will run the CLARA algorithm on the data, using the criteria of
-  \emph{k}=3.
+  \(k\)=3.
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \CommentTok{#library(cluster)}
   \NormalTok{## run CLARA}
   \NormalTok{clarasamp <-}\StringTok{ }\KeywordTok{clara}\NormalTok{(new[}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{], }\DecValTok{3}\NormalTok{)}
   \end{Highlighting}
@@ -864,9 +816,9 @@ predict cluster.
   This output tells us a lot about the results of the clustering. To
   start, the information from the Medoids section show that cluster 3
   contains people with the worst health, in comparison to cluster 1 and 2.
-  For example, cluster 1 and 2 average 3.7 poor\_physical\_health\_days,
-  while cluster 3 averages 4.6. This difference was seen in all four
-  health indicator variables.
+  For example, cluster 1 and 2 average 3.7
+  \emph{poor\_physical\_health\_days}, while cluster 3 averages 4.6. This
+  difference was seen in all four health indicator variables.
   
   The cluster sizes are also noted. There are 457 observations in cluster
   1, 205 in cluster 2, and 263 in cluster 3.
@@ -876,103 +828,11 @@ predict cluster.
   \CommentTok{#more output from CLARA}
   
   \CommentTok{#cluster number for each observation}
-  \KeywordTok{print}\NormalTok{(clarasamp}\OperatorTok{$}\NormalTok{cluster)}
-  \end{Highlighting}
-  \end{Shaded}
-  
-  \begin{verbatim}
-    [1] 1 2 1 3 1 3 1 1 1 1 1 3 1 2 1 3 1 3 3 2 1 3 2 1 1 1 3 2 2 1 1 2 3 1 3
-   [36] 2 1 1 3 3 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 3 1 1 1 1 2 2 3 3 1 2 1 3
-   [71] 1 1 3 3 1 3 1 3 1 2 1 2 3 1 1 3 1 2 3 3 3 3 1 1 3 3 3 1 2 2 1 2 3 3 1
-  [106] 1 1 3 3 3 1 3 3 3 2 1 2 3 2 3 2 2 1 3 1 2 1 1 1 3 2 3 1 2 1 1 2 1 3 3
-  [141] 1 2 1 1 1 1 2 1 1 2 2 1 1 3 3 1 3 1 3 1 3 1 1 2 1 3 1 3 3 1 1 3 1 3 3
-  [176] 1 3 1 2 3 2 1 2 1 1 2 1 1 3 1 1 3 2 1 2 3 3 2 1 1 1 2 1 3 2 1 2 1 1 1
-  [211] 1 1 1 2 1 3 3 2 3 3 1 1 3 2 1 1 3 3 3 2 2 1 1 1 3 3 1 1 1 1 1 2 1 2 3
-  [246] 2 1 1 1 1 1 3 3 2 1 1 2 1 1 2 1 1 1 3 2 3 2 3 2 2 3 2 2 3 1 1 3 2 1 3
-  [281] 2 1 1 3 1 1 3 1 2 2 3 1 1 3 1 2 1 1 1 1 1 3 1 1 1 1 3 3 1 3 1 1 3 1 1
-  [316] 3 1 2 1 1 1 3 2 3 1 1 3 1 1 3 2 1 1 1 3 1 2 1 2 2 1 3 1 1 3 3 3 3 1 1
-  [351] 1 1 1 1 1 3 1 3 2 1 1 3 3 1 2 2 3 1 2 3 1 3 3 2 2 2 1 1 3 2 3 3 3 1 1
-  [386] 1 1 2 1 3 1 1 2 1 2 2 1 3 3 2 1 3 2 2 1 1 1 1 1 1 3 1 1 1 1 1 2 1 3 1
-  [421] 3 3 2 3 1 2 1 3 2 1 1 2 1 3 3 1 1 3 1 2 1 1 1 3 1 2 1 1 2 1 3 1 1 2 3
-  [456] 1 1 2 1 1 1 2 1 1 3 3 1 1 3 3 1 1 3 1 3 1 1 1 1 3 3 2 1 1 1 1 2 2 3 1
-  [491] 2 3 1 3 3 1 2 2 2 2 1 2 2 3 1 1 2 3 2 1 1 2 3 2 3 3 2 2 2 1 2 1 3 2 3
-  [526] 3 3 1 3 1 1 2 2 2 1 3 2 1 1 1 3 3 1 1 3 1 1 2 3 1 2 1 3 1 1 3 2 3 3 3
-  [561] 1 2 1 2 1 3 2 3 1 3 1 1 3 3 2 1 1 3 2 2 1 1 2 1 2 1 1 1 1 1 2 1 3 3 1
-  [596] 3 1 2 2 1 3 2 3 3 1 3 1 1 1 3 3 1 2 1 1 3 3 2 1 2 3 2 1 2 3 1 1 2 1 2
-  [631] 1 1 3 3 1 2 3 1 1 3 1 3 3 1 1 1 2 2 3 2 1 1 1 2 1 1 1 2 3 1 3 1 1 3 1
-  [666] 1 1 1 3 1 2 1 3 1 1 1 1 1 2 2 3 1 2 1 2 2 1 1 2 2 3 2 1 1 1 2 1 3 3 1
-  [701] 1 1 1 3 2 1 3 1 1 2 3 3 1 1 1 3 3 1 1 1 1 3 1 1 2 3 2 3 1 1 1 3 1 1 3
-  [736] 1 2 1 2 3 2 2 2 1 3 3 3 1 1 1 2 3 3 3 1 3 3 2 1 2 3 3 1 2 3 2 1 1 3 1
-  [771] 2 1 1 1 3 1 3 1 1 1 3 1 1 3 1 2 1 1 3 1 3 1 1 1 1 3 2 2 2 3 1 3 3 1 1
-  [806] 1 3 1 1 1 2 1 1 1 2 2 2 1 1 2 1 3 3 3 3 1 3 2 3 2 1 2 1 1 1 3 2 1 1 3
-  [841] 2 2 2 2 2 1 3 1 2 1 2 3 3 3 1 1 3 1 1 1 1 1 2 3 3 2 3 1 2 1 1 1 1 2 1
-  [876] 1 3 1 1 1 3 3 1 1 1 1 1 1 3 1 1 3 1 3 1 3 2 2 2 3 1 2 2 2 1 1 3 1 2 1
-  [911] 3 1 3 2 3 3 1 1 2 1 3 1 1 3 1
-  \end{verbatim}
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
+  \NormalTok{clarasamp}\OperatorTok{$}\NormalTok{cluster}
   \CommentTok{#silhouette width for each cluster}
-  \KeywordTok{print}\NormalTok{(clarasamp}\OperatorTok{$}\NormalTok{silinfo)}
+  \NormalTok{clarasamp}\OperatorTok{$}\NormalTok{silinfo}
   \end{Highlighting}
   \end{Shaded}
-  
-  \begin{verbatim}
-  $widths
-      cluster neighbor   sil_width
-  703       1        2  0.59850204
-  780       1        2  0.59563931
-  208       1        2  0.58522416
-  149       1        2  0.55721957
-  471       1        2  0.54671717
-  719       1        2  0.52773515
-  818       1        2  0.52638884
-  410       1        2  0.52317171
-  5         1        2  0.49272339
-  333       1        2  0.48262589
-  361       1        2  0.46877636
-  306       1        2  0.46546394
-  389       1        2  0.40532336
-  506       1        2  0.40333194
-  468       1        2  0.35920963
-  353       1        3  0.32935312
-  285       1        2  0.31204760
-  918       1        2  0.16440373
-  24        1        2  0.13034904
-  883       1        2 -0.03054377
-  224       2        1  0.75049734
-  679       2        1  0.74239308
-  404       2        1  0.73164794
-  902       2        1  0.73161340
-  242       2        1  0.73125890
-  400       2        1  0.73078958
-  502       2        1  0.65554544
-  741       2        1  0.64706730
-  567       2        1  0.62730880
-  811       2        1  0.46502193
-  815       2        1  0.40449435
-  429       2        1  0.39693747
-  882       3        1  0.33188295
-  139       3        1  0.31419706
-  726       3        1  0.31186219
-  800       3        1  0.31127063
-  691       3        1  0.29040279
-  370       3        1  0.28765117
-  489       3        1  0.28371053
-  177       3        1  0.26300486
-  175       3        1  0.23220663
-  86        3        1  0.06439635
-  593       3        1  0.03655278
-  877       3        1 -0.06313781
-  192       3        1 -0.11112090
-  316       3        1 -0.14469112
-  
-  $clus.avg.widths
-  [1] 0.4221831 0.6345480 0.1720134
-  
-  $avg.width
-  [1] 0.401444
-  \end{verbatim}
   
   This information tells us even more about the CLARA output. The first
   part gives us the categorizations of each data point to its cluster. The
@@ -1025,18 +885,14 @@ predict cluster.
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \NormalTok{elbow<-}\StringTok{ }\KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"wss"}\NormalTok{) }\OperatorTok{+}
-  \StringTok{    }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \DecValTok{3}\NormalTok{, }\DataTypeTok{linetype =} \DecValTok{2}\NormalTok{)}\OperatorTok{+}
-  \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Elbow method"}\NormalTok{)}
   \NormalTok{elbow}
   \end{Highlighting}
   \end{Shaded}
   
   \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-11-1} \end{center}
   
-  The Elbow method when \emph{k}=3, shows a WSS to be about 30,000. This
-  is very high, which is a concern when interpreting the cluster
-  results\ldots{}
+  The Elbow method when \(k\)=3, shows a WSS to be about 30,000. This is
+  very high, which is a concern when interpreting the cluster results.
   
   Another method is to look at the silhouette width of the cluster. As
   mentioned in Chapter 1 the Silhouette method helps us determine how many
@@ -1044,7 +900,7 @@ predict cluster.
   determine how well an object truly belongs to its assigned cluster.
   Based on many experiments and research, a silhouette width of 0.71-1
   indicates a strong cluster, 0.51-0.7 indicates a resonable cluster,
-  0.26- 0.5 indicates a weak or artifical cluster, and less than or equal
+  0.26-0.5 indicates a weak or artifical cluster, and less than or equal
   to 0.25 indicates no cluster found.
   
   In this example, the silhouette widths were: 0.422183 for cluster 1,
@@ -1085,41 +941,34 @@ predict cluster.
   \begin{Shaded}
   \begin{Highlighting}[]
   \NormalTok{kitchen_sink<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data=}\NormalTok{cluster_data)}
-  \KeywordTok{summary}\NormalTok{(kitchen_sink)}
+  \CommentTok{#summary(kitchen_sink)}
   \end{Highlighting}
   \end{Shaded}
   
-  \begin{verbatim}
+  \begin{table}[ht]
+  \centering
+  \begin{tabular}{rrrrr}
+    \hline
+   & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+    \hline
+  (Intercept) & 0.3835 & 0.3762 & 1.02 & 0.3082 \\ 
+    Latitude\_tri & -0.0073 & 0.0065 & -1.12 & 0.2614 \\ 
+    Longitude\_tri & -0.0393 & 0.0022 & -17.91 & 0.0000 \\ 
+    poor\_or\_fair\_health & 10.0890 & 1.4178 & 7.12 & 0.0000 \\ 
+    poor\_physical\_health\_days & -1.0820 & 0.0884 & -12.25 & 0.0000 \\ 
+    physical\_inactivity & 1.9868 & 0.7307 & 2.72 & 0.0067 \\ 
+    adult\_obesity & 0.3328 & 0.8160 & 0.41 & 0.6835 \\ 
+     \hline
+  \end{tabular}
+  \caption{Kitchen Sink Model} 
+  \end{table}
   
-  Call:
-  lm(formula = cluster ~ ., data = cluster_data)
-  
-  Residuals:
-       Min       1Q   Median       3Q      Max 
-  -2.33635 -0.62036 -0.00065  0.59937  1.48615 
-  
-  Coefficients:
-                             Estimate Std. Error t value Pr(>|t|)    
-  (Intercept)                0.383530   0.376180   1.020  0.30822    
-  Latitude_tri              -0.007281   0.006479  -1.124  0.26141    
-  Longitude_tri             -0.039276   0.002194 -17.905  < 2e-16 ***
-  poor_or_fair_health       10.089001   1.417808   7.116 2.24e-12 ***
-  poor_physical_health_days -1.081969   0.088359 -12.245  < 2e-16 ***
-  physical_inactivity        1.986841   0.730739   2.719  0.00667 ** 
-  adult_obesity              0.332835   0.816048   0.408  0.68347    
-  ---
-  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-  
-  Residual standard error: 0.6793 on 918 degrees of freedom
-  Multiple R-squared:  0.3765,    Adjusted R-squared:  0.3724 
-  F-statistic: 92.38 on 6 and 918 DF,  p-value: < 2.2e-16
-  \end{verbatim}
-  
-  According to this model, longitude, poor\_or\_fair\_health,
-  poor\_physical\_health\_days, and physical\_inactivity were strong
-  predictors of cluster number. Overall, the model seemed to fit the data
-  fairly well. The model had a high F-statistic and a low p-value of
-  \textless{}2e-16. The adjusted R-squared value was 0.372.
+  According to this model, \emph{longitude},
+  \emph{poor\_or\_fair\_health}, \emph{poor\_physical\_health\_days}, and
+  physical\_inactivity were strong predictors of cluster number. Overall,
+  the model seemed to fit the data fairly well. The model had a high
+  F-statistic and a low p-value of \textless{}2e-16. The adjusted
+  R-squared value was 0.372.
   
   In analyzing this model I realized that latitude and longitude were used
   as quantitative variables instead of categorical. Since linear and
@@ -1141,38 +990,31 @@ predict cluster.
   \begin{Shaded}
   \begin{Highlighting}[]
   \NormalTok{new_kitchen_sink<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data=}\NormalTok{cluster_data_new)}
-  \KeywordTok{summary}\NormalTok{(new_kitchen_sink)}
+  \CommentTok{#summary(new_kitchen_sink)}
   \end{Highlighting}
   \end{Shaded}
   
-  \begin{verbatim}
+  \begin{table}[ht]
+  \centering
+  \begin{tabular}{rrrrr}
+    \hline
+   & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+    \hline
+  (Intercept) & 3.5366 & 0.2297 & 15.40 & 0.0000 \\ 
+    poor\_or\_fair\_health & 13.0696 & 1.3988 & 9.34 & 0.0000 \\ 
+    poor\_physical\_health\_days & -1.2089 & 0.0964 & -12.54 & 0.0000 \\ 
+    physical\_inactivity & -0.9774 & 0.8086 & -1.21 & 0.2270 \\ 
+    adult\_obesity & 2.8044 & 0.9247 & 3.03 & 0.0025 \\ 
+     \hline
+  \end{tabular}
+  \caption{Updated Kitchen Sink Model} 
+  \end{table}
   
-  Call:
-  lm(formula = cluster ~ ., data = cluster_data_new)
-  
-  Residuals:
-      Min      1Q  Median      3Q     Max 
-  -1.4582 -0.6918 -0.1393  0.6406  2.2221 
-  
-  Coefficients:
-                            Estimate Std. Error t value Pr(>|t|)    
-  (Intercept)                 3.5366     0.2297  15.399  < 2e-16 ***
-  poor_or_fair_health        13.0696     1.3988   9.343  < 2e-16 ***
-  poor_physical_health_days  -1.2089     0.0964 -12.540  < 2e-16 ***
-  physical_inactivity        -0.9774     0.8086  -1.209  0.22705    
-  adult_obesity               2.8044     0.9247   3.033  0.00249 ** 
-  ---
-  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-  
-  Residual standard error: 0.7882 on 920 degrees of freedom
-  Multiple R-squared:  0.1587,    Adjusted R-squared:  0.1551 
-  F-statistic: 43.39 on 4 and 920 DF,  p-value: < 2.2e-16
-  \end{verbatim}
-  
-  This model had three significant predictors (poor\_or\_fair\_health,
-  poor\_physical\_health\_days, and adult\_obesity), a high F-statistic,
-  and a low p-value of \textless{}2e-16. The model did not fit the data
-  very well, and had an adjusted R-squared value of 0.155.
+  This model had three significant predictors
+  (\emph{poor\_or\_fair\_health}, \emph{poor\_physical\_health\_days}, and
+  \emph{adult\_obesity}), a high F-statistic, and a low p-value of
+  \textless{}2e-16. The model did not fit the data very well, and had an
+  adjusted R-squared value of 0.155.
   
   Next, I looked at the possible correlations between cluster number and
   the health indicator variables. I predicted the healthier people (lower
@@ -1188,23 +1030,24 @@ predict cluster.
   \end{Highlighting}
   \end{Shaded}
   
-  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-16-1} \end{center}
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-18-1} \end{center}
   
   The correlation plot shows strong positive correlations between
-  poor\_or\_fair\_health, poor\_physical\_health\_days,
-  physical\_inactivity, and adult\_obesity, as I had predicted. The
-  highest correlation was 0.884, between poor\_physical\_health\_days and
-  poor\_to\_fair\_health. All of the variables in general show bell-shaped
-  curves with a relatively even shape.
+  \emph{poor\_or\_fair\_health}, \emph{poor\_physical\_health\_days},
+  \emph{physical\_inactivity}, and \emph{adult\_obesity}, as I had
+  predicted. The highest correlation was 0.884, between
+  \emph{poor\_physical\_health\_days} and \emph{poor\_to\_fair\_health}.
+  All of the variables in general show bell-shaped curves with a
+  relatively even shape.
   
   The plots comparing the variables to the cluster number are hard to
-  interpret at first. To start, the poor\_to\_fair\_health versus cluster
-  plot shows that the highest values of poor\_or\_fair\_health are in
-  cluster 3. These look to be possible outliers, but regardless, it
-  confirms the prediction that the unhealthy people (high health variable
-  scores) are in cluster 3.
+  interpret at first. To start, the \emph{poor\_to\_fair\_health} versus
+  cluster plot shows that the highest values of
+  \emph{poor\_or\_fair\_health} are in cluster 3. These look to be
+  possible outliers, but regardless, it confirms the prediction that the
+  unhealthy people (high health variable scores) are in cluster 3.
   
-  The poor\_physical\_health\_days versus cluster number and
+  The \emph{poor\_physical\_health\_days} versus cluster number and
   adult\_obesity versus cluster number show a couple of observations with
   high health variable scores in cluster 3 as well. It is again unclear if
   these points are outliers or not.
@@ -1229,46 +1072,12 @@ predict cluster.
   
   Nevertheless, I will continue to explore possible relationships between
   health variables and cluster number. Based on the correlation plot, I
-  will explore poor\_or\_fair\_health (because of the plot),
-  poor\_physical\_health\_days (because of the correlation value), and
-  adult\_obesity (because of the plot).
+  will explore \emph{poor\_or\_fair\_health} (because of the plot),
+  \emph{poor\_physical\_health\_days} (because of the correlation value),
+  and \emph{adult\_obesity} (because of the plot).
   
   I tried numerous combinations of the variables as well as interaction
   terms, because the variables are so highly correlated.
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
-  \KeywordTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
-  \CommentTok{#exploring possible relationships between health variables and cluster number}
-  
-  \NormalTok{fun1<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \CommentTok{#low adjusted R-squared (0.155), but significant predictors}
-   
-  \NormalTok{fun2<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \NormalTok{fun3<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \NormalTok{fun4<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \CommentTok{#low adjusted R-squared, highest of the 3 functions was 0.06}
-  
-  \NormalTok{fun5<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \CommentTok{#added an interaction, raised the adjusted R-squared to 0.165}
-  
-  \NormalTok{fun6<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \CommentTok{#tried a different interaction, about the same adjusted R-squared}
-  
-  \NormalTok{fun7<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \CommentTok{#last combination of an interaction, highest adjusted R-squared yet (0.175)!}
-  \CommentTok{#only predictor not significant was poor_or_fair_health}
-  
-  \NormalTok{fun8<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{  }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \CommentTok{#dropped poor_or_fair_health, about the same adjusted R-squared (0.174)}
-  
-  \NormalTok{fun9<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \CommentTok{#tried a different interaction, low adjusted R-squared (0.0958)}
-  
-  \NormalTok{fun10<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
-  \CommentTok{#tried last combination of interaction, adjusted R-squared= 0.166}
-  \end{Highlighting}
-  \end{Shaded}
   
   Most of the model had significant predictors; however, the R-squared
   values were small; indicating that the models did not fit the data very
@@ -1307,8 +1116,8 @@ predict cluster.
   F-statistic: 65.71 on 3 and 921 DF,  p-value: < 2.2e-16
   \end{verbatim}
   
-  This model used three predictors and had about the same \(R_squared\)
-  value as the previous model, with one less predictor.
+  This model used three predictors and had about the same R-squared value
+  as the previous model, with one less predictor.
   
   \chapter*{Conclusion}\label{conclusion}
   \addcontentsline{toc}{chapter}{Conclusion}
@@ -1345,6 +1154,90 @@ predict cluster.
   best model ended up being able to predict 17.5\% of the variation in the
   model. The data again didn't seem to have many patterns, which further
   confirmed the results from my Stat 495 project.
+  
+  \appendix
+  
+  \singlespacing
+  
+  \chapter{Appendix A}\label{appendix-a}
+  
+  This first appendix includes all of the R chunks of code that were
+  hidden throughout the document.
+  
+  \subsubsection{In Chapter 1:}\label{in-chapter-1}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(devtools))}
+    \KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(dplyr))}
+      \KeywordTok{install.packages}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(ggplot2))}
+      \KeywordTok{install.packages}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(acstats))\{}
+    \KeywordTok{library}\NormalTok{(devtools)}
+  \NormalTok{  devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"Amherst-Statistics/acstats"}\NormalTok{)}
+  \NormalTok{\}}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \subsubsection{In Chapter 3:}\label{in-chapter-3}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \CommentTok{#loading in packages}
+  \KeywordTok{library}\NormalTok{(readr)}
+  \KeywordTok{library}\NormalTok{(factoextra)}
+  \KeywordTok{library}\NormalTok{(NbClust)}
+  \KeywordTok{library}\NormalTok{(ggplot2)}
+  \KeywordTok{library}\NormalTok{(cluster)}
+  \KeywordTok{library}\NormalTok{(GGally)}
+  \KeywordTok{library}\NormalTok{(knitr)}
+  \KeywordTok{library}\NormalTok{(xtable)}
+  \KeywordTok{options}\NormalTok{(}\DataTypeTok{xtable.comment=}\OtherTok{FALSE}\NormalTok{)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \CommentTok{#using data from final stat 495 project}
+  \NormalTok{data_subset <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"CopyOfdata_subset.csv"}\NormalTok{)}
+  \end{Highlighting}
+  \end{Shaded}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
+  \KeywordTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+  \CommentTok{#exploring possible relationships between health variables and cluster number}
+  
+  \NormalTok{fun1<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#low adjusted R-squared (0.155), but significant predictors}
+   
+  \NormalTok{fun2<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{fun3<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{fun4<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#low adjusted R-squared, highest of the 3 functions was 0.06}
+  
+  \NormalTok{fun5<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#added an interaction, raised the adjusted R-squared to 0.165}
+  
+  \NormalTok{fun6<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#tried a different interaction, about the same adjusted R-squared}
+  
+  \NormalTok{fun7<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#last combination of an interaction, highest adjusted R-squared yet (0.175)!}
+  \CommentTok{#only predictor not significant was poor_or_fair_health}
+  
+  \NormalTok{fun8<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{  }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#dropped poor_or_fair_health, about the same adjusted R-squared (0.174)}
+  
+  \NormalTok{fun9<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#tried a different interaction, low adjusted R-squared (0.0958)}
+  
+  \NormalTok{fun10<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \CommentTok{#tried last combination of interaction, adjusted R-squared= 0.166}
+  \end{Highlighting}
+  \end{Shaded}
   
   \backmatter
   

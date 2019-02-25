@@ -95,7 +95,7 @@ clarasamp <- clara(new[1:6], 3)
 print(clarasamp)
 ```
 
-This output tells us a lot about the results of the clustering. To start, the information from the Medoids section show that cluster 3 contains people with the worst health, in comparison to cluster 1 and 2. For example, cluster 1 and 2 average 3.7 $poor_physical_health_days$, while cluster 3 averages 4.6. This difference was seen in all four health indicator variables. 
+This output tells us a lot about the results of the clustering. To start, the information from the Medoids section show that cluster 3 contains people with the worst health, in comparison to cluster 1 and 2. For example, cluster 1 and 2 average 3.7 *poor_physical_health_days*, while cluster 3 averages 4.6. This difference was seen in all four health indicator variables. 
 
 The cluster sizes are also noted. There are 457 observations in cluster 1, 205 in cluster 2, and 263 in cluster 3. 
 
@@ -168,7 +168,7 @@ kitchen_sink<- lm(cluster~., data=cluster_data)
 xtable(kitchen_sink, caption= "Kitchen Sink Model")
 ```
 
-According to this model, longitude, poor_or_fair_health, poor_physical_health_days, and physical_inactivity were strong predictors of cluster number. Overall, the model seemed to fit the data fairly well. The model had a high F-statistic and a low p-value of <2e-16. The adjusted R-squared value was 0.372.
+According to this model, *longitude*, *poor_or_fair_health*, *poor_physical_health_days*, and physical_inactivity were strong predictors of cluster number. Overall, the model seemed to fit the data fairly well. The model had a high F-statistic and a low p-value of <2e-16. The adjusted R-squared value was 0.372.
 
 In analyzing this model I realized that latitude and longitude were used as quantitative variables instead of categorical. Since linear and multivariate regression predictive models only use quantitative or categorical variables, I realized that the latitude and longitude (spatial information) would not be helpful.
 
@@ -189,7 +189,7 @@ new_kitchen_sink<- lm(cluster~., data=cluster_data_new)
 xtable(new_kitchen_sink, caption= "Updated Kitchen Sink Model")
 ```
 
-This model had three significant predictors (poor_or_fair_health, poor_physical_health_days, and adult_obesity), a high F-statistic, and a low p-value of <2e-16. The model did not fit the data very well, and had an adjusted R-squared value of 0.155.
+This model had three significant predictors (*poor_or_fair_health*, *poor_physical_health_days*, and *adult_obesity*), a high F-statistic, and a low p-value of <2e-16. The model did not fit the data very well, and had an adjusted R-squared value of 0.155.
 
 Next, I looked at the possible correlations between cluster number and the health indicator variables. I predicted the healthier people (lower scores on the health indicator variables) would be in cluster 1, while the least healthy people (higher scores on health indicator variables) would be in cluster 3. I also predicted the health indicator variables would be highly correlated with each other, considering they all are aiding in predicting one's health.
 
@@ -197,11 +197,11 @@ Next, I looked at the possible correlations between cluster number and the healt
 ggpairs(cluster_data_new)
 ```
 
-The correlation plot shows strong positive correlations between poor_or_fair_health, poor_physical_health_days, physical_inactivity, and adult_obesity, as I had predicted. The highest correlation was 0.884, between poor_physical_health_days and poor_to_fair_health. All of the variables in general show bell-shaped curves with a relatively even shape. 
+The correlation plot shows strong positive correlations between *poor_or_fair_health*, *poor_physical_health_days*, *physical_inactivity*, and *adult_obesity*, as I had predicted. The highest correlation was 0.884, between *poor_physical_health_days* and *poor_to_fair_health*. All of the variables in general show bell-shaped curves with a relatively even shape. 
 
-The plots comparing the variables to the cluster number are hard to interpret at first. To start, the poor_to_fair_health versus cluster plot shows that the highest values of poor_or_fair_health are in cluster 3. These look to be possible outliers, but regardless, it confirms the prediction that the unhealthy people (high health variable scores) are in cluster 3. 
+The plots comparing the variables to the cluster number are hard to interpret at first. To start, the *poor_to_fair_health* versus cluster plot shows that the highest values of *poor_or_fair_health* are in cluster 3. These look to be possible outliers, but regardless, it confirms the prediction that the unhealthy people (high health variable scores) are in cluster 3. 
 
-The poor_physical_health_days versus cluster number and adult_obesity versus cluster number show a couple of observations with high health variable scores in cluster 3 as well. It is again unclear if these points are outliers or not.
+The *poor_physical_health_days* versus cluster number and adult_obesity versus cluster number show a couple of observations with high health variable scores in cluster 3 as well. It is again unclear if these points are outliers or not.
 
 In general, the plots show that cluster 2 has the smallest range of health scores, which further confirms that cluster 2 had the highest quality of clustering (the largest silhouette width). In terms of correlation values, cluster number was shows to be sightly negatively correlated with poor_physical_health_days, with a correlation value of -0.25. 
 
@@ -209,7 +209,7 @@ I had predicted the correlation to be positive, because the CLARA output reveale
 
 All of correlations between the health variables and cluster number were negative, indicating that the clustering was not very effective and instead there may be outliers impacting the original analysis of CLARA.
 
-Nevertheless, I will continue to explore possible relationships between health variables and cluster number. Based on the correlation plot, I will explore poor_or_fair_health (because of the plot), poor_physical_health_days (because of the correlation value), and adult_obesity (because of the plot).
+Nevertheless, I will continue to explore possible relationships between health variables and cluster number. Based on the correlation plot, I will explore *poor_or_fair_health* (because of the plot), *poor_physical_health_days* (because of the correlation value), and *adult_obesity* (because of the plot).
 
 I tried numerous combinations of the variables as well as interaction terms, because the variables are so highly correlated. 
 
@@ -252,5 +252,5 @@ In comparing adjusted R-squared values and the number of predictors used, the be
 summary(fun8)
 ```
 
-This model used three predictors and had about the same $R_squared$ value as the previous model, with one less predictor. 
+This model used three predictors and had about the same R-squared value as the previous model, with one less predictor. 
 

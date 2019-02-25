@@ -13,3 +13,82 @@ Finally, example data from my Stat 495 project provided an explicit example of t
 For the example, the Elbow and Silhouette methods were used to determine _k_ clusters, and the CLARA algorithm then divided the objects into clusters. A brief evaluation of the clusters revealed a very high within-cluster sum of squares, indicating that the clusters were not of very high quality. 
 
 In determining whether one could predict an observation's cluster based on a person's health status, multivariate linear regression models were performed. None of the models proved to be very useful; however, the best model ended up being able to predict 17.5% of the variation in the model. The data again didn't seem to have many patterns, which further confirmed the results from my Stat 495 project. 
+
+<!--
+If you feel it necessary to include an appendix, it goes here.
+-->
+
+\appendix
+
+\singlespacing
+
+# Appendix A
+
+This first appendix includes all of the R chunks of code that were hidden throughout the document.
+
+#### In Chapter 1:
+
+```{r, eval = FALSE}
+if(!require(devtools))
+  install.packages("devtools", repos = "http://cran.rstudio.com")
+if(!require(dplyr))
+    install.packages("dplyr", repos = "http://cran.rstudio.com")
+if(!require(ggplot2))
+    install.packages("ggplot2", repos = "http://cran.rstudio.com")
+if(!require(acstats)){
+  library(devtools)
+  devtools::install_github("Amherst-Statistics/acstats")
+}
+```
+
+#### In Chapter 3:
+
+```{r, warning= FALSE, eval= FALSE}
+#loading in packages
+library(readr)
+library(factoextra)
+library(NbClust)
+library(ggplot2)
+library(cluster)
+library(GGally)
+library(knitr)
+library(xtable)
+options(xtable.comment=FALSE)
+```
+
+```{r, warning= FALSE, eval= FALSE}
+#using data from final stat 495 project
+data_subset <- read_csv("CopyOfdata_subset.csv")
+```
+
+```{r, eval= FALSE}
+set.seed(2)
+#exploring possible relationships between health variables and cluster number
+
+fun1<- lm(cluster~ poor_or_fair_health + poor_physical_health_days + adult_obesity, data= cluster_data_new)
+#low adjusted R-squared (0.155), but significant predictors
+ 
+fun2<- lm(cluster~ poor_or_fair_health, data= cluster_data_new)
+fun3<- lm(cluster~ poor_physical_health_days, data= cluster_data_new)
+fun4<- lm(cluster~ adult_obesity, data= cluster_data_new)
+#low adjusted R-squared, highest of the 3 functions was 0.06
+
+fun5<- lm(cluster~ poor_or_fair_health + poor_physical_health_days + adult_obesity + poor_or_fair_health:poor_physical_health_days, data= cluster_data_new)
+#added an interaction, raised the adjusted R-squared to 0.165
+
+fun6<- lm(cluster~ poor_or_fair_health + poor_physical_health_days + adult_obesity + poor_physical_health_days:adult_obesity, data= cluster_data_new)
+#tried a different interaction, about the same adjusted R-squared
+
+fun7<- lm(cluster~ poor_or_fair_health + poor_physical_health_days + adult_obesity + poor_or_fair_health:adult_obesity, data= cluster_data_new)
+#last combination of an interaction, highest adjusted R-squared yet (0.175)!
+#only predictor not significant was poor_or_fair_health
+
+fun8<- lm(cluster~  poor_physical_health_days + adult_obesity + poor_or_fair_health:adult_obesity, data= cluster_data_new)
+#dropped poor_or_fair_health, about the same adjusted R-squared (0.174)
+
+fun9<- lm(cluster~ poor_physical_health_days + adult_obesity + poor_physical_health_days:adult_obesity, data= cluster_data_new)
+#tried a different interaction, low adjusted R-squared (0.0958)
+
+fun10<- lm(cluster~ poor_physical_health_days + adult_obesity + poor_or_fair_health:poor_physical_health_days, data= cluster_data_new)
+#tried last combination of interaction, adjusted R-squared= 0.166
+```
