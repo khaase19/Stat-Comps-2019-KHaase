@@ -12,7 +12,7 @@ You can delete the header-includes (lines 3-5 above) if you like and also the ch
 # Clustering Methods Continued {#typeset-equ}
 
 ## PAM
-Partitioning Around Medoids (PAM) is the most commonly used type of k-medoid clustering (Kaufmann & Rousseeuw, 1987).
+Partitioning Around Medoids (PAM) is the most commonly used type of $k$-medoid clustering (Kaufmann & Rousseeuw, 1987).
 
 As an overview, the algorithm iterates through all the $k$ cluster centers and tries to replace the center with one of the other objects ($n-k$ possibilities) [@Rec3]. For a replacement to occur, the squared error function must decrease. If it does not decrease, there is no replacement. The algorithm eventually terminates.
 
@@ -111,3 +111,6 @@ $$ TC_{mp} = \sum_j(C_{jmp}) $$
 6. Otherwise, increment _j_ by 1. If $j <= maxneighbor$, go to Step 4. 
 7. Otherwise, when $j > maxneighbor$, compare the cost of $current$ compared to $mincost$. If $current < mincost$, set $mincost$ to the cost of $current$, and set $bestnode$ to $current$. 
 8. Increment _i_ by 1. If $i> numlocal$, output $bestnode$ and stop. Otherwise, go to Step 2. 
+
+
+Since my data from my STAT 495 project has over 60,000 observations, I originally wanted to apply the CLARANS method. Unfortunately, the CLARANS function in R only works for SNP data (used in biology). Therefore, I had to sample my data, and apply the CLARA method instead.

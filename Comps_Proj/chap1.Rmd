@@ -35,13 +35,11 @@ $$SSE(C)= \sum_{k=1}^K \sum_{x_{i}C_{k}} ||{x_i}- c_k||^2$$
 
 Partitioning clustering algorithms classify the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group [@Rec5]. 
 
-
 ## Methods to Create Clusters
 There are many ways to create clusters. The most basic method is the $K$-means algorithm, which was developed by MacQueen in 1967 [@Rec5]. In response to $K$-means being very sensitive to outliers, the $K$-medoid algorithm was created in 1987 [@Rec5]. Both partitioning methods use iterative processes to find $K$ clusters; however, they use different ways to represent these clusters. 
 
-### $K$-Means
-
-$K$-means algorithm represents its n observations in $k$ groups, with the center of the groups being the mean/average observation. The goal of the algorithm is to find k centroids, one for each cluster. In order to do this, we must minimize an $objective function$, which is the squared error function for $k$ means. The objective function is: 
+### *K*-Means
+$K$-means algorithm represents its $n$ observations in $k$ groups, with the center of the groups being the mean/average observation. The goal of the algorithm is to find k centroids, one for each cluster. In order to do this, we must minimize an $objective function$, which is the squared error function for $k$ means. The objective function is: 
 $$O= \sum_{j=1}^k \sum_{i=1}^j ||{{X_i^{(j)}- C_j}}||^2$$
 
 Where $|{{X_i^{(j)}- C_j}}|$ is an indicator of the distance of the data points from their cluster centers. 
@@ -58,7 +56,6 @@ The steps of the algorithm are as follows [@Rec5]:
 
 This algorithm always terminates; however, it is sensitive both to outliers and to the initial randomly selected K cluster centers. Therefore, the algorithm should be run multiple times to reduce the effects from this sensitivity. 
 
-
 In order to determine how well $K$-means worked, we use the within cluster sum-of-squares to determine the compactness/"goodness" of the clustering (and we want it as small as possible).
 
 We calculate the WSS by the following equation:
@@ -66,10 +63,11 @@ We calculate the WSS by the following equation:
 $$WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- \mu_k}})^2$$
 Where $x_i$ is a data point in cluster $C_k$ and $\mu_k$ is the mean value assigned to the cluster $C_k$ [@Rec7].
 
-### $K$- Medoids
+### *K*-Medoids
 On the contrary, instead of taking the mean value of the objects in a cluster, the $k$-medoid method uses the most centrally located object in a cluster to be the cluster center [@Rec2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
 
 Steps for $K$-medoids [@Rec2]:
+
 1. Initial guess for centers $C_1$, $C_2$,... $C_k$ (i.e. randomly select k points from $X_1$, $X_2$,... $X_n$)
 
 2. Minimize over C: for each i= 1, 2,... n, find the cluster center $C_k$ closest to Xi and let C(i)=k. 
