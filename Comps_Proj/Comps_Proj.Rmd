@@ -10,7 +10,7 @@ abstract: >
 # If you'd rather include the preliminary content in files instead of inline
 # like below, use a command like that for the abstract above.  Note that a tab is # needed on the line after the >.
 acknowledgements: >
-  I would like to thank Professor Wagaman for her support through my time at Amherst. I have greatly enjoyed having her as a professor for three semesters and advisor. She is an incredibly talented Statistics Professor and has taught me skills I will be able to take with me beyond my years at Amherst. 
+  I would like to thank Professor Wagaman for her support through my time at Amherst. I have enjoyed having her as a professor for three semesters and advisor. She is an incredibly talented Statistics Professor and has taught me skills I will be able to take with me beyond my years at Amherst. 
 bibliography: bib/thesis.bib
 # Modify your specific bibliography database file and refer to it in the line above.
 csl: csl/apa.csl

@@ -69,7 +69,7 @@ Where $x_i$ is a data point in cluster $C_k$ and $\mu_k$ is the mean value assig
 On the contrary, instead of taking the mean value of the objects in a cluster to be the center, the $k$-medoid method uses the most centrally located object in a cluster to be the cluster center [@Rec2]. This causes the method to be less sensitive to outliers, but also requires more time to run. 
 
 
-Steps for $K$-medoids [@Rec2]:
+Steps for $K$-medoids [@Rec5]:
 
 1. Initial guess for centers $C_1$, $C_2$,... $C_k$ (i.e. randomly select *k* points from $X_1$, $X_2$,... $X_n$)
 
@@ -92,7 +92,7 @@ To start, the Elbow method looks at the total within-cluster sum of squares (WSS
 
 The steps for this algorithm are as follows [@Rec7]:
 
-1. Compute the clustering algorithm (i.e. _k_medoids method) for different values of $k$ (i.e. $k$ from 1 to 10).
+1. Compute the clustering algorithm (i.e. *k*-medoids method) for different values of $k$ (i.e. $k$ from 1 to 10).
 
 2. For each $k$, calculate the total WSS.
 WSS can be calculated as:
@@ -105,7 +105,7 @@ Where $x_i$ is a data point in cluster $C_k$ and $c_k$ is the medoid assigned to
 4. The location of the bend in the plot is generally considered an indicator for the appropriate number of clusters. 
 
 ###Silhouette Method
-The Silhouette Method focuses on the quality of clustering. A high average silhouette width indicates a good clustering (how well each object lies within its cluster). 
+The Silhouette method focuses on the quality of clustering. A high average silhouette width indicates a good clustering (how well each object lies within its cluster). 
 
 
 The steps of the Silhouette Algorithm are [@Rec7]:

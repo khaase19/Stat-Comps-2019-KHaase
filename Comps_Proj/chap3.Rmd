@@ -66,7 +66,7 @@ One of the important steps in clustering algorithms is determining how many $k$ 
 
 ```{r}
 #finding k using Elbow Method
-elbow<- fviz_nbclust(new, kmeans, method = "wss") +
+fviz_nbclust(new, kmeans, method = "wss") +
     geom_vline(xintercept = 4, linetype = 2)+
   labs(subtitle = "Elbow method")
 

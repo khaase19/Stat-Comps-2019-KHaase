@@ -57,7 +57,7 @@ The more formal steps of the algorithm are [@Rec2]:
 
 4. Otherwise, for each non-selected object, find the most similar representative object. 
 
-The total complexity of PAM in one iteration is $O(k(n-k)^2)$ (O= each non-medoid data point, _k_= # of cluster centers, $(n-k)$ objects to compare to, and $(n-k)$ operations for calculating E). This makes for a costly computation when n is large. The algorithm works best when n= 100 and _k_=5. 
+The total complexity of PAM in one iteration is $O(k(n-k)^2)$ (O= each non-medoid data point, _k_= # of cluster centers, $(n-k)$ objects to compare to, and $(n-k)$ operations for calculating E). This makes for a costly computation when *n* is large. The algorithm works best when *n*= 100 and *k*=5. 
 
 ## CLARA
 Because PAM does not scale well to large data sets, Clustering LARge Applications (CLARA) was developed (Kaufmann & Rousseeuw, 1990).
@@ -115,4 +115,4 @@ $$ TC_{mp} = \sum_j(C_{jmp}) $$
 8. Increment _i_ by 1. If $i > numlocal$, output $bestnode$ and stop. Otherwise, go to Step 2. 
 
 
-Since my data from my STAT 495 project has over 60,000 observations, I originally wanted to apply the CLARANS method. Unfortunately, the CLARANS function in R only works for SNP data (used in biology). Therefore, I had to sample my data, and apply the CLARA method instead.
+Since my data from my STAT 495 project has over 60,000 observations, I originally wanted to apply the CLARANS method. Unfortunately, the CLARANS function in R only works for SNP data (used in biology). Therefore, I had to take a representative sample my data, and apply the CLARA method instead.

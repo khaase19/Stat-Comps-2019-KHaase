@@ -73,22 +73,28 @@ fun3<- lm(cluster~ poor_physical_health_days, data= cluster_data_new)
 fun4<- lm(cluster~ adult_obesity, data= cluster_data_new)
 #low adjusted R-squared, highest of the 3 functions was 0.06
 
-fun5<- lm(cluster~ poor_or_fair_health + poor_physical_health_days + adult_obesity + poor_or_fair_health:poor_physical_health_days, data= cluster_data_new)
+fun5<- lm(cluster~ poor_or_fair_health + poor_physical_health_days + adult_obesity +
+            poor_or_fair_health:poor_physical_health_days, data= cluster_data_new)
 #added an interaction, raised the adjusted R-squared to 0.165
 
-fun6<- lm(cluster~ poor_or_fair_health + poor_physical_health_days + adult_obesity + poor_physical_health_days:adult_obesity, data= cluster_data_new)
+fun6<- lm(cluster~ poor_or_fair_health + poor_physical_health_days + adult_obesity +
+            poor_physical_health_days:adult_obesity, data= cluster_data_new)
 #tried a different interaction, about the same adjusted R-squared
 
-fun7<- lm(cluster~ poor_or_fair_health + poor_physical_health_days + adult_obesity + poor_or_fair_health:adult_obesity, data= cluster_data_new)
+fun7<- lm(cluster~ poor_or_fair_health + poor_physical_health_days + adult_obesity +
+            poor_or_fair_health:adult_obesity, data= cluster_data_new)
 #last combination of an interaction, highest adjusted R-squared yet (0.175)!
 #only predictor not significant was poor_or_fair_health
 
-best_model<- lm(cluster~  poor_physical_health_days + adult_obesity + poor_or_fair_health:adult_obesity, data= cluster_data_new)
+best_model<- lm(cluster~  poor_physical_health_days + adult_obesity +
+                  poor_or_fair_health:adult_obesity, data= cluster_data_new)
 #dropped poor_or_fair_health, about the same adjusted R-squared (0.174)
 
-fun9<- lm(cluster~ poor_physical_health_days + adult_obesity + poor_physical_health_days:adult_obesity, data= cluster_data_new)
+fun9<- lm(cluster~ poor_physical_health_days + adult_obesity +
+            poor_physical_health_days:adult_obesity, data= cluster_data_new)
 #tried a different interaction, low adjusted R-squared (0.0958)
 
-fun10<- lm(cluster~ poor_physical_health_days + adult_obesity + poor_or_fair_health:poor_physical_health_days, data= cluster_data_new)
+fun10<- lm(cluster~ poor_physical_health_days + adult_obesity +
+             poor_or_fair_health:poor_physical_health_days, data= cluster_data_new)
 #tried last combination of interaction, adjusted R-squared= 0.166
 ```
