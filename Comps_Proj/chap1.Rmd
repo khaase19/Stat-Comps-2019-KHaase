@@ -31,7 +31,7 @@ Usually, there is a data set with $n$ observations and the goal is to divide the
 
 The most common objective function is the sum of squared errors (SSE), where $c_k$ is the centroid or medoid of the cluster $C_k$.
 
-$$SSE(C)= \sum_{k=1}^K \sum_{x_{i}∈C_{k}} ||{x_i}- c_k||^2$$
+$$SSE(C)= \sum_{k=1}^K \sum_{x_{i} in C_{k}} ||{x_i}- c_k||^2$$
 
 Partitioning clustering algorithms classify the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group [@Rec5]. 
 
@@ -61,7 +61,7 @@ In order to determine how well $K$-means worked, we use the within cluster sum-o
 
 We calculate the WSS by the following equation:
 
-$$WSS = \sum_{k=1}^k \sum_{x_i∈C_k} ({{x_i- \mu_k}})^2$$
+$$WSS = \sum_{k=1}^k \sum_{x_i in C_k} ({{x_i- \mu_k}})^2$$
 Where $x_i$ is a data point in cluster $C_k$ and $\mu_k$ is the mean value assigned to the cluster $C_k$ [@Rec7].
 
 ### *K*-Medoids
@@ -96,7 +96,7 @@ The steps for this algorithm are as follows [@Rec7]:
 2. For each $k$, calculate the total WSS.
 WSS can be calculated as:
 
-$$WSS= \sum_{i=1}^k \sum_{x_i∈C_k} ||{{x_i- c_k}}||^2$$
+$$WSS= \sum_{i=1}^k \sum_{x_i in C_k} ||{{x_i- c_k}}||^2$$
 Where $x_i$ is a data point in cluster $C_k$ and $c_k$ is the medoid assigned to the cluster $C_k$. [@Rec7]. 
 
 3. Plot the curve of the total WSSs according to the number of clusters (k). 

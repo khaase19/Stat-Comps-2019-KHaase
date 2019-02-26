@@ -48,7 +48,7 @@
 
 % \usepackage{times} % other fonts are available like times, bookman, charter, palatino
 
-\title{My Comprehensive Evaluation}
+\title{Exposition of Spatial Clustering Methods}
 \author{Kaitlyn E. Haase}
 % The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
 \date{February 26 2019}
@@ -89,7 +89,11 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 \Acknowledgements{
-I want to thank my family.
+I would like to thank Professor Wagaman for her support through my time
+at Amherst. I have greatly enjoyed having her as a professor for three
+semesters and advisor. She is an incredibly talented Statistics
+Professor and has taught me skills I will be able to take with me beyond
+my years at Amherst.
 }
 
 \Dedication{
@@ -102,20 +106,20 @@ I want to thank my family.
 
 \Abstract{
 In recent years, the amount of geographic data has increased immensely
-with new technology such as GPS and surveillance cameras. With new
-technology, the accuracy and complexity of data has also improved. This
-has provoked statisticians to create techniques to best analyze and draw
+with new technology (i.e.~GPS and surveillance cameras). Additionally,
+the data has improved in accuracy and increased in complexity. This has
+provoked statisticians to create techniques to best analyze and draw
 conclusions from this new-found data. Earlier techniques of spatial data
 were not equipped to handle the complexity and quantity of the data.
 This project first explores how and why we analyze data based on
-geographic information. Next, I will explain some of the newer spatial
+geographic information. Next, I will explain some examples of spatial
 data algorithms, including PAM (Partitioning Around Medoids), CLARA
 (Clustering LARge Applications), and CLARANS (Clustering Large
 Applications based on RANdomized Search). The purpose of this
 exploration is to better analyze government health data from the
-previous STAT 495 project. I will: use a sample of the STAT 495 project
-data to demonstrate CLARA, evaluate how CLARA performed, and develop a
-model to best predict cluster.
+previous STAT 495 project. I will then: use a sample of the STAT 495
+project data to demonstrate the CLARA algorithm, evaluate how CLARA
+performed, and develop a model to best predict cluster.
 }
 
 
@@ -132,7 +136,11 @@ model to best predict cluster.
   \pagestyle{empty} % this removes page numbers from the frontmatter
 
       \begin{acknowledgements}
-      I want to thank my family.
+      I would like to thank Professor Wagaman for her support through my time
+      at Amherst. I have greatly enjoyed having her as a professor for three
+      semesters and advisor. She is an incredibly talented Statistics
+      Professor and has taught me skills I will be able to take with me beyond
+      my years at Amherst.
     \end{acknowledgements}
   
   
@@ -148,20 +156,20 @@ model to best predict cluster.
   
       \begin{abstract}
       In recent years, the amount of geographic data has increased immensely
-      with new technology such as GPS and surveillance cameras. With new
-      technology, the accuracy and complexity of data has also improved. This
-      has provoked statisticians to create techniques to best analyze and draw
+      with new technology (i.e.~GPS and surveillance cameras). Additionally,
+      the data has improved in accuracy and increased in complexity. This has
+      provoked statisticians to create techniques to best analyze and draw
       conclusions from this new-found data. Earlier techniques of spatial data
       were not equipped to handle the complexity and quantity of the data.
       This project first explores how and why we analyze data based on
-      geographic information. Next, I will explain some of the newer spatial
+      geographic information. Next, I will explain some examples of spatial
       data algorithms, including PAM (Partitioning Around Medoids), CLARA
       (Clustering LARge Applications), and CLARANS (Clustering Large
       Applications based on RANdomized Search). The purpose of this
       exploration is to better analyze government health data from the
-      previous STAT 495 project. I will: use a sample of the STAT 495 project
-      data to demonstrate CLARA, evaluate how CLARA performed, and develop a
-      model to best predict cluster.
+      previous STAT 495 project. I will then: use a sample of the STAT 495
+      project data to demonstrate the CLARA algorithm, evaluate how CLARA
+      performed, and develop a model to best predict cluster.
     \end{abstract}
   
   
@@ -173,35 +181,35 @@ model to best predict cluster.
   \chapter*{Introduction}\label{introduction}
   \addcontentsline{toc}{chapter}{Introduction}
   
-  For our STAT 495 project, we used mapping techniques to visualize and
-  analyze our data. The only significant relationships we were able to
-  find were between demographic information and health status; we were
-  unable to relate health status with location. I am interested in
-  analyzing the data through clustering, to further analyze whether the
-  location of an observation is related to one's health status. Since
-  clustering utilizes spatial information, it may be helpful in finding
-  patterns in the data.
-  
-  More broadly speaking, we have much more spatial data than we have had
-  in the past. Spatial data analysis is analyzing data based on
-  topological, geometric, and geographic information. Spatial data may
-  include latitude and longitude, zip code, or street address.
+  Cassidy Mahar, Silvia Sotolongo, and I, for our STAT 495 project, used
+  mapping techniques to visualize and analyze US Government data. The data
+  contained spatial, demographic, and health status information. The only
+  significant relationships we were able to find were between demographic
+  information and health status; we were unable to relate health status
+  with any spatial information. I am interested in analyzing the data
+  through spatial clustering, to further analyze whether the location of
+  an observation is related to one's health status. Since clustering
+  utilizes spatial information, it may be helpful in finding patterns in
+  the data.
   
   \section{Why Analyze Spatial Data?}\label{why-analyze-spatial-data}
   
   We are interested in analyzing spatial data for many reasons, one being
-  because there is so much of it available. Investigating spatial data can
-  help us find dissimilarities and similarities among objects. This can
-  aid us in allocating resources to areas that need them most, discovering
-  changes over time, and categorizing new objects.
+  because there is so much of it available. Spatial data analysis is
+  analyzing data based on topological, geometric, and geographic
+  information. Spatial data may include latitude and longitude, zip code,
+  or street address. Investigating spatial data can help us find
+  dissimilarities and similarities among objects. This can aid us in
+  allocating resources to areas that need them most, discovering changes
+  over time, and categorizing new objects.
   
   \section{Analyzing Spatial Data
   Algorithms}\label{analyzing-spatial-data-algorithms}
   
-  There are many algorithms out there that handle spatial data; most
-  algorithms are focused around clustering. To get a glimpse of the number
-  of algorithms and strategies to analyze spatial data, Figure 1 provides
-  some examples.
+  Many, many algorithms exist that analyze spatial data; most algorithms
+  are focused around clustering. To get a glimpse of the number of
+  algorithms and strategies to analyze spatial data, Figure 1 provides
+  some examples (Wagaman, 2019).
   
   \begin{figure}[htbp]
   \centering
@@ -210,7 +218,7 @@ model to best predict cluster.
   \label{fig:Clustering}
   \end{figure}
   
-  As noted, the methods are aimed around clustering, which we will further
+  As noted, the methods are aimed around clustering, which I will further
   explore in the next section.
   
   \subsection{Clustering}\label{clustering}
@@ -221,21 +229,23 @@ model to best predict cluster.
   patterns and similarities/differences between data points and groups;
   however it can be quite subjective. It is up to the statistician to
   determine how many clusters are appropriate for the data, as well as the
-  cut off for what is considered ``dissimilar'' or ``similar''.
+  cut off for what is considered ``similar'' or ``dissimilar''.
   Additionally, the statistician must choose which clustering algorithm is
-  best to use- this will be discussed in more detail later on in the
-  project.
+  best to use.
   
   \chapter{Clustering Basics}\label{rmd-basics}
   
-  There are many factors to consider when choosing a clustering algorithm,
-  such as the application of the problem (what do you want to find out
-  about this data?), quality vs speed trade off (the size of the data
-  plays a role), characteristics of the data (i.e.~numeric distance
-  measures), dimensionality (typically as dimension increases the time it
-  takes to run the method increases and quality of the data clusters
-  decrease), and outliers (some methods are very sensitive to outliers)
-  (Jiawei Han \& Tung, n.d.).
+  Since there are so many clustering algorithms, choosing the appropriate
+  method becomes an important task. There are many factors to consider
+  when choosing a clustering algorithm, such as the application of the
+  problem (what do you want to find out about this data?), quality versus
+  speed trade off (the size of the data plays a role), characteristics of
+  the data (i.e.~numeric distance measures), dimensionality (typically as
+  dimension increases, the time it takes to run the method increases and
+  quality of the data clusters decrease), and outliers (some methods are
+  very sensitive to outliers) (Jiawei Han \& Tung, n.d.). These were some
+  of the considerations I had to think about in analyzing the data from my
+  STAT 495 project.
   
   \section{Partitioning}\label{partitioning}
   
@@ -249,13 +259,13 @@ model to best predict cluster.
   n.d.).
   
   Usually, there is a data set with \(n\) observations and the goal is to
-  divide the data points into \(K\) clusters so that an objective function
+  divide the data points into \(k\) clusters so that an objective function
   is optimized.
   
   The most common objective function is the sum of squared errors (SSE),
   where \(c_k\) is the centroid or medoid of the cluster \(C_k\).
   
-  \[SSE(C)= \sum_{k=1}^K \sum_{x_{i}C_{k}} ||{x_i}- c_k||^2\]
+  \[SSE(C)= \sum_{k=1}^K \sum_{x_{i} in C_{k}} ||{x_i}- c_k||^2\]
   
   Partitioning clustering algorithms classify the data into K groups by
   satisfying both that each group has at least one data point, and that
@@ -275,10 +285,10 @@ model to best predict cluster.
   
   \(K\)-means algorithm represents its \(n\) observations in \(k\) groups,
   with the center of the groups being the mean/average observation. The
-  goal of the algorithm is to find k centroids, one for each cluster. In
-  order to do this, we must minimize an \(objective function\), which is
-  the squared error function for \(k\) means. The objective function is:
-  \[O= \sum_{j=1}^k \sum_{i=1}^j ||{{X_i^{(j)}- C_j}}||^2\]
+  goal of the algorithm is to find \emph{k} centroids, one for each
+  cluster. In order to do this, we must minimize an objective function,
+  which is the squared error function for \(k\) means. The objective
+  function is: \[O= \sum_{j=1}^k \sum_{i=1}^j ||{{X_i^{(j)}- C_j}}||^2\]
   
   Where \(|{{X_i^{(j)}- C_j}}|\) is an indicator of the distance of the
   data points from their cluster centers.
@@ -288,40 +298,40 @@ model to best predict cluster.
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \item
-    Choose \(K\) points in the space to represent the centroid. This works
-    best if they are chosen to be far apart from each other.
+    Choose \(k\) points in the space to represent the centroids. This
+    works best if they are chosen to be far apart from each other.
   \item
     Assign each object in the data set to the cluster with the closest
     centroid.
   \item
     When all of the clusters have been made, recalculate the positions of
-    the \(K\) centroids.
+    the \(k\) centroids.
   \item
     Repeat steps 2 and 3 until the centroids no longer move.
   \end{enumerate}
   
   This algorithm always terminates; however, it is sensitive both to
-  outliers and to the initial randomly selected K cluster centers.
+  outliers and to the initial randomly selected \emph{k} cluster centers.
   Therefore, the algorithm should be run multiple times to reduce the
   effects from this sensitivity.
   
   In order to determine how well \(K\)-means worked, we use the within
-  cluster sum-of-squares to determine the compactness/``goodness'' of the
-  clustering (and we want it as small as possible).
+  cluster sum-of-squares, WSS, to determine the compactness/``goodness''
+  of the clustering (and we want it as small as possible).
   
   We calculate the WSS by the following equation:
   
-  \[WSS = \sum_{k=1}^k \sum_{x_i=C_k} ({{x_i- \mu_k}})^2\] Where \(x_i\)
-  is a data point in cluster \(C_k\) and \(\mu_k\) is the mean value
-  assigned to the cluster \(C_k\) (Datanovia, n.d.).
+  \[WSS = \sum_{k=1}^k \sum_{x_i in C_k} ({{x_i- \mu_k}})^2\] Where
+  \(x_i\) is a data point in cluster \(C_k\) and \(\mu_k\) is the mean
+  value assigned to the cluster \(C_k\) (Datanovia, n.d.).
   
   \subsection{\texorpdfstring{\emph{K}-Medoids}{K-Medoids}}\label{k-medoids}
   
   On the contrary, instead of taking the mean value of the objects in a
-  cluster, the \(k\)-medoid method uses the most centrally located object
-  in a cluster to be the cluster center (Jiawei Han \& Tung, n.d.). This
-  causes the method to be less sensitive to outliers, but also requires
-  more time to run.
+  cluster to be the center, the \(k\)-medoid method uses the most
+  centrally located object in a cluster to be the cluster center (Jiawei
+  Han \& Tung, n.d.). This causes the method to be less sensitive to
+  outliers, but also requires more time to run.
   
   Steps for \(K\)-medoids (Jiawei Han \& Tung, n.d.):
   
@@ -329,7 +339,8 @@ model to best predict cluster.
   \def\labelenumi{\arabic{enumi}.}
   \item
     Initial guess for centers \(C_1\), \(C_2\),\ldots{} \(C_k\)
-    (i.e.~randomly select k points from \(X_1\), \(X_2\),\ldots{} \(X_n\))
+    (i.e.~randomly select \emph{k} points from \(X_1\), \(X_2\),\ldots{}
+    \(X_n\))
   \item
     Minimize over C: for each i= 1, 2,\ldots{} n, find the cluster center
     \(C_k\) closest to Xi and let C(i)=k.
@@ -349,25 +360,25 @@ model to best predict cluster.
   \section{\texorpdfstring{How to Choose
   \(K\)}{How to Choose K}}\label{how-to-choose-k}
   
-  Now that we've discussed different kinds of \(K\)-means and
-  \(K\)-medoids partitioning methods, we know how to find \(K\) clusters
-  of data points; but how do we determine what \(K\) is?
+  Now that we've discussed \(K\)-means and \(K\)-medoids partitioning
+  methods, we know how to find \(k\) clusters of data points; but how do
+  we determine what \(k\) is?
   
   Well, there are many ways to choose \(k\), which is why these methods
   are so subjective.
   
-  I will describe two of the many ways to determine \(K\), both of which
+  I will describe two of the many ways to determine \(k\), both of which
   use visuals to determine what value of \(k\) is appropriate for the
   data. The elbow method and silhouette method are common ways to find
-  \(K\) when using the \(K\) means and \(K\) medoids algorithms
+  \(k\) when using the \(K\)-means and \(K\)-medoids algorithms
   (Datanovia, n.d.).
   
   \subsection{Elbow Method}\label{elbow-method}
   
-  To start, the elbow method looks at the total within-cluster sum of
+  To start, the Elbow method looks at the total within-cluster sum of
   squares (WSS) and determines when there are enough clusters so that the
   next cluster does not improve the total WSS very much. This would be the
-  appropriate \(K\) to choose.
+  appropriate \(k\) to choose.
   
   The steps for this algorithm are as follows (Datanovia, n.d.):
   
@@ -380,7 +391,7 @@ model to best predict cluster.
     For each \(k\), calculate the total WSS. WSS can be calculated as:
   \end{enumerate}
   
-  \[WSS= \sum_{i=1}^k \sum_{x_i = C_k} ||{{x_i- c_k}}||^2\] Where \(x_i\)
+  \[WSS= \sum_{i=1}^k \sum_{x_i in C_k} ||{{x_i- c_k}}||^2\] Where \(x_i\)
   is a data point in cluster \(C_k\) and \(c_k\) is the medoid assigned to
   the cluster \(C_k\). (Datanovia, n.d.).
   
@@ -405,24 +416,23 @@ model to best predict cluster.
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \tightlist
   \item
-    Compute clustering algorithm for different values of k (i.e.~k from 1
-    to 10).
+    Compute clustering algorithm for different values of \emph{k} (i.e.
+    \emph{k} from 1 to 10).
   \item
-    For each k, calculate the average silhouette of observations.
+    For each \emph{k}, calculate the average silhouette of observations.
   \end{enumerate}
   
-  The silhouette of an object \(O_j\), is a quanitity varying between -1
+  The silhouette of an object \(O_j\), is a quantity varying between -1
   and 1, that indicates how much \(O_j\) truly belongs to the cluster to
   which \(O_j\) is classified (Ng \& Han, 2000).
   
-  There is a silhouette method in R that can calculate this for us\ldots{}
+  There is a silhouette function in R that calculates the silhouette
+  widths of the clusters.
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \setcounter{enumi}{2}
-  \tightlist
   \item
     Plot the curve of the average silhouettes according to the number of
     clusters (k).
@@ -458,27 +468,27 @@ model to best predict cluster.
   \label{fig:PAM}
   \end{figure}
   
-  Now that we have our set up, there are four different ways or ``cases''
-  in which PAM calculates the cost, \(C_{jmp}\) for all of the non-medoid
+  Now that I have set us up, there are four different ways or ``cases'' in
+  which PAM calculates the cost, \(C_{jmp}\), for all of the non-medoid
   objects \(O_j\) (Jiawei Han \& Tung, n.d.). For the sake of simplicity
-  and in understanding the different cases, I will denote \(O_m\) as A,
-  \(O_p\) as M, \(O_j\) as Y or Z, \(O_{j,2}\) as B.
+  and in understanding the different cases in terms of Figure 2.1, I will
+  denote \(O_m\) as A, \(O_p\) as M, \(O_j\) as Y or Z, \(O_{j,2}\) as B.
   
   \textbf{Case 1:}
   
   Suppose Y currently belongs to the cluster represented by A.
   Additionally, Y is more similar to B than to M (i.e.
-  \(d(Y, M) >= d(Y, B)\)), where B is the second most similar medoid to Y.
-  If A were to be replaced by M as a medoid, Y would belong to B
-  (indicated by the Case 1 arrow in Figure BLANK). Therefore the cost of
-  the switch is: \(C_{jmp} = d(Y, B) - d(Y, A)\).
+  \(d(Y, M) \geq d(Y, B)\)), where B is the second most similar medoid to
+  Y. If A were to be replaced by M as a medoid, Y would belong to B
+  (indicated by the Case 1 arrow in Figure 2.1). Therefore the cost of the
+  switch is: \(C_{jmp} = d(Y, B) - d(Y, A)\).
   
   This equation will always give a non-negative \(C_{jmp}\), indicating
   that there is a non-negative cost incurred in replacing A with M.
   
   \textbf{Case 2:}
   
-  Suppose Y currently belonds to the cluster represented by A. But this
+  Suppose Y currently belongs to the cluster represented by A. But this
   time, A is less similar to B than to M (\(d(Y, M) < d(Y, B)\)). Then, if
   A is replaced by M, Y would belong to the cluster represented by M. The
   cost of this swap would be: \(C_{jmp} = d(Y, M) - d(Y, A)\). The value
@@ -502,13 +512,12 @@ model to best predict cluster.
   In combining all of the four cases described, the total cost of
   replacing A with M is: \[ TC_{mp} = \sum_j(C_{jmp}) \].
   
-  The more formal steps of the algorithm are as follows (Jiawei Han \&
-  Tung, n.d.):
+  The more formal steps of the algorithm are (Jiawei Han \& Tung, n.d.):
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \item
-    Select \emph{k} representative objects arbitratily.
+    Select \emph{k} representative objects arbitrarily.
   \item
     Compute \(TC_{mp}\) for all pairs of \(O_m\), \(O_p\) where \(O_m\) is
     currently selected, and \(O_p\) is not.
@@ -521,28 +530,27 @@ model to best predict cluster.
     representative object.
   \end{enumerate}
   
-  The total complexity of PAM in one iteration is \[O(k(n-k)^2)\] (O= each
-  non-medoid data point, \emph{k}= \# of cluster centers, \[(n-k)\]
-  objects to compare to, and \[(n-k)\] operations for calculating E). This
+  The total complexity of PAM in one iteration is \(O(k(n-k)^2)\) (O= each
+  non-medoid data point, \emph{k}= \# of cluster centers, \((n-k)\)
+  objects to compare to, and \((n-k)\) operations for calculating E). This
   makes for a costly computation when n is large. The algorithm works best
   when n= 100 and \emph{k}=5.
   
   \section{CLARA}\label{clara}
   
   Because PAM does not scale well to large data sets, Clustering LARge
-  Applications (CLARA) was developed to deal with larger data sets
-  (Kaufmann \& Rousseeuw, 1990).
+  Applications (CLARA) was developed (Kaufmann \& Rousseeuw, 1990).
   
   CLARA is a sampling based method, meaning a sample of the data is used
   to represent the entire data set. Medoids are chosen from this sample
   data using PAM and then the average dissimilarity is computed using the
-  whole dataset, not only the objects in the samples. If a new set of
+  whole data set, not only the objects in the samples. If a new set of
   medoids gives a lower dissimilarity than a previous best solution, then
   the best solution is replaced with a new set of medoids (Jiawei Han \&
   Tung, n.d.).
   
   Experiments indicate that 5 samples of size 40+ 2\(k\) give satisfactory
-  results {[}Rec 6, p.~146{]}.
+  results (Ng \& Han, 2000).
   
   The steps for the algorithm are as follows (Jiawei Han \& Tung, n.d.):
   
@@ -559,17 +567,17 @@ model to best predict cluster.
   \item
     Calculate the average dissimilarity of the clustering obtained in the
     previous step. If this value is less than the current minimum, use
-    this value as the current minimum, and retain the \emph{k} meoids
+    this value as the current minimum, and retain the \emph{k} medoids
     found in Step 2 as the best medoids obtained so far.
   \item
     Return to Step 1 to start the next iteration.
   \end{enumerate}
   
-  CLARA performs well on large data sets, i.e.~around 1000 objects (n) in
-  10 clusters (k). CLARA can work on larger data sets because the
-  complexity for each iteration is \(O{k(40 + k)^2 + k(n-k)}\), which is
-  much smaller than \(O(k(n-k)^2)\) (which is the complexity for each
-  iteration in PAM) (J. Han, n.d.).
+  CLARA performs well on large data sets, i.e.~around 1000 objects
+  (\emph{n}) in 10 clusters (\emph{k}). CLARA can work on larger data sets
+  because the complexity for each iteration is
+  \(O{k(40 + k)^2 + k(n-k)}\), which is much smaller than \(O(k(n-k)^2)\)
+  (which is the complexity for each iteration in PAM) (J. Han, n.d.).
   
   \section{CLARANS}\label{clarans}
   
@@ -577,7 +585,7 @@ model to best predict cluster.
   provides the highest quality clusters, in comparison to PAM and CLARA.
   
   The easiest way to understand CLARANS, is through a graphic example
-  including both PAM and CLARA as well (Jiawei Han \& Tung, n.d.).
+  involving both PAM and CLARA as well (Jiawei Han \& Tung, n.d.).
   
   The processes of finding \emph{k} medoids can be described as searching
   through a graph of objects. This graph, denoted \(G_{n,k}\) contains
@@ -588,8 +596,8 @@ model to best predict cluster.
   objects in the data set\}.
   
   Two nodes are considered neighbors if their sets differ by only one
-  object. Furthermore, two nodes, \(S_1\) = \{\{\(O_{m1},... , O_{mk}\)\}
-  and \(S_2\) = \{\{\(O_{w1},... , O_{wk}\)\} are neighbors if the
+  object. Furthermore, two nodes, \(S_1\) = \{\(O_{m1},... , O_{mk}\)\}
+  and \(S_2\) = \{\(O_{w1},... , O_{wk}\)\} are neighbors if the
   intersection of \(S_1, S_2\) is \emph{k}-1. Each node therefore has
   \(k(n-k)\) neighbors. Each node is a cluster; each node can be assigned
   a cost that defines the total dissimilarity between every object and the
@@ -603,16 +611,16 @@ model to best predict cluster.
   created.
   
   CLARA examines fewer neighbors and restricts the search in general on
-  subgraphs of \(G_{n,k}\). The subgraph \(G_{Sa,k}\) contains all the
+  subgraphs of \(G_{n,k}\). The subgraph, \(G_{Sa,k}\), contains all the
   nodes that are subgraphs of \(Sa\). CLARA searches through the nodes
   using PAM, however, the search is confined within \(G_{Sa,k}\). This is
   problematic, because if M is the minimum node in the original graph
   \(G_{n,k}\), but if M is not included in \(G_{Sa,k}\), M will never be
-  found. To make up for this deficiency, many many samples would have to
-  be collected and processed. (Jiawei Han \& Tung, 2002).
+  found. To make up for this deficiency, many, many samples would have to
+  be collected and processed (Jiawei Han \& Tung, 2002).
   
   CLARANS was developed because of this deficiency. CLARANS does not
-  restrict to a particular subgraph, instead if searches the entire graph
+  restrict to a particular subgraph, instead it searches the entire graph
   \(G_{n,k}\). CLARANS is unlike PAM in that it only checks a subgroup of
   the neighbors of a node (like CLARA). But in contrast to CLARA, each
   sample is drawn in a way that no nodes corresponding to particular
@@ -645,17 +653,17 @@ model to best predict cluster.
     the cost differential of the two nodes, using:
     \[ TC_{mp} = \sum_j(C_{jmp}) \]
   \item
-    If \emph{S} has a lower cost, ser \emph{current} to \emph{S}, and go
+    If \emph{S} has a lower cost, set \emph{current} to \emph{S}, and go
     to Step 3.
   \item
-    Otherwise, increment \emph{j} by 1. If \(j <= maxneighbor\), go to
+    Otherwise, increment \emph{j} by 1. If \(j \leq maxneighbor\), go to
     Step 4.
   \item
     Otherwise, when \(j > maxneighbor\), compare the cost of \(current\)
     compared to \(mincost\). If \(current < mincost\), set \(mincost\) to
     the cost of \(current\), and set \(bestnode\) to \(current\).
   \item
-    Increment \emph{i} by 1. If \(i> numlocal\), output \(bestnode\) and
+    Increment \emph{i} by 1. If \(i > numlocal\), output \(bestnode\) and
     stop. Otherwise, go to Step 2.
   \end{enumerate}
   
@@ -668,12 +676,12 @@ model to best predict cluster.
   
   \section{Exploring the Data}\label{exploring-the-data}
   
-  In this application, I will further explore the data from my Stat 495
+  In this application, I will further explore the data from my STAT 495
   final project. The data is from DataUSA, which uses public US Government
   data to analyze and visualize relationships (DataUSA, n.d.). In the
-  previous project, we decided to use data from 2016 because of size
-  restrictions. The data contains spatial information, quantitative, and a
-  few categorical variables.
+  previous project, we decided to use data from only 2016 because of size
+  restrictions. The data contains spatial information, quantitative
+  variables, and a few categorical variables.
   
   The data contains demographic information, latitude and longitude, and
   variables that are indicators of health status. The health status
@@ -696,10 +704,9 @@ model to best predict cluster.
   observations, so I will need to sample about 1000 observations in order
   to produce the best results using CLARA.
   
-  My first step is to import the data.
-  
-  Next, I will take a random sample of 1000 observations. I assume the
-  sample is representative of the data set because n=1000.
+  I will first take a random sample of 1000 observations. I assume the
+  sample is representative of the data set because \emph{n} is so large
+  (\emph{n} = 1000).
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -721,41 +728,34 @@ model to best predict cluster.
   \NormalTok{myvars <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Latitude_tri"}\NormalTok{, }\StringTok{"Longitude_tri"}\NormalTok{, }\StringTok{"poor_or_fair_health"}\NormalTok{, }
               \StringTok{"poor_physical_health_days"}\NormalTok{, }\StringTok{"physical_inactivity"}\NormalTok{, }\StringTok{"adult_obesity"}\NormalTok{)}
   \NormalTok{smallsample <-}\StringTok{ }\NormalTok{mysample[myvars]}
+  \NormalTok{new<-}\StringTok{ }\KeywordTok{na.omit}\NormalTok{(smallsample) }\CommentTok{#getting rid of missing data}
   \end{Highlighting}
   \end{Shaded}
   
-  The data is now ready to apply CLARA.
+  The data is now ready for the application of CLARA.
   
   \section{Applying CLARA}\label{applying-clara}
   
   \textbf{Step 1}: Determining \(k\).
   
-  One of the major steps in clustering algorithms is determining how many
-  \(k\) clusters is appropriate. In Chapter 1, I explained the Elbow and
-  Silhouette methods of determining \(k\). I will perform both methods on
-  this data to start.
+  One of the important steps in clustering algorithms is determining how
+  many \(k\) clusters are appropriate. In Chapter 1, I explained the Elbow
+  and Silhouette methods to determine \(k\). I will perform both methods
+  on this data to start.
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \CommentTok{#finding k with project data, using Elbow Method}
-  \NormalTok{new<-}\StringTok{ }\KeywordTok{na.omit}\NormalTok{(smallsample)}
-  
+  \CommentTok{#finding k using Elbow Method}
   \NormalTok{elbow<-}\StringTok{ }\KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"wss"}\NormalTok{) }\OperatorTok{+}
   \StringTok{    }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \DecValTok{4}\NormalTok{, }\DataTypeTok{linetype =} \DecValTok{2}\NormalTok{)}\OperatorTok{+}
-  \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Elbow method"}\NormalTok{); elbow}
-  \end{Highlighting}
-  \end{Shaded}
+  \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Elbow method"}\NormalTok{)}
   
-  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-5-1} \end{center}
-  
-  \begin{Shaded}
-  \begin{Highlighting}[]
   \KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"silhouette"}\NormalTok{) }\OperatorTok{+}
   \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Silhouette method"}\NormalTok{)}
   \end{Highlighting}
   \end{Shaded}
   
-  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-5-2} \end{center}
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-5-1} \end{center}
   
   According to the Elbow method, \(k\) should be 4 (where the elbow is in
   the graph). According to the Silhouette method, \(k\) should be 2 (the
@@ -817,8 +817,6 @@ model to best predict cluster.
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \CommentTok{#more output from CLARA}
-  
   \CommentTok{#cluster number for each observation}
   \NormalTok{clarasamp}\OperatorTok{$}\NormalTok{cluster}
   \CommentTok{#silhouette width for each cluster}
@@ -870,8 +868,8 @@ model to best predict cluster.
   
   There are multiple ways to determine the effectiveness of CLARA and the
   quality of its clusters. One way to internally validate the method, is
-  to look at its WSS. If the WSS is high, it is likely the method did not
-  work very well.
+  to look at its within-cluster sum of squares (WSS). If the WSS is high,
+  it is likely the method did not work very well.
   
   I plotted in the previous section in the Elbow method plot to determine
   the number of clusters to use. Since I decided to use \(k\)=3 clusters,
@@ -879,28 +877,30 @@ model to best predict cluster.
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \NormalTok{elbow}
+  \KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"wss"}\NormalTok{) }\OperatorTok{+}
+  \StringTok{    }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \DecValTok{3}\NormalTok{, }\DataTypeTok{linetype =} \DecValTok{2}\NormalTok{)}\OperatorTok{+}
+  \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Elbow method"}\NormalTok{)}
   \end{Highlighting}
   \end{Shaded}
   
   \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-11-1} \end{center}
   
-  The Elbow method when \(k\)=3, shows a WSS to be about 30,000. This is
+  The Elbow method when \(k\)=3, shows a WSS to be about 35,000. This is
   very high, which is a concern when interpreting the cluster results.
   
-  Another method is to look at the silhouette width of the cluster. As
-  mentioned in Chapter 1 the Silhouette method helps us determine how many
-  clusters best fits the data. The Silhoutte widths of the cluster
+  Another method is to look at the silhouette widths of the clusters. As
+  mentioned in Chapter 1, the Silhouette method helps us determine how
+  many clusters best fits the data. The Silhouette widths of the clusters
   determine how well an object truly belongs to its assigned cluster.
   
   Based on many experiments and research, a silhouette width of 0.71-1
-  indicates a strong cluster, 0.51-0.7 indicates a resonable cluster,
-  0.26-0.5 indicates a weak or artifical cluster, and less than or equal
+  indicates a strong cluster, 0.51-0.7 indicates a reasonable cluster,
+  0.26-0.5 indicates a weak or artificial cluster, and less than or equal
   to 0.25 indicates no cluster found (Ng \& Han, 2000).
   
   In this example, the silhouette widths were: 0.422183 for cluster 1,
   0.634548 for cluster 2, and 0.172013 for cluster 3. In analyzing these
-  values based on the criteria, cluster 1 is a weak or artifical cluster,
+  values based on the criteria, cluster 1 is a weak or artificial cluster,
   cluster 2 is a reasonable cluster, and cluster 3 indicates no cluster
   found.
   
@@ -961,16 +961,15 @@ model to best predict cluster.
   
   According to this model, \emph{longitude},
   \emph{poor\_or\_fair\_health}, \emph{poor\_physical\_health\_days}, and
-  physical\_inactivity were strong predictors of cluster number. Overall,
-  the model seemed to fit the data fairly well. The model had a high
-  F-statistic and a low p-value of \textless{}2e-16. The adjusted
+  \emph{physical\_inactivity} were strong predictors of cluster number.
+  Overall, the model seemed to fit the data fairly well. The model had a
+  high F-statistic and a low p-value of \textless{}2e-16. The adjusted
   R-squared value was 0.372.
   
   In analyzing this model I realized that latitude and longitude were used
-  as quantitative variables instead of categorical. Since linear and
-  multivariate regression predictive models only use quantitative or
-  categorical variables, I realized that the latitude and longitude
-  (spatial information) would not be helpful.
+  as quantitative variables instead of categorical. Since multivariate
+  regression predictive models do not use spatial information, I realized
+  that the latitude and longitude would not be helpful.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -980,8 +979,8 @@ model to best predict cluster.
   \end{Highlighting}
   \end{Shaded}
   
-  I ran another kitchen sink model, with only the health variables and
-  cluster information.
+  I ran another full multivariate regression model, an updated kitchen
+  sink model, with only the health variables and cluster information.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -1018,7 +1017,8 @@ model to best predict cluster.
   the least healthy people (higher scores on health indicator variables)
   would be in cluster 3. I also predicted the health indicator variables
   would be highly correlated with each other, considering they all are
-  aiding in predicting one's health.
+  aiding in predicting one's health. My predictions were based on the
+  CLARA output from the previous section.
   
   \begin{Shaded}
   \begin{Highlighting}[]
@@ -1028,7 +1028,7 @@ model to best predict cluster.
   
   \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-18-1} \end{center}
   
-  The correlation plot shows strong positive correlations between
+  The correlation matrix shows strong positive correlations between
   \emph{poor\_or\_fair\_health}, \emph{poor\_physical\_health\_days},
   \emph{physical\_inactivity}, and \emph{adult\_obesity}, as I had
   predicted. The highest correlation was 0.884, between
@@ -1044,27 +1044,27 @@ model to best predict cluster.
   unhealthy people (high health variable scores) are in cluster 3.
   
   The \emph{poor\_physical\_health\_days} versus cluster number and
-  adult\_obesity versus cluster number show a couple of observations with
-  high health variable scores in cluster 3 as well. It is again unclear if
-  these points are outliers or not.
+  \emph{adult\_obesity} versus cluster number show a couple of
+  observations with high health variable scores in cluster 3 as well.
+  Again, it is unclear if these points are outliers or not.
   
   In general, the plots show that cluster 2 has the smallest range of
   health scores, which further confirms that cluster 2 had the highest
   quality of clustering (the largest silhouette width). In terms of
   correlation values, cluster number was shows to be sightly negatively
-  correlated with poor\_physical\_health\_days, with a correlation value
-  of -0.25.
+  correlated with \emph{poor\_physical\_health\_days}, with a correlation
+  value of -0.25.
   
   I had predicted the correlation to be positive, because the CLARA output
   revealed cluster 3 to have the most unhealthy people. This would mean
   the higher the health variable value, the higher the cluster number.
   Since the correlations are in fact slightly negative, I believe the
-  reason for the higher health value mean score for cluster 3 was probably
-  due to the outliers also shown in the plots.
+  reason for the higher health value mean score from the CLARA output for
+  cluster 3 was probably due to the outliers (shown in the plots).
   
   All of correlations between the health variables and cluster number were
-  negative, indicating that the clustering was not very effective and
-  instead there may be outliers impacting the original analysis of CLARA.
+  negative, indicating there may be outliers impacting the original
+  analysis of CLARA.
   
   Nevertheless, I will continue to explore possible relationships between
   health variables and cluster number. Based on the correlation plot, I
@@ -1073,9 +1073,10 @@ model to best predict cluster.
   and \emph{adult\_obesity} (because of the plot).
   
   I tried numerous combinations of the variables as well as interaction
-  terms, because the variables are so highly correlated.
+  terms, because the variables are so highly correlated. Some examples of
+  the combinations I tried are found in Appendix A.
   
-  Most of the model had significant predictors; however, the R-squared
+  Most of the models had significant predictors; however, the R-squared
   values were small; indicating that the models did not fit the data very
   well.
   
@@ -1084,36 +1085,29 @@ model to best predict cluster.
   
   \begin{Shaded}
   \begin{Highlighting}[]
-  \KeywordTok{summary}\NormalTok{(fun8)}
+  \KeywordTok{summary}\NormalTok{(best_model)}
   \end{Highlighting}
   \end{Shaded}
   
-  \begin{verbatim}
+  \begin{table}[ht]
+  \centering
+  \begin{tabular}{rrrrr}
+    \hline
+   & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+    \hline
+  (Intercept) & 5.7368 & 0.3607 & 15.90 & 0.0000 \\ 
+    poor\_physical\_health\_days & -1.2465 & 0.0895 & -13.92 & 0.0000 \\ 
+    adult\_obesity & -4.8119 & 1.0719 & -4.49 & 0.0000 \\ 
+    adult\_obesity:poor\_or\_fair\_health & 42.1592 & 4.0394 & 10.44 & 0.0000 \\ 
+     \hline
+  \end{tabular}
+  \caption{Best Model to Predict Cluster} 
+  \end{table}
   
-  Call:
-  lm(formula = cluster ~ poor_physical_health_days + adult_obesity + 
-      poor_or_fair_health:adult_obesity, data = cluster_data_new)
-  
-  Residuals:
-      Min      1Q  Median      3Q     Max 
-  -1.5661 -0.6691 -0.1815  0.5856  2.2755 
-  
-  Coefficients:
-                                    Estimate Std. Error t value Pr(>|t|)    
-  (Intercept)                        5.73676    0.36071  15.904  < 2e-16 ***
-  poor_physical_health_days         -1.24651    0.08954 -13.921  < 2e-16 ***
-  adult_obesity                     -4.81191    1.07188  -4.489 8.05e-06 ***
-  adult_obesity:poor_or_fair_health 42.15924    4.03943  10.437  < 2e-16 ***
-  ---
-  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-  
-  Residual standard error: 0.7795 on 921 degrees of freedom
-  Multiple R-squared:  0.1763,    Adjusted R-squared:  0.1736 
-  F-statistic: 65.71 on 3 and 921 DF,  p-value: < 2.2e-16
-  \end{verbatim}
-  
-  This model used three predictors and had about the same R-squared value
-  as the previous model, with one less predictor.
+  This model uses three predictors and has an R-squared value of 0.1736.
+  The model has a high F-statistic and a low p-value of \textless{}2e-16.
+  Ultimately, I chose this model because it has the highest R-squared
+  value in comparison to the other models tested.
   
   \chapter*{Conclusion}\label{conclusion}
   \addcontentsline{toc}{chapter}{Conclusion}
@@ -1121,19 +1115,19 @@ model to best predict cluster.
   \setcounter{chapter}{4} \setcounter{section}{0}
   
   In conclusion, clustering methods are very useful for spatial data in
-  determining patterns and in visulizing data sets. There are MANY
+  determining patterns and in visualizing data sets. There are MANY
   algorithms out there that analyze spatial data, and these methods
-  continue to grow year to year both in quanitity and quality (handling
+  continue to grow year to year both in quantity and quality (handling
   more data and higher complexity data). The methods discussed in this
-  paper are considered partioning clustering methods. The most popular
+  paper are considered partitioning clustering methods. The most popular
   partitioning clustering method is \emph{K}-means, which was discussed in
   comparison to \emph{K}-medoids. To further dive into \emph{K}-medoids
   algorithms, PAM (Partitioning Around Medoids), CLARA (Clustering LArge
   Applications), and CLARANS (Clustering Large Applications based on
-  RANdomized Search) were explained and explored. This fulfilled the first
-  proposed task: Exposition of spatial clustering methods (describing and
-  explaining), why they are useful, what they tell us, general
-  information, exposition of PAM, CLARA, and CLARANS method.
+  RANdomized Search) were explored. This fulfilled my first proposed task:
+  Exposition of spatial clustering methods (describing and explaining),
+  why they are useful, what they tell us, general information, exposition
+  of PAM, CLARA, and CLARANS method.
   
   Data from my STAT 495 project provided an explicit example of the CLARA
   algorithm. In my STAT 495 project, we were unable to draw conclusions
@@ -1145,14 +1139,14 @@ model to best predict cluster.
   determine \emph{k} clusters, and the CLARA algorithm then divided the
   objects into clusters. A brief evaluation of the clusters revealed a
   very high within-cluster sum of squares and low silhouette widths,
-  indicating that the clusters were not of very high quality. This section
+  indicating that the clusters were not of great quality. This section
   completed my second proposed task: Perform a CLARA analysis on my data
   or another data set.
   
   In determining whether one could predict an observation's cluster based
   on a person's health status, multivariate linear regression models were
   performed. None of the models proved to be very useful; however, the
-  best model ended up being able to predict 17.5\% of the variation in the
+  best model ended up being able to predict 17.4\% of the variation in the
   model. The data again didn't seem to have many patterns, which further
   confirmed the results from my STAT 495 project. This completed the third
   and final item on my proposed task list: Perform a model where the
@@ -1232,7 +1226,7 @@ model to best predict cluster.
   \CommentTok{#last combination of an interaction, highest adjusted R-squared yet (0.175)!}
   \CommentTok{#only predictor not significant was poor_or_fair_health}
   
-  \NormalTok{fun8<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{  }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{best_model<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{  }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
   \CommentTok{#dropped poor_or_fair_health, about the same adjusted R-squared (0.174)}
   
   \NormalTok{fun9<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
@@ -1287,6 +1281,9 @@ model to best predict cluster.
   V, N. C., \& Surendran, S. (2013). Review of spatial clustering methods.
   \emph{International Journal of Information Technology Infastructure},
   \emph{2}, 15--24.
+  
+  \hypertarget{ref-ppt}{}
+  Wagaman, A. (2019). Introduction to clustering powerpoint.
 
 
   % Index?
