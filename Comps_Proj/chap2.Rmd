@@ -24,17 +24,17 @@ label(path = "PAM_pic.png",
       label = "PAM", type = "figure", scale= 0.5)
 ```
 
-Now that we have our set up, there are four different ways or "cases" in which PAM calculates the cost, $C_{jmp}$ for all of the non-medoid objects $O_j$ [@Rec2]. For the sake of simplicity and in understanding the different cases, I will denote $O_m$ as A, $O_p$ as M, $O_j$ as Y or Z, $O_{j,2}$ as B. 
+Now that I have set us up, there are four different ways or "cases" in which PAM calculates the cost, $C_{jmp}$, for all of the non-medoid objects $O_j$ [@Rec2]. For the sake of simplicity and in understanding the different cases in terms of Figure 2.1, I will denote $O_m$ as A, $O_p$ as M, $O_j$ as Y or Z, $O_{j,2}$ as B. 
 
 **Case 1:**
 
-Suppose Y currently belongs to the cluster represented by A. Additionally, Y is more similar to B than to M (i.e. $d(Y, M) \geq d(Y, B)$), where B is the second most similar medoid to Y. If A were to be replaced by M as a medoid, Y would belong to B (indicated by the Case 1 arrow in Figure BLANK). Therefore the cost of the switch is: $C_{jmp} = d(Y, B) - d(Y, A)$. 
+Suppose Y currently belongs to the cluster represented by A. Additionally, Y is more similar to B than to M (i.e. $d(Y, M) \geq d(Y, B)$), where B is the second most similar medoid to Y. If A were to be replaced by M as a medoid, Y would belong to B (indicated by the Case 1 arrow in Figure 2.1). Therefore the cost of the switch is: $C_{jmp} = d(Y, B) - d(Y, A)$. 
 
 This equation will always give a non-negative $C_{jmp}$, indicating that there is a non-negative cost incurred in replacing A with M.
 
 **Case 2:**
 
-Suppose Y currently belonds to the cluster represented by A. But this time, A is less similar to B than to M ($d(Y, M) < d(Y, B)$). Then, if A is replaced by M, Y would belong to the cluster represented by M. The cost of this swap would be: $C_{jmp} = d(Y, M) - d(Y, A)$. The value of this $C_{jmp}$ could be positive or negative, depending on whether Y is more similar to A or M. 
+Suppose Y currently belongs to the cluster represented by A. But this time, A is less similar to B than to M ($d(Y, M) < d(Y, B)$). Then, if A is replaced by M, Y would belong to the cluster represented by M. The cost of this swap would be: $C_{jmp} = d(Y, M) - d(Y, A)$. The value of this $C_{jmp}$ could be positive or negative, depending on whether Y is more similar to A or M. 
 
 **Case 3:**
 
@@ -47,9 +47,9 @@ Suppose Z belongs to a cluster represented by B, but Z is less similar to B than
 In combining all of the four cases described, the total cost of replacing A with M is: 
 $$ TC_{mp} = \sum_j(C_{jmp}) $$. 
 
-The more formal steps of the algorithm are as follows [@Rec2]:
+The more formal steps of the algorithm are [@Rec2]:
 
-1. Select _k_ representative objects arbitratily. 
+1. Select *k* representative objects arbitrarily. 
 
 2. Compute $TC_{mp}$ for all pairs of $O_m$, $O_p$ where $O_m$ is currently selected, and $O_p$ is not. 
 
@@ -57,14 +57,15 @@ The more formal steps of the algorithm are as follows [@Rec2]:
 
 4. Otherwise, for each non-selected object, find the most similar representative object. 
 
-The total complexity of PAM in one iteration is $$O(k(n-k)^2)$$ (O= each non-medoid data point, _k_= # of cluster centers, $$(n-k)$$ objects to compare to, and $$(n-k)$$ operations for calculating E). This makes for a costly computation when n is large. The algorithm works best when n= 100 and _k_=5. 
+The total complexity of PAM in one iteration is $O(k(n-k)^2)$ (O= each non-medoid data point, _k_= # of cluster centers, $(n-k)$ objects to compare to, and $(n-k)$ operations for calculating E). This makes for a costly computation when n is large. The algorithm works best when n= 100 and _k_=5. 
 
 ## CLARA
-Because PAM does not scale well to large data sets, Clustering LARge Applications (CLARA) was developed to deal with larger data sets (Kaufmann & Rousseeuw, 1990).
+Because PAM does not scale well to large data sets, Clustering LARge Applications (CLARA) was developed (Kaufmann & Rousseeuw, 1990).
 
-CLARA is a sampling based method, meaning a sample of the data is used to represent the entire data set. Medoids are chosen from this sample data using PAM and then the average dissimilarity is computed using the whole dataset, not only the objects in the samples. If a new set of medoids gives a lower dissimilarity than a previous best solution, then the best solution is replaced with a new set of medoids [@Rec2].
+CLARA is a sampling based method, meaning a sample of the data is used to represent the entire data set. Medoids are chosen from this sample data using PAM and then the average dissimilarity is computed using the whole data set, not only the objects in the samples. If a new set of medoids gives a lower dissimilarity than a previous best solution, then the best solution is replaced with a new set of medoids [@Rec2].
 
-Experiments indicate that 5 samples of size 40+ 2$k$ give satisfactory results [Rec 6, p. 146]. 
+Experiments indicate that 5 samples of size 40+ 2$k$ give satisfactory results [@Rec6]. 
+
 
 The steps for the algorithm are as follows [@Rec2]: 
 
@@ -74,31 +75,32 @@ The steps for the algorithm are as follows [@Rec2]:
 
 3. For each object $O_j$ in the entire data set, determine which of the _k_ medoids are most similar to $O_j$. 
 
-4. Calculate the average dissimilarity of the clustering obtained in the previous step. If this value is less than the current minimum, use this value as the current minimum, and retain the _k_ meoids found in Step 2 as the best medoids obtained so far.
+4. Calculate the average dissimilarity of the clustering obtained in the previous step. If this value is less than the current minimum, use this value as the current minimum, and retain the _k_ medoids found in Step 2 as the best medoids obtained so far.
   
 5. Return to Step 1 to start the next iteration. 
 
-CLARA performs well on large data sets, i.e. around 1000 objects (n) in 10 clusters (k). CLARA can work on larger data sets because the complexity for each iteration is $O{k(40 + k)^2 + k(n-k)}$, which is much smaller than $O(k(n-k)^2)$ (which is the complexity for each iteration in PAM) [@Rec13]. 
+CLARA performs well on large data sets, i.e. around 1000 objects (*n*) in 10 clusters (*k*). CLARA can work on larger data sets because the complexity for each iteration is $O{k(40 + k)^2 + k(n-k)}$, which is much smaller than $O(k(n-k)^2)$ (which is the complexity for each iteration in PAM) [@Rec13]. 
 
 ## CLARANS 
 
 CLARANS was created to handle even larger data sets than CLARA, and provides the highest quality clusters, in comparison to PAM and CLARA. 
 
-The easiest way to understand CLARANS, is through a graphic example including both PAM and CLARA as well [@Rec2]. 
+The easiest way to understand CLARANS, is through a graphic example involving both PAM and CLARA as well [@Rec2]. 
 
 The processes of finding _k_ medoids can be described as searching through a graph of objects. This graph, denoted $G_{n,k}$ contains nodes represented by a set of _k_ objects {$O_{m1},... , O_{mk}$}, indicating that the medoids of the objects are: $O_{m1},... , O_{mk}$. The set of nodes in the graph is the set {{$O_{m1},... , O_{mk}$} | $O_{m1},... , O_{mk}$ are objects in the data set}. 
 
-Two nodes are considered neighbors if their sets differ by only one object. Furthermore, two nodes, $S_1$ = {{$O_{m1},... , O_{mk}$} and $S_2$ = {{$O_{w1},... , O_{wk}$} are neighbors if the intersection of $S_1, S_2$ is _k_-1. Each node therefore has $k(n-k)$ neighbors. Each node is a cluster; each node can be assigned a cost that defines the total dissimilarity between every object and the medoid of its cluster. 
+Two nodes are considered neighbors if their sets differ by only one object. Furthermore, two nodes, $S_1$ = {$O_{m1},... , O_{mk}$} and $S_2$ = {$O_{w1},... , O_{wk}$} are neighbors if the intersection of $S_1, S_2$ is _k_-1. Each node therefore has $k(n-k)$ neighbors. Each node is a cluster; each node can be assigned a cost that defines the total dissimilarity between every object and the medoid of its cluster. 
 
 PAM can be viewed as a search for a minimum on the graph $G_{n,k}$. At each iteration, the neighbors of the current node are examined, and the current node gets replaced by the neighbor with the greatest descent in costs. The search continues until a minimum is obtained. Examining $k(n-k)$ neighbors of a node is time consuming, which is why CLARA was created. 
 
-CLARA examines fewer neighbors and restricts the search in general on subgraphs of $G_{n,k}$. The subgraph $G_{Sa,k}$ contains all the nodes that are subgraphs of $Sa$. CLARA searches through the nodes using PAM, however, the search is confined within $G_{Sa,k}$. This is problematic, because if M is the minimum node in the original graph $G_{n,k}$, but if M is not included in $G_{Sa,k}$, M will never be found. To make up for this deficiency, many many samples would have to be collected and processed. [@Rec3]. 
+CLARA examines fewer neighbors and restricts the search in general on subgraphs of $G_{n,k}$. The subgraph, $G_{Sa,k}$, contains all the nodes that are subgraphs of $Sa$. CLARA searches through the nodes using PAM, however, the search is confined within $G_{Sa,k}$. This is problematic, because if M is the minimum node in the original graph $G_{n,k}$, but if M is not included in $G_{Sa,k}$, M will never be found. To make up for this deficiency, many, many samples would have to be collected and processed [@Rec3]. 
 
-CLARANS was developed because of this deficiency. CLARANS does not restrict to a particular subgraph, instead if searches the entire graph $G_{n,k}$. CLARANS is unlike PAM in that it only checks a subgroup of the neighbors of a node (like CLARA). But in contrast to CLARA, each sample is drawn in a way that no nodes corresponding to particular objects are outright eliminated. 
+CLARANS was developed because of this deficiency. CLARANS does not restrict to a particular subgraph, instead it searches the entire graph $G_{n,k}$. CLARANS is unlike PAM in that it only checks a subgroup of the neighbors of a node (like CLARA). But in contrast to CLARA, each sample is drawn in a way that no nodes corresponding to particular objects are outright eliminated. 
 
 CLARA draws a sample of _nodes_ at the beginning of the search, while CLARANS draws a sample of _neighbors_ in each step of a search. CLARANS provides higher quality clusters than CLARA and only requires few searches. 
 
 For the CLARANS algorithm, there are two parameters used: _maxneighbor_ (the maximum numbers of neighbors examined) and _numlocal_ (the number of local minima obtained). The higher the value of maxneighbor, the closer CLARANS is to PAM. 
+
 
 Steps for the CLARANS algorithm [@Rec3]:
 
@@ -107,10 +109,10 @@ Steps for the CLARANS algorithm [@Rec3]:
 3. Set _j_=1. 
 4. Consider a random neighbor of _S_ of _current_. Calculate the cost differential of the two nodes, using: 
 $$ TC_{mp} = \sum_j(C_{jmp}) $$
-5. If _S_ has a lower cost, ser _current_ to _S_, and go to Step 3.
-6. Otherwise, increment _j_ by 1. If $j <= maxneighbor$, go to Step 4. 
+5. If _S_ has a lower cost, set _current_ to _S_, and go to Step 3.
+6. Otherwise, increment _j_ by 1. If $j \leq maxneighbor$, go to Step 4. 
 7. Otherwise, when $j > maxneighbor$, compare the cost of $current$ compared to $mincost$. If $current < mincost$, set $mincost$ to the cost of $current$, and set $bestnode$ to $current$. 
-8. Increment _i_ by 1. If $i> numlocal$, output $bestnode$ and stop. Otherwise, go to Step 2. 
+8. Increment _i_ by 1. If $i > numlocal$, output $bestnode$ and stop. Otherwise, go to Step 2. 
 
 
 Since my data from my STAT 495 project has over 60,000 observations, I originally wanted to apply the CLARANS method. Unfortunately, the CLARANS function in R only works for SNP data (used in biology). Therefore, I had to sample my data, and apply the CLARA method instead.
