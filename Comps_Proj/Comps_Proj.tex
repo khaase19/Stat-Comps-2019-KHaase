@@ -51,7 +51,7 @@
 \title{Exposition of Spatial Clustering Methods}
 \author{Kaitlyn E. Haase}
 % The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
-\date{February 26 2019}
+\date{February 2019}
 \division{Statistics}
 \advisor{Advisor A. Wagaman}
 %If you have two advisors for some reason, you can use the following
@@ -90,10 +90,10 @@
 
 \Acknowledgements{
 I would like to thank Professor Wagaman for her support through my time
-at Amherst. I have greatly enjoyed having her as a professor for three
-semesters and advisor. She is an incredibly talented Statistics
-Professor and has taught me skills I will be able to take with me beyond
-my years at Amherst.
+at Amherst. I have enjoyed having her as a professor for three semesters
+and advisor. She is an incredibly talented Statistics Professor and has
+taught me skills I will be able to take with me beyond my years at
+Amherst.
 }
 
 \Dedication{
@@ -116,10 +116,10 @@ geographic information. Next, I will explain some examples of spatial
 data algorithms, including PAM (Partitioning Around Medoids), CLARA
 (Clustering LARge Applications), and CLARANS (Clustering Large
 Applications based on RANdomized Search). The purpose of this
-exploration is to better analyze government health data from the
-previous STAT 495 project. I will then: use a sample of the STAT 495
-project data to demonstrate the CLARA algorithm, evaluate how CLARA
-performed, and develop a model to best predict cluster.
+exploration is to better analyze government health data from a previous
+STAT 495 project. I will then: use a sample of STAT 495 project data to
+demonstrate the CLARA algorithm, evaluate how CLARA performed, and
+develop a model to best predict cluster.
 }
 
 
@@ -137,10 +137,10 @@ performed, and develop a model to best predict cluster.
 
       \begin{acknowledgements}
       I would like to thank Professor Wagaman for her support through my time
-      at Amherst. I have greatly enjoyed having her as a professor for three
-      semesters and advisor. She is an incredibly talented Statistics
-      Professor and has taught me skills I will be able to take with me beyond
-      my years at Amherst.
+      at Amherst. I have enjoyed having her as a professor for three semesters
+      and advisor. She is an incredibly talented Statistics Professor and has
+      taught me skills I will be able to take with me beyond my years at
+      Amherst.
     \end{acknowledgements}
   
   
@@ -166,10 +166,10 @@ performed, and develop a model to best predict cluster.
       data algorithms, including PAM (Partitioning Around Medoids), CLARA
       (Clustering LARge Applications), and CLARANS (Clustering Large
       Applications based on RANdomized Search). The purpose of this
-      exploration is to better analyze government health data from the
-      previous STAT 495 project. I will then: use a sample of the STAT 495
-      project data to demonstrate the CLARA algorithm, evaluate how CLARA
-      performed, and develop a model to best predict cluster.
+      exploration is to better analyze government health data from a previous
+      STAT 495 project. I will then: use a sample of STAT 495 project data to
+      demonstrate the CLARA algorithm, evaluate how CLARA performed, and
+      develop a model to best predict cluster.
     \end{abstract}
   
   
@@ -199,7 +199,7 @@ performed, and develop a model to best predict cluster.
   analyzing data based on topological, geometric, and geographic
   information. Spatial data may include latitude and longitude, zip code,
   or street address. Investigating spatial data can help us find
-  dissimilarities and similarities among objects. This can aid us in
+  dissimilarities and similarities among objects. This can aid in
   allocating resources to areas that need them most, discovering changes
   over time, and categorizing new objects.
   
@@ -335,7 +335,7 @@ performed, and develop a model to best predict cluster.
   Han \& Tung, n.d.). This causes the method to be less sensitive to
   outliers, but also requires more time to run.
   
-  Steps for \(K\)-medoids (Jiawei Han \& Tung, n.d.):
+  Steps for \(K\)-medoids (V \& Surendran, 2013):
   
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
@@ -387,7 +387,7 @@ performed, and develop a model to best predict cluster.
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \item
-    Compute the clustering algorithm (i.e. \_k\_medoids method) for
+    Compute the clustering algorithm (i.e. \emph{k}-medoids method) for
     different values of \(k\) (i.e. \(k\) from 1 to 10).
   \item
     For each \(k\), calculate the total WSS. WSS can be calculated as:
@@ -410,7 +410,7 @@ performed, and develop a model to best predict cluster.
   
   \subsection{Silhouette Method}\label{silhouette-method}
   
-  The Silhouette Method focuses on the quality of clustering. A high
+  The Silhouette method focuses on the quality of clustering. A high
   average silhouette width indicates a good clustering (how well each
   object lies within its cluster).
   
@@ -535,8 +535,8 @@ performed, and develop a model to best predict cluster.
   The total complexity of PAM in one iteration is \(O(k(n-k)^2)\) (O= each
   non-medoid data point, \emph{k}= \# of cluster centers, \((n-k)\)
   objects to compare to, and \((n-k)\) operations for calculating E). This
-  makes for a costly computation when n is large. The algorithm works best
-  when n= 100 and \emph{k}=5.
+  makes for a costly computation when \emph{n} is large. The algorithm
+  works best when \emph{n}= 100 and \emph{k}=5.
   
   \section{CLARA}\label{clara}
   
@@ -672,7 +672,8 @@ performed, and develop a model to best predict cluster.
   Since my data from my STAT 495 project has over 60,000 observations, I
   originally wanted to apply the CLARANS method. Unfortunately, the
   CLARANS function in R only works for SNP data (used in biology).
-  Therefore, I had to sample my data, and apply the CLARA method instead.
+  Therefore, I had to take a representative sample my data, and apply the
+  CLARA method instead.
   
   \chapter{Application to Health Data}\label{typeset-equ}
   
@@ -748,16 +749,22 @@ performed, and develop a model to best predict cluster.
   \begin{Shaded}
   \begin{Highlighting}[]
   \CommentTok{#finding k using Elbow Method}
-  \NormalTok{elbow<-}\StringTok{ }\KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"wss"}\NormalTok{) }\OperatorTok{+}
+  \KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"wss"}\NormalTok{) }\OperatorTok{+}
   \StringTok{    }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \DecValTok{4}\NormalTok{, }\DataTypeTok{linetype =} \DecValTok{2}\NormalTok{)}\OperatorTok{+}
   \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Elbow method"}\NormalTok{)}
+  \end{Highlighting}
+  \end{Shaded}
   
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-5-1} \end{center}
+  
+  \begin{Shaded}
+  \begin{Highlighting}[]
   \KeywordTok{fviz_nbclust}\NormalTok{(new, kmeans, }\DataTypeTok{method =} \StringTok{"silhouette"}\NormalTok{) }\OperatorTok{+}
   \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{subtitle =} \StringTok{"Silhouette method"}\NormalTok{)}
   \end{Highlighting}
   \end{Shaded}
   
-  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-5-1} \end{center}
+  \begin{center}\includegraphics{Comps_Proj_files/figure-latex/unnamed-chunk-5-2} \end{center}
   
   According to the Elbow method, \(k\) should be 4 (where the elbow is in
   the graph). According to the Silhouette method, \(k\) should be 2 (the
@@ -1218,23 +1225,29 @@ performed, and develop a model to best predict cluster.
   \NormalTok{fun4<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
   \CommentTok{#low adjusted R-squared, highest of the 3 functions was 0.06}
   
-  \NormalTok{fun5<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{fun5<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}
+  \StringTok{            }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
   \CommentTok{#added an interaction, raised the adjusted R-squared to 0.165}
   
-  \NormalTok{fun6<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{fun6<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}
+  \StringTok{            }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
   \CommentTok{#tried a different interaction, about the same adjusted R-squared}
   
-  \NormalTok{fun7<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{fun7<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_or_fair_health }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}
+  \StringTok{            }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
   \CommentTok{#last combination of an interaction, highest adjusted R-squared yet (0.175)!}
   \CommentTok{#only predictor not significant was poor_or_fair_health}
   
-  \NormalTok{best_model<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{  }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{best_model<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{  }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}
+  \StringTok{                  }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
   \CommentTok{#dropped poor_or_fair_health, about the same adjusted R-squared (0.174)}
   
-  \NormalTok{fun9<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{fun9<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}
+  \StringTok{            }\NormalTok{poor_physical_health_days}\OperatorTok{:}\NormalTok{adult_obesity, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
   \CommentTok{#tried a different interaction, low adjusted R-squared (0.0958)}
   
-  \NormalTok{fun10<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}\StringTok{ }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
+  \NormalTok{fun10<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(cluster}\OperatorTok{~}\StringTok{ }\NormalTok{poor_physical_health_days }\OperatorTok{+}\StringTok{ }\NormalTok{adult_obesity }\OperatorTok{+}
+  \StringTok{             }\NormalTok{poor_or_fair_health}\OperatorTok{:}\NormalTok{poor_physical_health_days, }\DataTypeTok{data=}\NormalTok{ cluster_data_new)}
   \CommentTok{#tried last combination of interaction, adjusted R-squared= 0.166}
   \end{Highlighting}
   \end{Shaded}
