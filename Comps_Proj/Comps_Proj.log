@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.6.4)  26 FEB 2019 06:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.6.4)  26 FEB 2019 06:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -782,9 +782,9 @@ Chapter 1.
 
 ] [4]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <17.28> on input line 361.
+(Font)              <17.28> on input line 363.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 361.
+(Font)              <10> on input line 363.
 [5] [6] [7] [8
 
 ]
@@ -792,7 +792,7 @@ Chapter 2.
 <PAM_pic.png, id=253, 734.745pt x 315.1775pt>
 File: PAM_pic.png Graphic file (type png)
 <use PAM_pic.png>
-Package pdftex.def Info: PAM_pic.png  used on input line 466.
+Package pdftex.def Info: PAM_pic.png  used on input line 468.
 (pdftex.def)             Requested size: 367.3716pt x 157.58836pt.
 
 Underfull \vbox (badness 4378) has occurred while \output is active []
@@ -802,23 +802,23 @@ Underfull \vbox (badness 4378) has occurred while \output is active []
 ]
 Chapter 3.
 [15]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 712.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 714.
 
 (/mnt/rstudio/shared/texlive/2018/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 713.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 715.
 <Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf, id=302, 461.725pt x 315.1
 775pt>
 File: Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pd
 f)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-5-1.pdf  u
-sed on input line 758.
+sed on input line 760.
 (pdftex.def)             Requested size: 461.72388pt x 315.17673pt.
 
-Overfull \hbox (28.10388pt too wide) in paragraph at lines 758--758
+Overfull \hbox (28.10388pt too wide) in paragraph at lines 760--760
  [] 
  []
 
@@ -832,7 +832,7 @@ File: Comps_Proj_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pd
 f)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-9-1.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-9-1.pdf  u
-sed on input line 847.
+sed on input line 849.
 (pdftex.def)             Requested size: 419.56647pt x 275.02682pt.
 <Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf, id=326, 456.70625pt x 31
 6.18124pt>
@@ -840,10 +840,10 @@ File: Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type p
 df)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-10-1.pdf  
-used on input line 863.
+used on input line 865.
 (pdftex.def)             Requested size: 456.70512pt x 316.18047pt.
 
-Overfull \hbox (23.08513pt too wide) in paragraph at lines 863--863
+Overfull \hbox (23.08513pt too wide) in paragraph at lines 865--865
  [] 
  []
 
@@ -857,10 +857,10 @@ File: Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type p
 df)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf  
-used on input line 886.
+used on input line 888.
 (pdftex.def)             Requested size: 461.72388pt x 315.17673pt.
 
-Overfull \hbox (28.10388pt too wide) in paragraph at lines 886--886
+Overfull \hbox (28.10388pt too wide) in paragraph at lines 888--888
  [] 
  []
 
@@ -868,12 +868,12 @@ Overfull \hbox (28.10388pt too wide) in paragraph at lines 886--886
 Underfull \vbox (badness 2020) has occurred while \output is active []
 
 [21 <./Comps_Proj_files/figure-latex/unnamed-chunk-11-1.pdf>]
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 926
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 928
 .
 (/mnt/rstudio/shared/texlive/2018/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Overfull \hbox (8.37767pt too wide) in paragraph at lines 962--968
+Overfull \hbox (8.37767pt too wide) in paragraph at lines 964--970
 []\T1/lmr/m/n/12 (-20) According to this model, \T1/lmr/m/it/12 (-20) lon-gi-tu
 de\T1/lmr/m/n/12 (-20) , \T1/lmr/m/it/12 (-20) poor_or_fair_health\T1/lmr/m/n/1
 2 (-20) , \T1/lmr/m/it/12 (-20) poor_physical_health_days\T1/lmr/m/n/12 (-20) ,
@@ -881,7 +881,7 @@ de\T1/lmr/m/n/12 (-20) , \T1/lmr/m/it/12 (-20) poor_or_fair_health\T1/lmr/m/n/1
  []
 
 [22]
-Overfull \hbox (51.36543pt too wide) in paragraph at lines 1008--1013
+Overfull \hbox (51.36543pt too wide) in paragraph at lines 1010--1015
 []\T1/lmr/m/n/12 (-20) This model had three sig-nif-i-cant pre-dic-tors (\T1/lm
 r/m/it/12 (-20) poor_or_fair_health\T1/lmr/m/n/12 (-20) , \T1/lmr/m/it/12 (-20)
  poor_physical_health_days\T1/lmr/m/n/12 (-20) ,
@@ -893,10 +893,10 @@ File: Comps_Proj_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type p
 df)
 <use Comps_Proj_files/figure-latex/unnamed-chunk-18-1.pdf>
 Package pdftex.def Info: Comps_Proj_files/figure-latex/unnamed-chunk-18-1.pdf  
-used on input line 1029.
+used on input line 1031.
 (pdftex.def)             Requested size: 458.71263pt x 313.16922pt.
 
-Overfull \hbox (25.09264pt too wide) in paragraph at lines 1029--1029
+Overfull \hbox (25.09264pt too wide) in paragraph at lines 1031--1031
  [] 
  []
 
@@ -904,7 +904,7 @@ Overfull \hbox (25.09264pt too wide) in paragraph at lines 1029--1029
 Underfull \vbox (badness 2644) has occurred while \output is active []
 
 [23]
-Overfull \hbox (16.45753pt too wide) in paragraph at lines 1031--1038
+Overfull \hbox (16.45753pt too wide) in paragraph at lines 1033--1040
 []\T1/lmr/m/n/12 (-20) The cor-re-la-tion ma-trix shows strong pos-i-tive cor-r
 e-la-tions be-tween \T1/lmr/m/it/12 (-20) poor_or_fair_health\T1/lmr/m/n/12 (-2
 0) ,
@@ -920,27 +920,27 @@ Appendix A.
 [29
 
 ] [30]
-Underfull \hbox (badness 10000) in paragraph at lines 1260--1262
+Underfull \hbox (badness 10000) in paragraph at lines 1262--1264
  \T1/lmtt/m/n/12 / / www . coursera . org / lecture / cluster -[] analysis / 3 
 -[] 4 -[] the -[] k -[] medoids -[]
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1291.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1293.
 [31
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1291.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1293.
 (./Comps_Proj.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1291.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1291.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1293.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1293.
 
 Package rerunfilecheck Info: File `Comps_Proj.out' has not changed.
 (rerunfilecheck)             Checksum: 36BC3286075B0522F26E7D6A1926E857;1515.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1291.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1293.
  ) 
 Here is how much of TeX's memory you used:
  10803 strings out of 492647
@@ -971,7 +971,7 @@ e/2018/texmf-dist/fonts/type1/public/lm/lmri12.pfb></mnt/rstudio/shared/texlive
 8/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></mnt/rstudio/shared/texlive/2018
 /texmf-dist/fonts/type1/public/lm/lmtt12.pfb></mnt/rstudio/shared/texlive/2018/
 texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Comps_Proj.pdf (43 pages, 2348904 bytes).
+Output written on Comps_Proj.pdf (43 pages, 2349086 bytes).
 PDF statistics:
  522 PDF objects out of 1000 (max. 8388607)
  438 compressed objects within 5 object streams

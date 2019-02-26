@@ -32,6 +32,7 @@ Usually, there is a data set with $n$ observations and the goal is to divide the
 The most common objective function is the sum of squared errors (SSE), where $c_k$ is the centroid or medoid of the cluster $C_k$.
 
 $$SSE(C)= \sum_{k=1}^K \sum_{x_{i} in C_{k}} ||{x_i}- c_k||^2$$
+Note: the "element-of" symbol would not work in Latex, so I am using "in" to indicate this instead.
 
 Partitioning clustering algorithms classify the data into K groups by satisfying both that each group has at least one data point, and that each data point belongs to exactly one group [@Rec5]. 
 

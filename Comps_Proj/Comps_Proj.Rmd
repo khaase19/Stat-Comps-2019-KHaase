@@ -1,6 +1,6 @@
 ---
 author: 'Kaitlyn E. Haase'
-date: 'February 26 2019'
+date: 'February 2019'
 division: 'Statistics'
 advisor: 'Advisor A. Wagaman'
 department: 'Mathematics and Statistics'
